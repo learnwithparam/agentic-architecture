@@ -2,11 +2,16 @@
 
 ## The problem
 
-A prompt change to Classification looked better on five examples and went out. It sent Northpoint's examination gloves to the wrong code. Nothing stood between the change and customs.
+Someone changed the Classification prompt.
+It looked better on five examples, so it went out.
+Then it gave Northpoint's gloves the wrong tariff code.
+Nothing stood between the change and customs.
 
 ## Why it matters
 
-DoorDash describes the evaluation harness for its Ask DoorDash agent, with simulated conversations and the same rubric offline and online ([DoorDash Engineering](https://careersatdoordash.com/blog/building-ask-doordash-part-three-evaluation/)).
+DoorDash tests its Ask DoorDash agent with fake conversations.
+It grades the agent with the same rules before release and in real use ([DoorDash Engineering](https://careersatdoordash.com/blog/building-ask-doordash-part-three-evaluation/)).
+For example, your gate will block the prompt change above before it reaches customs.
 
 ```mermaid
 flowchart LR
@@ -17,9 +22,9 @@ flowchart LR
   TH -->|all met| OK[Released]
 ```
 
-| Step | Minutes | What you produce | What its check reads |
-|---|---|---|---|
-| `block-a-bad-release` | 25 | `gate.yaml` with zero tolerance for never-do metrics and a pass-rate floor, and `bun run gate` | Exit code 1 on the planted bad prompt with the failing lines named; exit 0 on the current prompt; a change above the cost ceiling fails; `out/gate.json` against its schema |
+| Step                  | Minutes | What you produce                                                                               | What its check reads                                                                                                                                                        |
+| --------------------- | ------- | ---------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `block-a-bad-release` | 25      | `gate.yaml` with zero tolerance for never-do metrics and a pass-rate floor, and `bun run gate` | Exit code 1 on the planted bad prompt with the failing lines named; exit 0 on the current prompt; a change above the cost ceiling fails; `out/gate.json` against its schema |
 
 ## Walkthrough
 

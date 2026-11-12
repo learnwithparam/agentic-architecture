@@ -1,3 +1,4 @@
+// biome-ignore-all lint/style/useNamingConvention: the AI SDK names an option baseURL.
 // The only file that names a model. Code asks for a role (fast, smart, judge), never an id.
 // LLM_PROVIDER picks the provider: replay (default, no key), anthropic, openrouter, openai, ollama.
 // Keys come from a git-ignored .env file; see .env.example for the names.
@@ -13,7 +14,8 @@ export type Provider = (typeof PROVIDERS)[number];
 // Higher tier means a stronger model. A gateway may fall back only to an equal or higher tier.
 export const TIER: Record<Role, number> = { fast: 1, judge: 1, smart: 2 };
 
-// Role to model id, per provider. Read from each provider's live model list; recheck when you rebuild.
+// Role to model id, per provider. Read from each provider's live model list.
+// Check them again when you rebuild the course.
 export const IDS: Record<Provider, Record<Role, string>> = {
   replay: { fast: "replay-fast", smart: "replay-smart", judge: "replay-judge" },
   anthropic: { fast: "claude-haiku-5-5", smart: "claude-sonnet-5-5", judge: "claude-haiku-5-5" },
@@ -39,18 +41,23 @@ export const KEY_NAME: Record<Provider, string | null> = {
 };
 
 export function provider(): Provider {
-  const p = (process.env.LLM_PROVIDER ?? "replay") as Provider;
-  if (!PROVIDERS.includes(p)) throw new Error(`LLM_PROVIDER="${p}" is not one of ${PROVIDERS.join(", ")}`);
-  return p;
+  const chosen = (process.env.LLM_PROVIDER ?? "replay") as Provider;
+  if (!PROVIDERS.includes(chosen)) {
+    throw new Error(`LLM_PROVIDER="${chosen}" is not one of ${PROVIDERS.join(", ")}`);
+  }
+  return chosen;
 }
 
 // Returns an AI SDK model for a role. In replay mode it talks to the world's replay provider,
 // an OpenAI-shaped local service that answers from recorded replies (REPLAY_URL).
-export function modelFor(role: Role, p: Provider = provider()) {
-  const id = IDS[p][role];
-  switch (p) {
+export function modelFor(role: Role, chosen: Provider = provider()) {
+  const id = IDS[chosen][role];
+  switch (chosen) {
     case "replay":
-      return createOpenAI({ baseURL: `${process.env.REPLAY_URL ?? "http://127.0.0.1:7401"}/v1`, apiKey: process.env.REPLAY_KEY ?? "replay" }).chat(id);
+      return createOpenAI({
+        baseURL: `${process.env.REPLAY_URL ?? "http://127.0.0.1:7401"}/v1`,
+        apiKey: process.env.REPLAY_KEY ?? "replay",
+      }).chat(id);
     case "anthropic":
       return createAnthropic({ apiKey: process.env.ANTHROPIC_API_KEY })(id);
     case "openrouter":
@@ -58,6 +65,9 @@ export function modelFor(role: Role, p: Provider = provider()) {
     case "openai":
       return createOpenAI({ apiKey: process.env.OPENAI_API_KEY }).chat(id);
     case "ollama":
-      return createOpenAI({ baseURL: process.env.OLLAMA_URL ?? "http://127.0.0.1:11434/v1", apiKey: "ollama" }).chat(id);
+      return createOpenAI({
+        baseURL: process.env.OLLAMA_URL ?? "http://127.0.0.1:11434/v1",
+        apiKey: "ollama",
+      }).chat(id);
   }
 }

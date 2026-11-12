@@ -1,15 +1,30 @@
 // Run a scenario once per folder and let every rule read its result.
 // verify.ts calls each rule with the same folder, so the expensive part runs one time.
-const cache = new Map<string, Promise<any>>();
+const resultsByScenario = new Map<string, Promise<unknown>>();
 
-export function once<T>(key: string, dir: string, scenario: (dir: string) => Promise<T>): Promise<T> {
-  const k = `${key}::${dir}`;
-  if (!cache.has(k)) cache.set(k, scenario(dir).catch((e) => ({ error: String(e?.message ?? e) }) as T));
-  return cache.get(k)!;
+export function once<Result>(
+  scenarioName: string,
+  folder: string,
+  scenario: (folder: string) => Promise<Result>,
+): Promise<Result> {
+  const cacheKey = `${scenarioName}::${folder}`;
+  if (!resultsByScenario.has(cacheKey)) {
+    // A scenario that throws still gives every rule a result, so each rule can fail plainly.
+    const result = scenario(folder).catch((error) => ({ error: String(error?.message ?? error) }));
+    resultsByScenario.set(cacheKey, result);
+  }
+  return resultsByScenario.get(cacheKey) as Promise<Result>;
 }
 
-// Behaviour that depends on a model is judged over three fresh runs in replay mode: all three must pass.
-export async function threeRuns<T>(run: (n: number) => Promise<T>, pass: (r: T) => boolean): Promise<boolean> {
-  for (let n = 1; n <= 3; n++) if (!pass(await run(n))) return false;
+// Behaviour that depends on a model is judged over three fresh runs in replay mode.
+// All three must pass.
+export async function threeRuns<Result>(
+  run: (runNumber: number) => Promise<Result>,
+  passes: (result: Result) => boolean,
+): Promise<boolean> {
+  for (let runNumber = 1; runNumber <= 3; runNumber++) {
+    const result = await run(runNumber);
+    if (!passes(result)) return false;
+  }
   return true;
 }
