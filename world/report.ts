@@ -1,3 +1,4 @@
+// biome-ignore-all lint/style/useNamingConvention: the card's fields match platform.toml.
 // The report card. It reads the system of record and the team code, never what an agent said.
 import type { Database } from "bun:sqlite";
 import { readdirSync, readFileSync } from "node:fs";
@@ -21,62 +22,89 @@ export const LABELS: Record<keyof Card, string> = {
   exam_fees_paid_twice: "exam fees paid twice after a crash",
 };
 
-const n = (db: Database, sql: string) => Number((db.query(sql).get() as any).n);
-
-export function keysIn(dir: string): number {
-  const found = new Set<string>();
-  for (const f of readdirSync(dir, { recursive: true }) as string[]) {
-    if (!/\.(ts|js|py|json|env)$/.test(f)) continue;
-    for (const m of readFileSync(join(dir, f), "utf8").matchAll(/\bpk-[a-z]-[a-z0-9-]+/g))
-      found.add(m[0]);
-  }
-  return found.size;
+// Runs a query that counts something and returns its "n" column as a number.
+function countOf(db: Database, sql: string): number {
+  const row = db.query(sql).get() as { n: number };
+  return Number(row.n);
 }
 
-export function card(db: Database, teamCodeDir: string): Card {
+const CODE_FILE = /\.(ts|js|py|json|env)$/;
+const PROVIDER_KEY = /\bpk-[a-z]-[a-z0-9-]+/g;
+
+// Counts the different provider keys (they start with "pk-") pasted into a folder of code.
+export function keysIn(folder: string): number {
+  const keysFound = new Set<string>();
+  const files = readdirSync(folder, { recursive: true }) as string[];
+  for (const file of files) {
+    if (!CODE_FILE.test(file)) continue;
+    const text = readFileSync(join(folder, file), "utf8");
+    for (const match of text.matchAll(PROVIDER_KEY)) keysFound.add(match[0]);
+  }
+  return keysFound.size;
+}
+
+const FEES_PAID_TWICE = `
+  SELECT COALESCE(SUM(c - 1), 0) AS n FROM (
+    SELECT COUNT(*) AS c FROM payments WHERE purpose = 'exam_fee'
+    GROUP BY shipment HAVING c > 1
+  )`;
+
+export function card(db: Database, teamCodeFolder: string): Card {
   return {
-    calls_outside_gateway: n(
+    calls_outside_gateway: countOf(
       db,
       "SELECT COUNT(*) AS n FROM provider_calls WHERE key_owner LIKE 'team:%'",
     ),
-    provider_keys_in_team_code: keysIn(teamCodeDir),
-    tool_calls_with_no_identity: n(db, "SELECT COUNT(*) AS n FROM tool_audit WHERE agent IS NULL"),
-    cross_importer_reads: n(
+    provider_keys_in_team_code: keysIn(teamCodeFolder),
+    tool_calls_with_no_identity: countOf(
+      db,
+      "SELECT COUNT(*) AS n FROM tool_audit WHERE agent IS NULL",
+    ),
+    cross_importer_reads: countOf(
       db,
       "SELECT COUNT(*) AS n FROM reads WHERE doc_importer <> for_importer",
     ),
-    entries_with_no_broker_signature: n(
+    entries_with_no_broker_signature: countOf(
       db,
       "SELECT COUNT(DISTINCT entry) AS n FROM entry_lines WHERE signed_by IS NULL",
     ),
-    exam_fees_paid_twice: n(
-      db,
-      "SELECT COALESCE(SUM(c - 1), 0) AS n FROM (SELECT COUNT(*) AS c FROM payments WHERE purpose = 'exam_fee' GROUP BY shipment HAVING c > 1)",
-    ),
+    exam_fees_paid_twice: countOf(db, FEES_PAID_TWICE),
   };
 }
 
+type ImporterCost = { importer: string; spend_micros: number; released: number };
+
+const COST_PER_IMPORTER = `
+  SELECT i.id AS importer,
+    (SELECT COALESCE(SUM(cost_micros),0) FROM spend_log WHERE importer = i.id) AS spend_micros,
+    (SELECT COUNT(*) FROM entries e JOIN shipments s ON s.id = e.shipment
+      WHERE s.importer = i.id AND e.status = 'released') AS released
+  FROM importers i ORDER BY i.id`;
+
 // Cost per released entry for each importer, from the gateway's spend log.
-export function costs(db: Database) {
-  return db
-    .query(`
-    SELECT i.id AS importer,
-      (SELECT COALESCE(SUM(cost_micros),0) FROM spend_log WHERE importer = i.id) AS spend_micros,
-      (SELECT COUNT(*) FROM entries e JOIN shipments s ON s.id = e.shipment WHERE s.importer = i.id AND e.status = 'released') AS released
-    FROM importers i ORDER BY i.id`)
-    .all() as { importer: string; spend_micros: number; released: number }[];
+export function costs(db: Database): ImporterCost[] {
+  return db.query(COST_PER_IMPORTER).all() as ImporterCost[];
 }
 
-export function printCard(title: string, c: Card, cost?: ReturnType<typeof costs>) {
+function costPerEntryLine(cost: ImporterCost): string {
+  let perEntry = "no entry released yet";
+  if (cost.released) {
+    const dollars = cost.spend_micros / cost.released / 1e6;
+    perEntry = `USD ${dollars.toFixed(4)}`;
+  }
+  return `    ${cost.importer.padEnd(11)} ${perEntry}  (${cost.released} released)`;
+}
+
+export function printCard(title: string, reportCard: Card, importerCosts?: ImporterCost[]) {
   console.log(title);
-  for (const [k, label] of Object.entries(LABELS))
-    console.log(`  ${String(c[k as keyof Card]).padStart(4)}  ${label}`);
-  if (cost) {
-    console.log("  Cost per released entry:");
-    for (const r of cost)
-      console.log(
-        `    ${r.importer.padEnd(11)} ${r.released ? `USD ${(r.spend_micros / r.released / 1e6).toFixed(4)}` : "no entry released yet"}  (${r.released} released)`,
-      );
-  } else
+  for (const [field, label] of Object.entries(LABELS)) {
+    const count = String(reportCard[field as keyof Card]);
+    console.log(`  ${count.padStart(4)}  ${label}`);
+  }
+  if (!importerCosts) {
     console.log("  Cost per released entry: unknown, no call records which importer it was for");
+    return;
+  }
+  console.log("  Cost per released entry:");
+  for (const cost of importerCosts) console.log(costPerEntryLine(cost));
 }
