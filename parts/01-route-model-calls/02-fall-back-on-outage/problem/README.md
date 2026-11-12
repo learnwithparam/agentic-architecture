@@ -2,8 +2,10 @@
 
 ## The problem
 
-When provider a has an outage, every agent at Harbourgate stops: no codes, no drafts, containers wait.
-A fallback fixes that, but a careless one quietly answers hard tariff questions with a weaker model.
+When provider a is down, every agent at Harbourgate stops.
+No codes are proposed, no entries are drafted, and containers wait at the port.
+A fallback fixes that: when one provider fails, the gateway tries the next one.
+But a careless fallback quietly answers hard tariff questions with a weaker model.
 
 ```mermaid
 flowchart LR
@@ -16,12 +18,23 @@ flowchart LR
 
 ## Your challenge
 
-Use `routes.json`: for each role, the hops to try in order, written `provider:role`.
+`routes.json` lists, for each role, the hops to try in order.
+A hop is one provider and role, written `provider:role`.
 
-1. Try each hop in order. Return the first answer, with header `x-gateway-provider` set to the provider that answered.
+For example, this route says: for `fast`, try provider a first, then provider b.
+
+```json
+"fast": ["a:fast", "b:fast"]
+```
+
+If provider a is down, your gateway asks provider b.
+The answer then carries the header `x-gateway-provider: b`.
+A route like `"smart": ["a:smart", "b:fast"]` must stop your gateway at start, because `fast` is weaker than `smart`.
+
+1. Try each hop in order. Return the first answer. Set the header `x-gateway-provider` to the provider that answered.
 2. Log every failed try as a spend row with `status: "provider_error"` and cost 0.
 3. Price each answer with the prices of the provider that gave it.
-4. At start, exit with an error if any hop is a weaker role than the one asked for. `fast` and `judge` are tier 1, `smart` is tier 2.
+4. At start, stop with an error if any hop has a weaker role than the one asked for. `fast` and `judge` are tier 1. `smart` is tier 2.
 
 ```bash
 bun run verify fall-back-on-outage

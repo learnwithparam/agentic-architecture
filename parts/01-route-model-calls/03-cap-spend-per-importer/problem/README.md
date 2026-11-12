@@ -2,9 +2,10 @@
 
 ## The problem
 
-Ridgeway Roasters ships in seasonal bursts. In one burst its agents can spend the whole model budget,
-and nothing stops them. A gateway that silently switches to a cheaper model is worse:
-the codes get worse and nobody is told.
+Ridgeway Roasters ships a lot of coffee at once, a few times a year.
+In one of these bursts, its agents can spend the whole model budget, and nothing stops them.
+A gateway that quietly switches to a cheaper model is even worse.
+The tariff codes get worse, and nobody is told.
 
 ```mermaid
 flowchart LR
@@ -16,10 +17,25 @@ flowchart LR
 
 ## Your challenge
 
-Read `BUDGETS_FILE`: limits in micro-dollars under `importers` and `teams`.
+Read `BUDGETS_FILE`. It holds spend limits in micro-dollars, under `importers` and `teams`.
+
+For example, `world/data/budgets.json` gives Ridgeway a small limit:
+
+```json
+"importers": { "fjordline": 2000000, "ridgeway": 40000, "northpoint": 2000000 }
+```
+
+40000 micro-dollars is 4 US cents.
+Once Ridgeway's calls have cost that much, the next call for `ridgeway` gets 402 and this message:
+
+```text
+Budget reached for importer ridgeway. Finance must raise it before more model calls.
+```
+
+Calls for Fjordline still go through, because Fjordline has its own budget.
 
 1. Keep a running total of spend per importer and per team.
-2. Before calling a provider, refuse with 402 if either total has reached its limit. Say which budget, in plain words.
+2. Before you call a provider, check both totals. If either one has reached its limit, answer 402 and say which budget, in plain words.
 3. Never change the role a team asked for to save money.
 
 ```bash
@@ -43,7 +59,7 @@ Expect: `Done. All 7 rules pass.`, then a spend table where Ridgeway stops near 
 | What you see                           | Fix                                                                         |
 | -------------------------------------- | --------------------------------------------------------------------------- |
 | `FAIL ... refused with 402 every time` | Check the total before you call the provider, and add the cost right after. |
-| `FAIL no call was quietly moved ...`   | Remove any code that changes `body.model` when money runs low.              |
+| `FAIL no call was quietly moved ...`   | Remove any code that changes `chatRequest.model` when money runs low.       |
 | `FAIL a team over its own budget ...`  | Keep a second total keyed by team and check `budgets.teams`.                |
 
 ## Words you will use

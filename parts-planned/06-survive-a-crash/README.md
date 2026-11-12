@@ -2,11 +2,15 @@
 
 ## The problem
 
-The Holds worker died right after paying an exam fee. On restart it started from the top and paid again, and the container waited longer at the terminal.
+The Holds worker crashed right after it paid an exam fee.
+When it started again, it began from the top and paid a second time.
+The container also waited longer at the port.
+For example, `bun run before` prints `1  exam fees paid twice after a crash`.
 
 ## Why it matters
 
-Instacart describes Maple, its service for large batches of model calls, which runs on Temporal for retries and recovery ([Instacart](https://company.instacart.com/tech-innovation/simplifying-large-scale-llm-processing-across-instacart-with-maple)).
+Instacart runs Maple, a service for large batches of model calls.
+It uses Temporal to try failed work again and to recover after a crash ([Instacart](https://company.instacart.com/tech-innovation/simplifying-large-scale-llm-processing-across-instacart-with-maple)).
 
 ```mermaid
 flowchart LR

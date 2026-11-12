@@ -2,11 +2,14 @@
 
 ## The problem
 
-Finance asks what Northpoint cost, and the Holds team asks why one entry took so long. Nobody can answer either, because no call records the run, the team and the importer together.
+Finance asks what Northpoint cost. The Holds team asks why one entry took so long.
+Nobody can answer either question.
+No call records the run, the team and the importer together.
+For example, `bun run before` prints `Cost per released entry: unknown, no call records which importer it was for`.
 
 ## Why it matters
 
-Booking.com describes AgentHub, which gives every team's agent shared tracing, guardrails and evaluation ([Booking.com](https://booking.ai/introducing-agenthub-booking-com-platform-for-modular-travel-ai-agents-68bc521a0f50)).
+Booking.com runs AgentHub. It gives every team's agent the same tracing, safety rules and tests ([Booking.com](https://booking.ai/introducing-agenthub-booking-com-platform-for-modular-travel-ai-agents-68bc521a0f50)).
 
 ```mermaid
 flowchart LR

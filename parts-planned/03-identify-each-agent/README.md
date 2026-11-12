@@ -2,11 +2,17 @@
 
 ## The problem
 
-All three agents act under one shared identity, so the audit log says "agent" and nothing more. When the Holds agent pays a fee for Northpoint, nobody can prove which agent did it, for which importer, on whose behalf.
+All three agents act under one shared identity.
+So the audit log says "agent" and nothing more.
+For example, the Holds agent pays an exam fee for Northpoint.
+Nobody can prove which agent paid, for which importer, or for which person.
 
 ## Why it matters
 
-Uber describes giving each agent its own workload identity and short-lived tokens that carry the chain of who acted for whom ([Uber Engineering](https://www.uber.com/blog/solving-the-agent-identity-crisis/)).
+Uber gives each agent its own identity.
+Each agent gets tokens that end after a short time.
+A token is a signed note that says who you are.
+Uber's tokens also carry the chain of who acted for whom ([Uber Engineering](https://www.uber.com/blog/solving-the-agent-identity-crisis/)).
 
 ```mermaid
 flowchart LR

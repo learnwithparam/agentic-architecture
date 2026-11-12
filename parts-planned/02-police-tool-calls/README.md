@@ -2,11 +2,21 @@
 
 ## The problem
 
-121 tool calls left no record of who asked, and the Classification agent filed two rush entries itself. That breaks the one legal rule in this world: a licensed broker signs every tariff code before filing. Rules written in a prompt do not hold; the platform must decide, outside the model, which agent may call which tool.
+121 tool calls left no record of who asked.
+The Classification agent even filed two rush entries itself.
+That breaks the one legal rule in this world: a licensed broker signs every tariff code before filing.
+
+Rules written in a prompt do not hold.
+So the platform must decide which agent may call which tool, outside the model.
+For example, the Classification agent asks to call `file_entry`.
+The tool gateway answers `denied: classification-agent may not call file_entry`.
 
 ## Why it matters
 
-DoorDash describes one gateway that every agent uses to find and call tools, so that access and credentials are handled in one place ([DoorDash Engineering](https://careersatdoordash.com/blog/how-doordash-built-a-centralized-gateway-for-ai-agent-tool-access/)). Uber describes an MCP gateway with a registry of servers where newly found tools start disabled ([Uber Engineering](https://www.uber.com/us/en/blog/designing-mcp-gateway/)).
+DoorDash runs one gateway that every agent uses to find and call tools.
+So access and secrets live in one place ([DoorDash Engineering](https://careersatdoordash.com/blog/how-doordash-built-a-centralized-gateway-for-ai-agent-tool-access/)).
+Uber runs a gateway for MCP servers, the servers that offer tools to agents.
+It keeps a list of the servers, and a new tool starts switched off ([Uber Engineering](https://www.uber.com/us/en/blog/designing-mcp-gateway/)).
 
 ```mermaid
 flowchart LR

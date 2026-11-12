@@ -2,11 +2,14 @@
 
 ## The problem
 
-The review board asks what happens if Harbourgate moves to a managed agent platform. The answer has to be "the contracts still pass", and an architect has to show which product fills each layer and where the gaps are.
+The review board asks: what if Harbourgate moves to an agent platform it buys?
+The answer must be "the checks still pass".
+An architect must also show which product fills each layer, and what it misses.
+For example, you might swap your model gateway for a bought one, then run the part 1 checks again.
 
 ## Why it matters
 
-Grab describes the shared framework and gateway its teams build agents on ([Grab Engineering](https://engineering.grab.com/how-grab-builds-and-runs-ai-agents-at-scale)).
+Grab shows the shared framework and gateway its teams build agents on ([Grab Engineering](https://engineering.grab.com/how-grab-builds-and-runs-ai-agents-at-scale)).
 
 ```mermaid
 flowchart LR
