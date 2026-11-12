@@ -1,0 +1,26 @@
+[
+  {
+    "team": "classification",
+    "agent": "classification-agent",
+    "does": "proposes a tariff code for each invoice line, with reasons",
+    "shape": "workflow with one model step",
+    "may": "read tariff data and propose a code; it may never file an entry",
+    "key": "hgk_classification_7f3a91"
+  },
+  {
+    "team": "paperwork",
+    "agent": "paperwork-agent",
+    "does": "reads the invoice, packing list and bill of lading, drafts the entry, asks the importer for missing papers, files signed entries",
+    "shape": "agent with tools",
+    "may": "read documents, write drafts, email the importer, file an entry whose lines a licensed broker signed",
+    "key": "hgk_paperwork_b2c604"
+  },
+  {
+    "team": "holds",
+    "agent": "holds-agent",
+    "does": "when customs holds a container, books the exam, pays the exam fee once and waits for release",
+    "shape": "long-running agent",
+    "may": "read holds, book exams, pay exam fees once",
+    "key": "hgk_holds_e95d12"
+  }
+]

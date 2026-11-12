@@ -1,0 +1,5 @@
+{
+  "note": "Spend limits agreed with finance, in micro-dollars (1000000 = 1 USD). A call that would start after a limit is reached gets HTTP 402.",
+  "importers": { "fjordline": 2000000, "ridgeway": 60000, "northpoint": 2000000 },
+  "teams": { "classification": 2000000, "paperwork": 2000000, "holds": 2000000 }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "Saltmere tariff schedule",
+  "note": "A teaching schedule for this world. Codes and duty rates are made up and are not for filing.",
+  "snapshot": "frozen with the world, version 1",
+  "codes": [
+    { "code": "ST-6201-40", "description": "Jackets and anoraks of synthetic fibres", "duty_pct": 7.0 },
+    { "code": "ST-6306-22", "description": "Tents of synthetic fibres", "duty_pct": 8.5 },
+    { "code": "ST-9404-40", "description": "Sleeping bags", "duty_pct": 9.0 },
+    { "code": "ST-0901-11", "description": "Coffee, not roasted, not decaffeinated", "duty_pct": 0.0 },
+    { "code": "ST-0901-12", "description": "Coffee, not roasted, decaffeinated", "duty_pct": 0.0 },
+    { "code": "ST-4015-12", "description": "Gloves of vulcanised rubber, for medical or surgical use", "duty_pct": 3.0 },
+    { "code": "ST-4015-19", "description": "Gloves of vulcanised rubber, other than medical", "duty_pct": 3.0 },
+    { "code": "ST-9025-11", "description": "Clinical thermometers, liquid filled", "duty_pct": 4.0 },
+    { "code": "ST-9025-19", "description": "Thermometers, electronic", "duty_pct": 1.7 }
+  ]
+}

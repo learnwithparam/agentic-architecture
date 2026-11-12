@@ -1,10 +1,26 @@
 {
-  "name": "workshop-template",
+  "name": "agentic-architecture",
   "private": true,
   "type": "module",
   "packageManager": "bun@1.4.4",
   "scripts": {
-    "check": "bun scripts/check.ts && bun scripts/verify.ts --all",
-    "verify": "bun scripts/verify.ts"
+    "check": "bun scripts/check.ts && bun scripts/verify.ts --all && bun test",
+    "verify": "bun scripts/verify.ts",
+    "world": "bun world/cli.ts",
+    "before": "bun world/before.ts",
+    "after": "bun reference/after.ts",
+    "models": "bun config/check-models.ts",
+    "spend": "bun world/spend.ts"
+  },
+  "dependencies": {
+    "@ai-sdk/anthropic": "4.0.103",
+    "@ai-sdk/openai": "4.0.116",
+    "@openrouter/ai-sdk-provider": "3.1.0",
+    "ai": "7.0.171",
+    "jose": "6.2.17",
+    "zod": "4.6.7"
+  },
+  "devDependencies": {
+    "@types/bun": "1.4.4"
   }
 }

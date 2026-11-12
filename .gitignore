@@ -1,2 +1,4 @@
 verify-report.json
 node_modules
+.env
+world/state/

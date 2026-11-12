@@ -1,0 +1,6 @@
+{
+  "note": "Which agent may call which tool. Anything not listed is denied. file_entry is allowed only when a licensed broker signed every line; pay_fee only with an idempotency key.",
+  "classification-agent": ["list_open_shipments", "read_shipment", "lookup_tariff", "propose_code"],
+  "paperwork-agent": ["list_open_shipments", "read_shipment", "search_documents", "email_importer", "read_proposals", "file_entry"],
+  "holds-agent": ["list_holds", "book_exam", "pay_fee", "check_release"]
+}
