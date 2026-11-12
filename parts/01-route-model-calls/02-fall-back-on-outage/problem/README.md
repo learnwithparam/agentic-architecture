@@ -38,11 +38,11 @@ Expect: `Done. All 6 rules pass.`
 
 ## If you get stuck
 
-| What you see | Fix |
-|---|---|
-| `FAIL ... still answered (200)` | Catch the failed fetch or the non-200 status and move to the next hop. |
-| `FAIL ... refused at start` | Check the routes before `Bun.serve`, and call `process.exit(1)` on a bad hop. |
-| `FAIL ... adds up to the providers' bill` | Provider b has its own prices in `PROVIDERS_FILE`. |
+| What you see                              | Fix                                                                           |
+| ----------------------------------------- | ----------------------------------------------------------------------------- |
+| `FAIL ... still answered (200)`           | Catch the failed fetch or the non-200 status and move to the next hop.        |
+| `FAIL ... refused at start`               | Check the routes before `Bun.serve`, and call `process.exit(1)` on a bad hop. |
+| `FAIL ... adds up to the providers' bill` | Provider b has its own prices in `PROVIDERS_FILE`.                            |
 
 ## Words you will use
 

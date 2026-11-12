@@ -2,25 +2,25 @@
 
 Every message a script or a platform service prints on failure is in this table.
 
-| What you see | What it means | Fix |
-|---|---|---|
-| `bun: command not found` | Bun is not installed. | Install it from bun.sh, then open a new terminal. |
-| `There is no step called "..."` | The step name is misspelled. | Copy a name from the list it prints. |
-| `There is no part called "..."` | The part name is misspelled. | Copy a name from the list it prints, without the number. |
-| `ERROR the check for ... could not load` | The check itself is broken, not your work. | Open an issue with the full output. |
-| `FAIL ...` then `Try next: ...` | One rule of the step is not met yet. | Do what the `Try next` line says, then run the same command again. |
-| `... did not answer /health on port ...` | Your service exited or never listened on `PORT`. The output under it is your service's own error. | Run the start command from `platform.toml` in your folder with `PORT=4000` and fix the error it prints. |
-| `platform.toml has no [gateway] start command` | The check cannot find how to start your gateway. | Add `[gateway]` with `start = "bun gateway.ts"` (or your own command) to `platform.toml`. |
-| `LLM_PROVIDER="..." is not one of ...` | The provider name in `.env` is not known. | Use `replay`, `anthropic`, `openrouter`, `openai` or `ollama`. |
-| `LLM_PROVIDER is ... but ..._API_KEY is not set` | You chose a live provider without its key. | Put the key in `.env` (copy `.env.example`), or go back to `LLM_PROVIDER=replay`. |
-| `no recorded reply for ...` | Replay mode only has replies for the prompts the course sends. | Keep the `TASK ...` line in the prompt, or use a live provider. |
-| `No check has run yet` | `bun run spend` reads the last check's world. | Run `bun run verify <step-name>` first. |
-| `Refusing to start: route ... a weaker model` | Your route table falls back to a lower tier. This is the gateway working. | Make every fallback the same role or stronger. |
-| `missing or unknown team key` (401) | The call had no team key, or a key no team owns. | Send `Authorization: Bearer <team key>` from `world/data/teams.json`. |
-| `x-importer must name one of Harbourgate's importers` (400) | Every model call says which importer it is for. | Add the header `x-importer: fjordline`, `ridgeway` or `northpoint`. |
-| `Budget reached for importer ...` or `for team ...` (402) | That budget in `world/data/budgets.json` is spent. | Expected in `cap-spend-per-importer`. Otherwise raise the budget or reset the world. |
-| `every provider on this route failed` (502) | Every hop in the route answered with an error. | Check that the providers are up; in a check, read the FAIL lines above it. |
-| `denied: ... may not call ...` | The tool gateway's policy refused that agent that tool. | Expected for the Classification agent filing an entry. Otherwise ask for the tool in the policy. |
-| `ask: a licensed broker must sign ...` | An entry was sent to file with a line no licensed broker signed. | Wait for the broker desk to sign, then file again. |
-| `denied: no valid agent token` | A tool call had no token, an expired one, or one for another audience. | Get a fresh token from `/token` with the agent's name and secret. |
-| `... failed with exit code ...` or `... kept crashing` | A team agent crashed during `bun run before` or `bun run after`. | Run `bun run world reset` and try again; if it repeats, open an issue with the output. |
+| What you see                                                | What it means                                                                                     | Fix                                                                                                     |
+| ----------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| `bun: command not found`                                    | Bun is not installed.                                                                             | Install it from bun.sh, then open a new terminal.                                                       |
+| `There is no step called "..."`                             | The step name is misspelled.                                                                      | Copy a name from the list it prints.                                                                    |
+| `There is no part called "..."`                             | The part name is misspelled.                                                                      | Copy a name from the list it prints, without the number.                                                |
+| `ERROR the check for ... could not load`                    | The check itself is broken, not your work.                                                        | Open an issue with the full output.                                                                     |
+| `FAIL ...` then `Try next: ...`                             | One rule of the step is not met yet.                                                              | Do what the `Try next` line says, then run the same command again.                                      |
+| `... did not answer /health on port ...`                    | Your service exited or never listened on `PORT`. The output under it is your service's own error. | Run the start command from `platform.toml` in your folder with `PORT=4000` and fix the error it prints. |
+| `platform.toml has no [gateway] start command`              | The check cannot find how to start your gateway.                                                  | Add `[gateway]` with `start = "bun gateway.ts"` (or your own command) to `platform.toml`.               |
+| `LLM_PROVIDER="..." is not one of ...`                      | The provider name in `.env` is not known.                                                         | Use `replay`, `anthropic`, `openrouter`, `openai` or `ollama`.                                          |
+| `LLM_PROVIDER is ... but ..._API_KEY is not set`            | You chose a live provider without its key.                                                        | Put the key in `.env` (copy `.env.example`), or go back to `LLM_PROVIDER=replay`.                       |
+| `no recorded reply for ...`                                 | Replay mode only has replies for the prompts the course sends.                                    | Keep the `TASK ...` line in the prompt, or use a live provider.                                         |
+| `No check has run yet`                                      | `bun run spend` reads the last check's world.                                                     | Run `bun run verify <step-name>` first.                                                                 |
+| `Refusing to start: route ... a weaker model`               | Your route table falls back to a lower tier. This is the gateway working.                         | Make every fallback the same role or stronger.                                                          |
+| `missing or unknown team key` (401)                         | The call had no team key, or a key no team owns.                                                  | Send `Authorization: Bearer <team key>` from `world/data/teams.json`.                                   |
+| `x-importer must name one of Harbourgate's importers` (400) | Every model call says which importer it is for.                                                   | Add the header `x-importer: fjordline`, `ridgeway` or `northpoint`.                                     |
+| `Budget reached for importer ...` or `for team ...` (402)   | That budget in `world/data/budgets.json` is spent.                                                | Expected in `cap-spend-per-importer`. Otherwise raise the budget or reset the world.                    |
+| `every provider on this route failed` (502)                 | Every hop in the route answered with an error.                                                    | Check that the providers are up; in a check, read the FAIL lines above it.                              |
+| `denied: ... may not call ...`                              | The tool gateway's policy refused that agent that tool.                                           | Expected for the Classification agent filing an entry. Otherwise ask for the tool in the policy.        |
+| `ask: a licensed broker must sign ...`                      | An entry was sent to file with a line no licensed broker signed.                                  | Wait for the broker desk to sign, then file again.                                                      |
+| `denied: no valid agent token`                              | A tool call had no token, an expired one, or one for another audience.                            | Get a fresh token from `/token` with the agent's name and secret.                                       |
+| `... failed with exit code ...` or `... kept crashing`      | A team agent crashed during `bun run before` or `bun run after`.                                  | Run `bun run world reset` and try again; if it repeats, open an issue with the output.                  |

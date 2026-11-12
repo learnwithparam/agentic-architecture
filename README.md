@@ -80,18 +80,18 @@ flowchart LR
 
 ## Parts
 
-| Part | Minutes | What you build |
-|---|---|---|
-| [Meet the brokerage](parts/00-meet-the-brokerage/README.md) | 20 | The current report card, recorded in `platform.toml` |
-| [Route model calls](parts/01-route-model-calls/README.md) | 55 | A model gateway: team keys, fallback, budgets per importer |
-| [Police tool calls](parts-planned/02-police-tool-calls/README.md) | 50 | A tool gateway with a catalog, Cedar policy and broker sign-off |
-| [Identify each agent](parts-planned/03-identify-each-agent/README.md) | 35 | A token per agent, exchanged per call |
-| [Separate importer data](parts-planned/04-separate-importer-data/README.md) | 35 | Forced row-level security and memory scoped per importer |
-| [Choose run shapes](parts-planned/05-choose-run-shapes/README.md) | 20 | One run API for workflows and agent loops |
-| [Survive a crash](parts-planned/06-survive-a-crash/README.md) | 40 | Durable steps and idempotent payments |
-| [Trace and cost runs](parts-planned/07-trace-and-cost-runs/README.md) | 35 | Spans per run and a cost per released entry per importer |
-| [Gate each release](parts-planned/08-gate-each-release/README.md) | 25 | A release gate with never-do metrics |
-| [Swap and review](parts-planned/09-swap-and-review/README.md) | 45 | One layer swapped for a product, and the platform review |
+| Part                                                                        | Minutes | What you build                                                  |
+| --------------------------------------------------------------------------- | ------- | --------------------------------------------------------------- |
+| [Meet the brokerage](parts/00-meet-the-brokerage/README.md)                 | 20      | The current report card, recorded in `platform.toml`            |
+| [Route model calls](parts/01-route-model-calls/README.md)                   | 55      | A model gateway: team keys, fallback, budgets per importer      |
+| [Police tool calls](parts-planned/02-police-tool-calls/README.md)           | 50      | A tool gateway with a catalog, Cedar policy and broker sign-off |
+| [Identify each agent](parts-planned/03-identify-each-agent/README.md)       | 35      | A token per agent, exchanged per call                           |
+| [Separate importer data](parts-planned/04-separate-importer-data/README.md) | 35      | Forced row-level security and memory scoped per importer        |
+| [Choose run shapes](parts-planned/05-choose-run-shapes/README.md)           | 20      | One run API for workflows and agent loops                       |
+| [Survive a crash](parts-planned/06-survive-a-crash/README.md)               | 40      | Durable steps and idempotent payments                           |
+| [Trace and cost runs](parts-planned/07-trace-and-cost-runs/README.md)       | 35      | Spans per run and a cost per released entry per importer        |
+| [Gate each release](parts-planned/08-gate-each-release/README.md)           | 25      | A release gate with never-do metrics                            |
+| [Swap and review](parts-planned/09-swap-and-review/README.md)               | 45      | One layer swapped for a product, and the platform review        |
 
 Start in [00-orientation](00-orientation/README.md). Every step ends in one command, `bun run verify <step-name>`,
 which starts your service, drives it, and reads the world to judge it. `schedules.toml` maps the parts onto
@@ -133,11 +133,11 @@ This course owns the layers that sit between one agent and production, shared by
 tenants: the model gateway, tool policy, agent identity, tenancy and memory, orchestration, durable runs,
 and the trace, cost and release contracts every team must meet.
 
-| Course | It owns | It leaves to this course |
-|---|---|---|
-| [agentic-ai-buildcamp](https://github.com/learnwithparam/agentic-ai-buildcamp) | One AI employee, from design to operating it | The shared platform many employees run on |
-| [agentic-system-design](https://github.com/learnwithparam/agentic-system-design) | Design docs and ADRs, decided on paper, no code | Building and checking each layer in code |
-| [agentic-deployment](https://github.com/learnwithparam/agentic-deployment) | Containers, secrets, canary releases and rollback | What runs inside those containers: gateway, policy, identity, tenancy, runs |
-| [agentic-cli-workshop](https://github.com/learnwithparam/agentic-cli-workshop) | The agent loop inside a coding CLI | The services an agent calls out to |
+| Course                                                                           | It owns                                           | It leaves to this course                                                    |
+| -------------------------------------------------------------------------------- | ------------------------------------------------- | --------------------------------------------------------------------------- |
+| [agentic-ai-buildcamp](https://github.com/learnwithparam/agentic-ai-buildcamp)   | One AI employee, from design to operating it      | The shared platform many employees run on                                   |
+| [agentic-system-design](https://github.com/learnwithparam/agentic-system-design) | Design docs and ADRs, decided on paper, no code   | Building and checking each layer in code                                    |
+| [agentic-deployment](https://github.com/learnwithparam/agentic-deployment)       | Containers, secrets, canary releases and rollback | What runs inside those containers: gateway, policy, identity, tenancy, runs |
+| [agentic-cli-workshop](https://github.com/learnwithparam/agentic-cli-workshop)   | The agent loop inside a coding CLI                | The services an agent calls out to                                          |
 
 The rules every course repo follows, and the check behind each, are in [STANDARD.md](STANDARD.md).

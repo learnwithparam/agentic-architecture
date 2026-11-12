@@ -40,7 +40,8 @@ export const KEY_NAME: Record<Provider, string | null> = {
 
 export function provider(): Provider {
   const p = (process.env.LLM_PROVIDER ?? "replay") as Provider;
-  if (!PROVIDERS.includes(p)) throw new Error(`LLM_PROVIDER="${p}" is not one of ${PROVIDERS.join(", ")}`);
+  if (!PROVIDERS.includes(p))
+    throw new Error(`LLM_PROVIDER="${p}" is not one of ${PROVIDERS.join(", ")}`);
   return p;
 }
 
@@ -50,7 +51,10 @@ export function modelFor(role: Role, p: Provider = provider()) {
   const id = IDS[p][role];
   switch (p) {
     case "replay":
-      return createOpenAI({ baseURL: `${process.env.REPLAY_URL ?? "http://127.0.0.1:7401"}/v1`, apiKey: process.env.REPLAY_KEY ?? "replay" }).chat(id);
+      return createOpenAI({
+        baseURL: `${process.env.REPLAY_URL ?? "http://127.0.0.1:7401"}/v1`,
+        apiKey: process.env.REPLAY_KEY ?? "replay",
+      }).chat(id);
     case "anthropic":
       return createAnthropic({ apiKey: process.env.ANTHROPIC_API_KEY })(id);
     case "openrouter":
@@ -58,6 +62,9 @@ export function modelFor(role: Role, p: Provider = provider()) {
     case "openai":
       return createOpenAI({ apiKey: process.env.OPENAI_API_KEY }).chat(id);
     case "ollama":
-      return createOpenAI({ baseURL: process.env.OLLAMA_URL ?? "http://127.0.0.1:11434/v1", apiKey: "ollama" }).chat(id);
+      return createOpenAI({
+        baseURL: process.env.OLLAMA_URL ?? "http://127.0.0.1:11434/v1",
+        apiKey: "ollama",
+      }).chat(id);
   }
 }

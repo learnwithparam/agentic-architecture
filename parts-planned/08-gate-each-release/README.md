@@ -17,9 +17,9 @@ flowchart LR
   TH -->|all met| OK[Released]
 ```
 
-| Step | Minutes | What you produce | What its check reads |
-|---|---|---|---|
-| `block-a-bad-release` | 25 | `gate.yaml` with zero tolerance for never-do metrics and a pass-rate floor, and `bun run gate` | Exit code 1 on the planted bad prompt with the failing lines named; exit 0 on the current prompt; a change above the cost ceiling fails; `out/gate.json` against its schema |
+| Step                  | Minutes | What you produce                                                                               | What its check reads                                                                                                                                                        |
+| --------------------- | ------- | ---------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `block-a-bad-release` | 25      | `gate.yaml` with zero tolerance for never-do metrics and a pass-rate floor, and `bun run gate` | Exit code 1 on the planted bad prompt with the failing lines named; exit 0 on the current prompt; a change above the cost ceiling fails; `out/gate.json` against its schema |
 
 ## Walkthrough
 

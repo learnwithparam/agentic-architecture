@@ -32,11 +32,11 @@ Expect: `Done. All 10 rules pass.`
 
 ## If you get stuck
 
-| What you see | Fix |
-|---|---|
-| `FAIL run_mode is one of ...` | Use `replay` unless you put a key in `.env`. |
+| What you see                     | Fix                                                                                                                     |
+| -------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| `FAIL run_mode is one of ...`    | Use `replay` unless you put a key in `.env`.                                                                            |
 | `FAIL you recorded how many ...` | Run `bun run before` again and copy the number from that line. The world resets each run, so the numbers do not change. |
-| `FAIL the world starts ...` | Run `bun run world reset` and read [troubleshooting](../../../../00-orientation/troubleshooting.md). |
+| `FAIL the world starts ...`      | Run `bun run world reset` and read [troubleshooting](../../../../00-orientation/troubleshooting.md).                    |
 
 ## Words you will use
 

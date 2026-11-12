@@ -1,6 +1,6 @@
 // The system of record: one SQLite file. `bun run world reset` rebuilds it from world/data.
 import { Database } from "bun:sqlite";
-import { mkdirSync, rmSync, existsSync } from "node:fs";
+import { existsSync, mkdirSync, rmSync } from "node:fs";
 import { dirname, join } from "node:path";
 
 export const WORLD = import.meta.dir;
@@ -50,8 +50,19 @@ export function resetDb(path = process.env.WORLD_DB ?? DEFAULT_DB) {
   const doc = ins("INSERT INTO documents VALUES (?,?,?,?,?)");
   db.transaction(() => {
     for (const s of data<any[]>("shipments")) {
-      sh.run(s.id, s.importer, s.container, s.vessel, s.status, s.rush ? 1 : 0, s.exam?.kind ?? null, s.exam?.fee_cents ?? null, s.free_days);
-      for (const l of s.lines) ln.run(l.id, s.id, s.importer, l.description, l.qty, l.value_cents, l.true_code);
+      sh.run(
+        s.id,
+        s.importer,
+        s.container,
+        s.vessel,
+        s.status,
+        s.rush ? 1 : 0,
+        s.exam?.kind ?? null,
+        s.exam?.fee_cents ?? null,
+        s.free_days,
+      );
+      for (const l of s.lines)
+        ln.run(l.id, s.id, s.importer, l.description, l.qty, l.value_cents, l.true_code);
       for (const d of s.documents) doc.run(d.id, s.id, s.importer, d.kind, d.body);
     }
   })();

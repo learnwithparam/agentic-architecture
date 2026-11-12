@@ -1,6 +1,7 @@
 // Harbourgate's model gateway: checks the team key, follows the route table, falls back when a
 // provider is down, and logs every try. It refuses to start on a route that would fall back to a weaker model.
 import { readFileSync } from "node:fs";
+
 const env = process.env;
 const load = (p: string) => JSON.parse(readFileSync(p, "utf8"));
 const teams: any[] = load(env.TEAMS_FILE!);
@@ -13,7 +14,8 @@ const upstream: Record<string, { url?: string; key?: string }> = {
 };
 
 const err = (status: number, message: string) => Response.json({ error: { message } }, { status });
-const spend = (row: object) => fetch(`${env.LEDGER_URL}/spend`, { method: "POST", body: JSON.stringify(row) });
+const spend = (row: object) =>
+  fetch(`${env.LEDGER_URL}/spend`, { method: "POST", body: JSON.stringify(row) });
 
 Bun.serve({
   port: Number(env.PORT ?? 4000),
@@ -37,13 +39,33 @@ Bun.serve({
         body: JSON.stringify({ ...body, model: `replay-${role}` }),
       }).catch(() => null);
       if (!r || !r.ok) {
-        await spend({ team: team.team, importer, role, provider: p, tokens_in: 0, tokens_out: 0, cost_micros: 0, status: "provider_error" });
+        await spend({
+          team: team.team,
+          importer,
+          role,
+          provider: p,
+          tokens_in: 0,
+          tokens_out: 0,
+          cost_micros: 0,
+          status: "provider_error",
+        });
         continue;
       }
       const out: any = await r.json();
       const price = prices[p].prices[role];
-      const tin = out.usage.prompt_tokens, tout = out.usage.completion_tokens;
-      await spend({ request_id: out.id, team: team.team, importer, role, provider: p, tokens_in: tin, tokens_out: tout, cost_micros: tin * price.in + tout * price.out, status: "ok" });
+      const tin = out.usage.prompt_tokens,
+        tout = out.usage.completion_tokens;
+      await spend({
+        request_id: out.id,
+        team: team.team,
+        importer,
+        role,
+        provider: p,
+        tokens_in: tin,
+        tokens_out: tout,
+        cost_micros: tin * price.in + tout * price.out,
+        status: "ok",
+      });
       return Response.json(out, { headers: { "x-gateway-provider": p } });
     }
     return err(502, "every provider on this route failed");

@@ -40,11 +40,11 @@ Expect: `Done. All 7 rules pass.`, then a spend table where Ridgeway stops near 
 
 ## If you get stuck
 
-| What you see | Fix |
-|---|---|
+| What you see                           | Fix                                                                         |
+| -------------------------------------- | --------------------------------------------------------------------------- |
 | `FAIL ... refused with 402 every time` | Check the total before you call the provider, and add the cost right after. |
-| `FAIL no call was quietly moved ...` | Remove any code that changes `body.model` when money runs low. |
-| `FAIL a team over its own budget ...` | Keep a second total keyed by team and check `budgets.teams`. |
+| `FAIL no call was quietly moved ...`   | Remove any code that changes `body.model` when money runs low.              |
+| `FAIL a team over its own budget ...`  | Keep a second total keyed by team and check `budgets.teams`.                |
 
 ## Words you will use
 

@@ -15,10 +15,10 @@ flowchart LR
   M[(Memory: past rulings, broker notes)] -->|filter by importer, then rank| A
 ```
 
-| Step | Minutes | What you produce | What its check reads |
-|---|---|---|---|
-| `isolate-importer-data` | 20 | Forced row-level security on every table with importer data; the importer set per connection from the token | Queries as each importer on every table (0 foreign rows); `relforcerowsecurity` on every table with an `importer_id`; the cross-importer reads count drops to 0 |
-| `scope-memory-per-importer` | 15 | Agent memory filtered by importer before ranking; superseded rulings are never candidates | Recall for Ridgeway with a planted near-identical Fjordline note; a superseded ruling never returns; memory written in one run is found in the next |
+| Step                        | Minutes | What you produce                                                                                            | What its check reads                                                                                                                                            |
+| --------------------------- | ------- | ----------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `isolate-importer-data`     | 20      | Forced row-level security on every table with importer data; the importer set per connection from the token | Queries as each importer on every table (0 foreign rows); `relforcerowsecurity` on every table with an `importer_id`; the cross-importer reads count drops to 0 |
+| `scope-memory-per-importer` | 15      | Agent memory filtered by importer before ranking; superseded rulings are never candidates                   | Recall for Ridgeway with a planted near-identical Fjordline note; a superseded ruling never returns; memory written in one run is found in the next             |
 
 ## Walkthrough
 

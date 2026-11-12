@@ -1,6 +1,7 @@
 // Harbourgate's model gateway: checks the team key, follows the route table, falls back when a
 // provider is down, logs every try, and stops an importer or a team at its budget with HTTP 402.
 import { readFileSync } from "node:fs";
+
 const env = process.env;
 const load = (p: string) => JSON.parse(readFileSync(p, "utf8"));
 const teams: any[] = load(env.TEAMS_FILE!);
@@ -20,13 +21,16 @@ for (const [team, byRole] of Object.entries(routes)) {
   for (const [role, hops] of Object.entries(byRole as Record<string, string[]>))
     for (const hop of hops)
       if (!(TIER[hop.split(":")[1]] >= TIER[role])) {
-        console.error(`Refusing to start: route ${team}/${role} falls back to ${hop}, a weaker model.`);
+        console.error(
+          `Refusing to start: route ${team}/${role} falls back to ${hop}, a weaker model.`,
+        );
         process.exit(1);
       }
 }
 
 const err = (status: number, message: string) => Response.json({ error: { message } }, { status });
-const spend = (row: object) => fetch(`${env.LEDGER_URL}/spend`, { method: "POST", body: JSON.stringify(row) });
+const spend = (row: object) =>
+  fetch(`${env.LEDGER_URL}/spend`, { method: "POST", body: JSON.stringify(row) });
 
 Bun.serve({
   port: Number(env.PORT ?? 4000),
@@ -44,7 +48,10 @@ Bun.serve({
     if (!hops) return err(400, `no route for "${body.model}"`);
     // A call never starts once the importer or the team has reached its budget. No quiet downgrade.
     if ((spent.importer.get(importer) ?? 0) >= (budgets.importers[importer] ?? 0))
-      return err(402, `Budget reached for importer ${importer}. Finance must raise it before more model calls.`);
+      return err(
+        402,
+        `Budget reached for importer ${importer}. Finance must raise it before more model calls.`,
+      );
     for (const hop of hops) {
       const [p, role] = hop.split(":");
       const r = await fetch(`${upstream[p].url}/v1/chat/completions`, {
@@ -53,15 +60,35 @@ Bun.serve({
         body: JSON.stringify({ ...body, model: `replay-${role}` }),
       }).catch(() => null);
       if (!r || !r.ok) {
-        await spend({ team: team.team, importer, role, provider: p, tokens_in: 0, tokens_out: 0, cost_micros: 0, status: "provider_error" });
+        await spend({
+          team: team.team,
+          importer,
+          role,
+          provider: p,
+          tokens_in: 0,
+          tokens_out: 0,
+          cost_micros: 0,
+          status: "provider_error",
+        });
         continue;
       }
       const out: any = await r.json();
       const price = prices[p].prices[role];
-      const tin = out.usage.prompt_tokens, tout = out.usage.completion_tokens;
+      const tin = out.usage.prompt_tokens,
+        tout = out.usage.completion_tokens;
       add(spent.importer, importer, tin * price.in + tout * price.out);
       add(spent.team, team.team, tin * price.in + tout * price.out);
-      await spend({ request_id: out.id, team: team.team, importer, role, provider: p, tokens_in: tin, tokens_out: tout, cost_micros: tin * price.in + tout * price.out, status: "ok" });
+      await spend({
+        request_id: out.id,
+        team: team.team,
+        importer,
+        role,
+        provider: p,
+        tokens_in: tin,
+        tokens_out: tout,
+        cost_micros: tin * price.in + tout * price.out,
+        status: "ok",
+      });
       return Response.json(out, { headers: { "x-gateway-provider": p } });
     }
     return err(502, "every provider on this route failed");

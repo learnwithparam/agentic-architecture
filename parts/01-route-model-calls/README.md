@@ -19,11 +19,11 @@ flowchart LR
   L -->|must equal| I[Providers' bill]
 ```
 
-| Step | Minutes | What you produce | What its check reads |
-|---|---|---|---|
-| `route-calls-through-gateway` | 20 | A gateway that checks team keys, calls the provider with the platform key and logs spend | Status codes, the provider's record of which key it saw, the spend log against the providers' bill, `teams/` for keys |
-| `fall-back-on-outage` | 15 | A route table with fallback that never goes to a weaker model | The `x-gateway-provider` header with provider a down, `provider_error` rows, whether a bad route table starts |
-| `cap-spend-per-importer` | 20 | Budgets per importer and per team, refused with 402 | Status codes in a 40-call burst, spend per importer against its limit, the roles the provider billed |
+| Step                          | Minutes | What you produce                                                                         | What its check reads                                                                                                  |
+| ----------------------------- | ------- | ---------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `route-calls-through-gateway` | 20      | A gateway that checks team keys, calls the provider with the platform key and logs spend | Status codes, the provider's record of which key it saw, the spend log against the providers' bill, `teams/` for keys |
+| `fall-back-on-outage`         | 15      | A route table with fallback that never goes to a weaker model                            | The `x-gateway-provider` header with provider a down, `provider_error` rows, whether a bad route table starts         |
+| `cap-spend-per-importer`      | 20      | Budgets per importer and per team, refused with 402                                      | Status codes in a 40-call burst, spend per importer against its limit, the roles the provider billed                  |
 
 Each step starts from the previous step's sample solution, so you can begin at any step.
 

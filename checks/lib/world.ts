@@ -11,5 +11,7 @@ export const CHECK_DB = join(ROOT, "world", "state", "check.db");
 // so `bun run spend` can show what the last check saw.
 export const freshWorld = (): Promise<World> => startWorld({ db: CHECK_DB, reset: true });
 
-export const rows = <T = any>(w: World, sql: string, ...args: any[]) => w.db.query(sql).all(...args) as T[];
-export const one = <T = any>(w: World, sql: string, ...args: any[]) => w.db.query(sql).get(...args) as T;
+export const rows = <T = any>(w: World, sql: string, ...args: any[]) =>
+  w.db.query(sql).all(...args) as T[];
+export const one = <T = any>(w: World, sql: string, ...args: any[]) =>
+  w.db.query(sql).get(...args) as T;

@@ -21,9 +21,9 @@ flowchart LR
   end
 ```
 
-| Step | Minutes | What you produce |
-|---|---|---|
-| `meet-the-brokerage` | 20 | `platform.toml` with your name, run mode and the six "before" numbers |
+| Step                 | Minutes | What you produce                                                      |
+| -------------------- | ------- | --------------------------------------------------------------------- |
+| `meet-the-brokerage` | 20      | `platform.toml` with your name, run mode and the six "before" numbers |
 
 ## Walkthrough
 

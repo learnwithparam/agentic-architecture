@@ -17,10 +17,10 @@ flowchart LR
   C --> R[Cost per released entry, per importer]
 ```
 
-| Step | Minutes | What you produce | What its check reads |
-|---|---|---|---|
-| `trace-one-entry` | 20 | Spans for runs, model calls and tool calls with GenAI attributes, with `tenant`, `team` and `run_id` | The trace store for one entry: one trace, `tenant` on every span, token counts on model spans, the policy decision on tool spans, no field from `checks/sensitive-fields.txt` |
-| `split-cost-by-importer` | 15 | `bun run costs`: cost per released entry per importer, joining traces to spend rows | Cost by importer sums to the providers' bill; 0 spend rows without a tenant; a planted untagged batch job shows as unattributed, then disappears |
+| Step                     | Minutes | What you produce                                                                                     | What its check reads                                                                                                                                                          |
+| ------------------------ | ------- | ---------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `trace-one-entry`        | 20      | Spans for runs, model calls and tool calls with GenAI attributes, with `tenant`, `team` and `run_id` | The trace store for one entry: one trace, `tenant` on every span, token counts on model spans, the policy decision on tool spans, no field from `checks/sensitive-fields.txt` |
+| `split-cost-by-importer` | 15      | `bun run costs`: cost per released entry per importer, joining traces to spend rows                  | Cost by importer sums to the providers' bill; 0 spend rows without a tenant; a planted untagged batch job shows as unattributed, then disappears                              |
 
 ## Walkthrough
 

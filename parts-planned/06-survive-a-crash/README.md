@@ -15,10 +15,10 @@ flowchart LR
   X -.->|restart: journal says pay is done| W
 ```
 
-| Step | Minutes | What you produce | What its check reads |
-|---|---|---|---|
-| `resume-a-killed-run` | 25 | The Holds run as journaled durable steps | The check kills the worker after `pay_exam_fee` (guard: a worker really died); the payments table shows exactly 1 payment; model calls equal decision steps |
-| `release-the-container-once` | 15 | An idempotency key on every money-moving or filing tool, and a durable wait for release with a timeout that pages a broker | Two deliveries of one release event cause 1 release; a run past free time logs a demurrage reason; a replay of the whole run moves no money |
+| Step                         | Minutes | What you produce                                                                                                           | What its check reads                                                                                                                                        |
+| ---------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `resume-a-killed-run`        | 25      | The Holds run as journaled durable steps                                                                                   | The check kills the worker after `pay_exam_fee` (guard: a worker really died); the payments table shows exactly 1 payment; model calls equal decision steps |
+| `release-the-container-once` | 15      | An idempotency key on every money-moving or filing tool, and a durable wait for release with a timeout that pages a broker | Two deliveries of one release event cause 1 release; a run past free time logs a demurrage reason; a replay of the whole run moves no money                 |
 
 ## Walkthrough
 

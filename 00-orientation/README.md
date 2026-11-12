@@ -23,11 +23,11 @@ Harbourgate Brokerage is a licensed customs broker at the Port of Saltmere. It f
 three importers: Fjordline Outdoor (jackets, tents, sleeping bags), Ridgeway Roasters (green coffee) and
 Northpoint Medical Supply (gloves, thermometers). Three internal teams each run an agent:
 
-| Team | Its agent | What it may do |
-|---|---|---|
-| Classification | Proposes a tariff code for each invoice line | Read tariff data and propose. Never file. |
-| Paperwork | Drafts the entry, asks for missing papers, files | File only lines a licensed broker signed |
-| Holds | Books the customs exam, pays the fee, waits for release | Pay each fee once |
+| Team           | Its agent                                               | What it may do                            |
+| -------------- | ------------------------------------------------------- | ----------------------------------------- |
+| Classification | Proposes a tariff code for each invoice line            | Read tariff data and propose. Never file. |
+| Paperwork      | Drafts the entry, asks for missing papers, files        | File only lines a licensed broker signed  |
+| Holds          | Books the customs exam, pays the fee, waits for release | Pay each fee once                         |
 
 The one legal rule in this world: a licensed broker signs every tariff code before an entry is filed.
 

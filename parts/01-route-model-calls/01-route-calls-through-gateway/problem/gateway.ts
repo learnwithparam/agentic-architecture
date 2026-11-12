@@ -20,9 +20,15 @@ Bun.serve({
     const body: any = await req.json();
     const r = await fetch(`${env.PROVIDER_A_URL}/v1/chat/completions`, {
       method: "POST",
-      headers: { authorization: req.headers.get("authorization") ?? "", "content-type": "application/json" },
+      headers: {
+        authorization: req.headers.get("authorization") ?? "",
+        "content-type": "application/json",
+      },
       body: JSON.stringify({ ...body, model: `replay-${body.model}` }),
     });
-    return new Response(r.body, { status: r.status, headers: { "content-type": "application/json" } });
+    return new Response(r.body, {
+      status: r.status,
+      headers: { "content-type": "application/json" },
+    });
   },
 });

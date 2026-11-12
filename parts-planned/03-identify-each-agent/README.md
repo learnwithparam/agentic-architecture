@@ -17,10 +17,10 @@ flowchart LR
   AG -->|scoped token| TG[Tool gateway] --> T[Tool]
 ```
 
-| Step | Minutes | What you produce | What its check reads |
-|---|---|---|---|
-| `issue-agent-identities` | 15 | A token service that issues each registered agent a signed, short-lived token with `sub`, `team` and `aud` | 401 for an expired token and for the wrong audience at the tool gateway; the agent's name on every audit row |
-| `exchange-tokens-per-call` | 20 | Token exchange (RFC 8693 shape): one tool, one importer, on behalf of one broker (`act`) | 403 when the Holds agent uses a Northpoint token on a Fjordline container; the token the fake upstream tool received is never the agent's own |
+| Step                       | Minutes | What you produce                                                                                           | What its check reads                                                                                                                          |
+| -------------------------- | ------- | ---------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `issue-agent-identities`   | 15      | A token service that issues each registered agent a signed, short-lived token with `sub`, `team` and `aud` | 401 for an expired token and for the wrong audience at the tool gateway; the agent's name on every audit row                                  |
+| `exchange-tokens-per-call` | 20      | Token exchange (RFC 8693 shape): one tool, one importer, on behalf of one broker (`act`)                   | 403 when the Holds agent uses a Northpoint token on a Fjordline container; the token the fake upstream tool received is never the agent's own |
 
 ## Walkthrough
 

@@ -5,23 +5,37 @@ import { join } from "node:path";
 
 const ROOT = join(import.meta.dir, "..");
 let chromium: any;
-try { ({ chromium } = require("playwright")); } catch { ({ chromium } = require(process.env.PLAYWRIGHT_PATH ?? "/opt/node-tools/node_modules/playwright")); }
+try {
+  ({ chromium } = require("playwright"));
+} catch {
+  ({ chromium } = require(
+    process.env.PLAYWRIGHT_PATH ?? "/opt/node-tools/node_modules/playwright",
+  ));
+}
 
 async function run(cmd: string) {
-  const p = Bun.spawn(["sh", "-c", cmd], { cwd: ROOT, stdout: "pipe", stderr: "pipe", env: { ...process.env, LLM_PROVIDER: "replay", FORCE_COLOR: "0" } });
+  const p = Bun.spawn(["sh", "-c", cmd], {
+    cwd: ROOT,
+    stdout: "pipe",
+    stderr: "pipe",
+    env: { ...process.env, LLM_PROVIDER: "replay", FORCE_COLOR: "0" },
+  });
   const out = (await new Response(p.stdout).text()) + (await new Response(p.stderr).text());
   await p.exited;
   return out.replace(/^\$ .*\n/gm, "").trimEnd();
 }
 
 const esc = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;");
-const color = (s: string) => esc(s)
-  .replace(/^(\s*PASS\b.*)$/gm, '<span class="ok">$1</span>')
-  .replace(/^(\s*FAIL\b.*)$/gm, '<span class="bad">$1</span>')
-  .replace(/^(\s+0  .*)$/gm, '<span class="ok">$1</span>');
+const color = (s: string) =>
+  esc(s)
+    .replace(/^(\s*PASS\b.*)$/gm, '<span class="ok">$1</span>')
+    .replace(/^(\s*FAIL\b.*)$/gm, '<span class="bad">$1</span>')
+    .replace(/^(\s+0 {2}.*)$/gm, '<span class="ok">$1</span>');
 
 function html(blocks: { cmd: string; out: string }[]) {
-  const body = blocks.map((b) => `<div class="cmd">$ ${esc(b.cmd)}</div><pre>${color(b.out)}</pre>`).join("");
+  const body = blocks
+    .map((b) => `<div class="cmd">$ ${esc(b.cmd)}</div><pre>${color(b.out)}</pre>`)
+    .join("");
   return `<!doctype html><meta charset="utf-8"><style>
   body{margin:0;background:#0d1117;font:14px/1.45 ui-monospace,Menlo,Consolas,monospace;color:#c9d1d9}
   .win{width:800px;padding:14px 18px 18px;box-sizing:border-box}
@@ -33,9 +47,18 @@ function html(blocks: { cmd: string; out: string }[]) {
 const shots: { file: string; cmds: string[] }[] = [
   { file: "images/finished-system.png", cmds: ["bun run after"] },
   { file: "00-orientation/images/after.png", cmds: ["bun run before", "bun run after"] },
-  { file: "parts/00-meet-the-brokerage/01-meet-the-brokerage/images/expected.png", cmds: ["bun run before", "bun run after"] },
-  { file: "parts/01-route-model-calls/01-route-calls-through-gateway/images/expected.png", cmds: ["bun run verify route-calls-through-gateway solution", "bun run spend"] },
-  { file: "parts/01-route-model-calls/03-cap-spend-per-importer/images/expected.png", cmds: ["bun run verify cap-spend-per-importer solution", "bun run spend"] },
+  {
+    file: "parts/00-meet-the-brokerage/01-meet-the-brokerage/images/expected.png",
+    cmds: ["bun run before", "bun run after"],
+  },
+  {
+    file: "parts/01-route-model-calls/01-route-calls-through-gateway/images/expected.png",
+    cmds: ["bun run verify route-calls-through-gateway solution", "bun run spend"],
+  },
+  {
+    file: "parts/01-route-model-calls/03-cap-spend-per-importer/images/expected.png",
+    cmds: ["bun run verify cap-spend-per-importer solution", "bun run spend"],
+  },
 ];
 
 const browser = await chromium.launch();

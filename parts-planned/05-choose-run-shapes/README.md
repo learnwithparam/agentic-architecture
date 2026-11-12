@@ -16,9 +16,9 @@ flowchart LR
   WF & AL --> TG[Tool gateway]
 ```
 
-| Step | Minutes | What you produce | What its check reads |
-|---|---|---|---|
-| `run-both-shapes` | 20 | A run API that starts either a workflow or an agent loop with a step limit, plus `decisions/run-shape.md` | Both shapes complete on 3 shipments; a loop that hits its limit ends `stopped_at_limit`; every call in a run carries the same `run_id` in the spend log and audit; the decision file's sections |
+| Step              | Minutes | What you produce                                                                                          | What its check reads                                                                                                                                                                            |
+| ----------------- | ------- | --------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `run-both-shapes` | 20      | A run API that starts either a workflow or an agent loop with a step limit, plus `decisions/run-shape.md` | Both shapes complete on 3 shipments; a loop that hits its limit ends `stopped_at_limit`; every call in a run carries the same `run_id` in the spend log and audit; the decision file's sections |
 
 ## Walkthrough
 

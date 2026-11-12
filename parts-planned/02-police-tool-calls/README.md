@@ -20,11 +20,11 @@ flowchart LR
   BR --> S
 ```
 
-| Step | Minutes | What you produce | What its check reads |
-|---|---|---|---|
-| `register-approved-tools` | 15 | `tools.yaml`: the approved MCP servers with pinned tool hashes; the gateway lists only those | `tools/list` through the gateway; a planted tool update whose hash differs; a direct call to an unlisted server |
-| `deny-the-planted-call` | 20 | Cedar policies for which agent may call which tool, for which importer | Every cell of `checks/policy-table.csv` against the gateway's decision; the audit log line for the planted `file_entry`; fail closed when the policy engine is down |
-| `require-broker-signoff` | 15 | An "ask" result for filing: the run waits until a licensed broker from `world/data/brokers.json` signs | customs-sim filings with an unsigned line (must be 0); a signature from the trainee is refused |
+| Step                      | Minutes | What you produce                                                                                       | What its check reads                                                                                                                                                |
+| ------------------------- | ------- | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `register-approved-tools` | 15      | `tools.yaml`: the approved MCP servers with pinned tool hashes; the gateway lists only those           | `tools/list` through the gateway; a planted tool update whose hash differs; a direct call to an unlisted server                                                     |
+| `deny-the-planted-call`   | 20      | Cedar policies for which agent may call which tool, for which importer                                 | Every cell of `checks/policy-table.csv` against the gateway's decision; the audit log line for the planted `file_entry`; fail closed when the policy engine is down |
+| `require-broker-signoff`  | 15      | An "ask" result for filing: the run waits until a licensed broker from `world/data/brokers.json` signs | customs-sim filings with an unsigned line (must be 0); a signature from the trainee is refused                                                                      |
 
 ## Walkthrough
 
