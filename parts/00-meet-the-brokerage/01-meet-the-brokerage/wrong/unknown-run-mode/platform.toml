@@ -1,0 +1,11 @@
+[learner]
+name = "Sample Learner"
+run_mode = "the-best-model"
+
+[before]
+calls_outside_gateway = 41
+provider_keys_in_team_code = 3
+tool_calls_with_no_identity = 121
+cross_importer_reads = 36
+entries_with_no_broker_signature = 2
+exam_fees_paid_twice = 1
