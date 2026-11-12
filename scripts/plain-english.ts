@@ -67,7 +67,11 @@ export function proseOf(markdown: string): string {
   const proseLines: string[] = [];
   let insideCodeBlock = false;
   for (const line of markdown.split("\n")) {
-    if (line.trim().startsWith("```")) insideCodeBlock = !insideCodeBlock;
+    // A fence line opens or closes a code block. It is never prose itself.
+    if (line.trim().startsWith("```")) {
+      insideCodeBlock = !insideCodeBlock;
+      continue;
+    }
     const isStructure = /^\s*(#|\||<|!\[|Expect:)/.test(line);
     if (!insideCodeBlock && !isStructure) proseLines.push(line);
   }

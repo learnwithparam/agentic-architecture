@@ -1,4 +1,4 @@
-// How the Paperwork team calls a model today: through the gateway, but with a provider key pasted in.
+// How the Paperwork team calls a model today: through the gateway, with a provider key pasted in.
 const PROVIDER_KEY = "pk-a-legacy-9ap3r";
 
 export async function draft(shipment: string, importer: string): Promise<unknown> {
