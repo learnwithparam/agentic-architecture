@@ -4,18 +4,22 @@ import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { type Service, startService } from "../../world/proc";
 
-export function platformToml(dir: string): Record<string, any> {
-  const p = join(dir, "platform.toml");
-  return existsSync(p) ? (Bun.TOML.parse(readFileSync(p, "utf8")) as any) : {};
+// Each [section] of platform.toml, such as [learner] or [gateway], holds named values.
+export type PlatformToml = Record<string, Record<string, unknown> | undefined>;
+
+export function platformToml(folder: string): PlatformToml {
+  const path = join(folder, "platform.toml");
+  if (!existsSync(path)) return {};
+  return Bun.TOML.parse(readFileSync(path, "utf8")) as PlatformToml;
 }
 
 export async function startLearner(
-  dir: string,
+  folder: string,
   service: string,
-  env: Record<string, string>,
+  settings: Record<string, string>,
   waitMs?: number,
 ): Promise<Service> {
-  const cmd = platformToml(dir)[service]?.start;
-  if (!cmd) throw new Error(`platform.toml has no [${service}] start command`);
-  return startService(["sh", "-c", `exec ${cmd}`], { cwd: dir, env, waitMs });
+  const startCommand = platformToml(folder)[service]?.start;
+  if (!startCommand) throw new Error(`platform.toml has no [${service}] start command`);
+  return startService(["sh", "-c", `exec ${startCommand}`], { cwd: folder, env: settings, waitMs });
 }

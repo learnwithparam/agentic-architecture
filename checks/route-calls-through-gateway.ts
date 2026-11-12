@@ -1,12 +1,15 @@
-// The gateway lets in only team keys, calls providers with the platform's key, and logs spend that
-// matches the providers' own bill. The check starts your gateway and reads the world, not the replies.
+// biome-ignore-all lint/style/useNamingConvention: the spend log's columns are snake_case.
+// The gateway lets in only team keys, calls providers with the platform's key, and logs spend
+// that matches the providers' own bill. The check starts your gateway and reads the world,
+// not the replies.
 import { join } from "node:path";
 import type { Rule } from "../scripts/verify";
 import { keysIn } from "../world/report";
+import type { World } from "../world/services";
 import { chat, gatewayEnv, keyOf, type Reply } from "./lib/gateway";
 import { startLearner } from "./lib/learner";
 import { once } from "./lib/session";
-import { freshWorld, one, rows } from "./lib/world";
+import { allRows, freshWorld, numberFrom } from "./lib/world";
 
 const CALLS = [
   { team: "classification", importer: "fjordline", role: "smart" },
@@ -16,111 +19,162 @@ const CALLS = [
   { team: "classification", importer: "ridgeway", role: "smart" },
 ];
 
-async function scenario(dir: string) {
-  const w = await freshWorld();
+type SpendRow = {
+  team: string;
+  importer: string;
+  role: string;
+  tokens_in: number;
+  tokens_out: number;
+};
+
+type Outcome = {
+  up?: boolean;
+  noKey?: number;
+  badKey?: number;
+  answered?: number[];
+  keyOwners?: string[];
+  spend: SpendRow[];
+  spendTotal: number;
+  billed: number;
+  billedCalls: number;
+};
+
+async function callAsEachTeam(gatewayUrl: string): Promise<Reply[]> {
+  const answered: Reply[] = [];
+  for (const [index, call] of CALLS.entries()) {
+    const task = `ping:${index + 1}`;
+    const key = keyOf(call.team);
+    answered.push(await chat(gatewayUrl, { key, importer: call.importer, role: call.role, task }));
+  }
+  return answered;
+}
+
+function readLedger(world: World) {
+  const keyOwners = allRows<{ key_owner: string }>(
+    world,
+    "SELECT DISTINCT key_owner FROM provider_calls",
+  );
+  return {
+    keyOwners: keyOwners.map((row) => row.key_owner),
+    spend: allRows<SpendRow>(world, "SELECT * FROM spend_log WHERE status = 'ok'"),
+    spendTotal: numberFrom(world, "SELECT COALESCE(SUM(cost_micros),0) AS total FROM spend_log"),
+    billed: numberFrom(world, "SELECT COALESCE(SUM(cost_micros),0) AS total FROM provider_calls"),
+    billedCalls: numberFrom(
+      world,
+      "SELECT COUNT(*) AS total FROM provider_calls WHERE status = 200",
+    ),
+  };
+}
+
+async function scenario(folder: string): Promise<Outcome> {
+  const world = await freshWorld();
   try {
-    const gw = await startLearner(dir, "gateway", gatewayEnv(w.env));
+    const gateway = await startLearner(folder, "gateway", gatewayEnv(world.env));
     try {
-      const noKey = await chat(gw.url, { importer: "fjordline", task: "ping:1" });
-      const badKey = await chat(gw.url, {
-        key: "hgk_nobody_000000",
+      const noKey = await chat(gateway.url, { importer: "fjordline", task: "ping:1" });
+      const unknownKey = "hgk_nobody_000000";
+      const badKey = await chat(gateway.url, {
+        key: unknownKey,
         importer: "fjordline",
         task: "ping:1",
       });
-      const answered: Reply[] = [];
-      for (const [i, c] of CALLS.entries())
-        answered.push(
-          await chat(gw.url, {
-            key: keyOf(c.team),
-            importer: c.importer,
-            role: c.role,
-            task: `ping:${i + 1}`,
-          }),
-        );
+      const answered = await callAsEachTeam(gateway.url);
+      // Give the gateway a moment to finish writing its last spend row.
       await Bun.sleep(100);
+      const ledger = readLedger(world);
+      const statuses = answered.map((reply) => reply.status);
       return {
         up: true,
         noKey: noKey.status,
         badKey: badKey.status,
-        answered: answered.map((a) => a.status),
-        keyOwners: rows(w, "SELECT DISTINCT key_owner FROM provider_calls").map((r) => r.key_owner),
-        spend: rows(w, "SELECT * FROM spend_log WHERE status = 'ok'"),
-        spendTotal: one(w, "SELECT COALESCE(SUM(cost_micros),0) AS c FROM spend_log").c,
-        billed: one(w, "SELECT COALESCE(SUM(cost_micros),0) AS c FROM provider_calls").c,
-        billedCalls: one(w, "SELECT COUNT(*) AS n FROM provider_calls WHERE status = 200").n,
+        answered: statuses,
+        ...ledger,
       };
     } finally {
-      await gw.stop();
+      await gateway.stop();
     }
   } finally {
-    w.stop();
+    world.stop();
   }
 }
 
-const run = (dir: string) => once("route-calls-through-gateway", dir, scenario) as Promise<any>;
-const spendRowsComplete = (r: any) =>
-  r.spend.length === CALLS.length &&
-  r.billedCalls === CALLS.length &&
-  CALLS.every((c) =>
-    r.spend.some(
-      (s: any) =>
-        s.team === c.team &&
-        s.importer === c.importer &&
-        s.role === c.role &&
-        s.tokens_in > 0 &&
-        s.tokens_out > 0,
-    ),
+function run(folder: string): Promise<Outcome> {
+  return once("route-calls-through-gateway", folder, scenario);
+}
+
+function hasRowFor(spend: SpendRow[], call: (typeof CALLS)[number]): boolean {
+  return spend.some(
+    (row) =>
+      row.team === call.team &&
+      row.importer === call.importer &&
+      row.role === call.role &&
+      row.tokens_in > 0 &&
+      row.tokens_out > 0,
   );
+}
+
+function spendRowsComplete(outcome: Outcome): boolean {
+  const oneRowPerCall = outcome.spend.length === CALLS.length;
+  const oneBillPerCall = outcome.billedCalls === CALLS.length;
+  const everyCallLogged = CALLS.every((call) => hasRowFor(outcome.spend, call));
+  return oneRowPerCall && oneBillPerCall && everyCallLogged;
+}
 
 export default [
   {
     says: "your gateway starts from platform.toml and answers GET /health",
-    test: async (d) => (await run(d)).up === true,
+    test: async (folder) => (await run(folder)).up === true,
     tryNext:
       "run bun gateway.ts in your folder and fix any error it prints; it must listen on PORT",
   },
   {
     says: "a call with no team key is refused with 401",
-    test: async (d) => (await run(d)).noKey === 401,
+    test: async (folder) => (await run(folder)).noKey === 401,
     tryNext: "read the Authorization header and return 401 when it is missing",
   },
   {
     says: "a call with an unknown key is refused with 401",
-    test: async (d) => (await run(d)).badKey === 401,
+    test: async (folder) => (await run(folder)).badKey === 401,
     tryNext: "look the key up in TEAMS_FILE and return 401 when no team has it",
   },
   {
     says: "a call with each team's key is answered (200)",
-    test: async (d) => (await run(d)).answered?.every((s: number) => s === 200),
+    test: async (folder) => {
+      const outcome = await run(folder);
+      return outcome.answered?.every((status) => status === 200) ?? false;
+    },
     tryNext:
-      "forward the call to PROVIDER_A_URL and return its answer; check the provider got a key it knows",
+      "forward the call to PROVIDER_A_URL and return its answer; " +
+      "check the provider got a key it knows",
   },
   {
     says: "the provider only ever saw the platform's key, never a team's",
-    test: async (d) => {
-      const r = await run(d);
-      return r.billedCalls > 0 && r.keyOwners?.every((k: string) => k === "platform");
+    test: async (folder) => {
+      const outcome = await run(folder);
+      const onlyPlatformKey = outcome.keyOwners?.every((owner) => owner === "platform") ?? false;
+      return outcome.billedCalls > 0 && onlyPlatformKey;
     },
     tryNext: "send Authorization: Bearer PROVIDER_A_KEY to the provider, not the caller's header",
   },
   {
     says: "every answered call wrote one spend row with team, importer, role and tokens",
-    test: async (d) => spendRowsComplete(await run(d)),
+    test: async (folder) => spendRowsComplete(await run(folder)),
     tryNext:
-      "POST one row per call to LEDGER_URL/spend with team, importer, role, tokens_in and tokens_out",
+      "POST one row per call to LEDGER_URL/spend " +
+      "with team, importer, role, tokens_in and tokens_out",
   },
   {
     says: "the spend log adds up to the providers' bill, to the micro-dollar",
-    test: async (d) => {
-      const r = await run(d);
-      return r.billed > 0 && r.spendTotal === r.billed;
+    test: async (folder) => {
+      const outcome = await run(folder);
+      return outcome.billed > 0 && outcome.spendTotal === outcome.billed;
     },
     tryNext:
       "price each call from the usage the provider returned and the prices in PROVIDERS_FILE",
   },
   {
     says: "teams/ holds no provider key",
-    test: (d) => keysIn(join(d, "teams")) === 0,
+    test: (folder) => keysIn(join(folder, "teams")) === 0,
     tryNext:
       "remove the pk- key from teams/paperwork.ts and send process.env.TEAM_KEY to the gateway",
   },

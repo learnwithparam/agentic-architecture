@@ -6,24 +6,45 @@ import type { Rule } from "../scripts/verify";
 import { type Card, card } from "../world/report";
 import { runBefore } from "../world/scenario";
 import { platformToml } from "./lib/learner";
-import { freshWorld, one, ROOT } from "./lib/world";
+import { freshWorld, numberFrom, ROOT } from "./lib/world";
 
-let truth: Promise<{ open: number; card: Card }> | null = null;
-const worldTruth = () =>
-  (truth ??= (async () => {
-    const w = await freshWorld();
-    try {
-      const open = one(w, "SELECT COUNT(*) AS n FROM shipments WHERE status = 'open'").n;
-      await runBefore(w, join(ROOT, "world", "state", "check-before"));
-      return { open, card: card(w.db, join(ROOT, "world", "legacy")) };
-    } finally {
-      w.stop();
-    }
-  })());
+type WorldTruth = { open: number; card: Card };
 
-const field = (dir: string, k: keyof Card) => Number(platformToml(dir).before?.[k]);
-const matches = (k: keyof Card) => async (dir: string) =>
-  field(dir, k) === (await worldTruth()).card[k];
+// The real numbers, worked out once from a fresh world and shared by every rule.
+let worldTruthOnce: Promise<WorldTruth> | null = null;
+
+async function measureWorld(): Promise<WorldTruth> {
+  const world = await freshWorld();
+  try {
+    const open = numberFrom(world, "SELECT COUNT(*) AS total FROM shipments WHERE status = 'open'");
+    await runBefore(world, join(ROOT, "world", "state", "check-before"));
+    return { open, card: card(world.db, join(ROOT, "world", "legacy")) };
+  } finally {
+    world.stop();
+  }
+}
+
+function worldTruth(): Promise<WorldTruth> {
+  worldTruthOnce ??= measureWorld();
+  return worldTruthOnce;
+}
+
+function recordedNumber(folder: string, name: keyof Card): number {
+  const before = platformToml(folder).before;
+  return Number(before?.[name]);
+}
+
+// A rule test: the number the learner wrote down equals the number the world really shows.
+function matches(name: keyof Card) {
+  return async (folder: string) => {
+    const truth = await worldTruth();
+    return recordedNumber(folder, name) === truth.card[name];
+  };
+}
+
+function learnerValue(folder: string, name: string): unknown {
+  return platformToml(folder).learner?.[name];
+}
 
 export default [
   {
@@ -33,17 +54,23 @@ export default [
   },
   {
     says: "platform.toml exists in your folder",
-    test: (d) => existsSync(join(d, "platform.toml")),
+    test: (folder) => existsSync(join(folder, "platform.toml")),
     tryNext: "create platform.toml in this step's problem folder from the starter",
   },
   {
     says: "platform.toml names you under [learner]",
-    test: (d) => String(platformToml(d).learner?.name ?? "").trim().length > 1,
+    test: (folder) => {
+      const name = String(learnerValue(folder, "name") ?? "");
+      return name.trim().length > 1;
+    },
     tryNext: 'set name = "Your Name" under [learner]',
   },
   {
     says: "run_mode is one of replay, anthropic, openrouter, openai, ollama",
-    test: (d) => (PROVIDERS as readonly string[]).includes(platformToml(d).learner?.run_mode),
+    test: (folder) => {
+      const runMode = learnerValue(folder, "run_mode");
+      return (PROVIDERS as readonly unknown[]).includes(runMode);
+    },
     tryNext: 'set run_mode = "replay" unless you added a key to .env',
   },
   {

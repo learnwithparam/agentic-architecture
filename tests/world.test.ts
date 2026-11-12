@@ -1,32 +1,42 @@
 // The world and the finished platform behave as the README says, with no model key.
+import type { Database } from "bun:sqlite";
 import { describe, expect, test } from "bun:test";
 import { join } from "node:path";
 import { runAfter } from "../reference/after";
-import { card, costs, LABELS } from "../world/report";
+import { type Card, card, costs, LABELS } from "../world/report";
 import { runBefore } from "../world/scenario";
 import { startWorld } from "../world/services";
 
 const ROOT = join(import.meta.dir, "..");
 const STATE = join(ROOT, "world", "state");
+const REPORT_CARD_LINES = Object.keys(LABELS) as (keyof Card)[];
+
+// Ask the database for one number, named "total" in the SQL.
+function numberFrom(database: Database, sql: string): number {
+  const row = database.query(sql).get() as { total: number };
+  return row.total;
+}
 
 describe("the world", () => {
   test("resets to 60 shipments with 12 open", async () => {
-    const w = await startWorld({ db: join(STATE, "test-reset.db"), reset: true });
+    const world = await startWorld({ db: join(STATE, "test-reset.db"), reset: true });
     try {
-      expect((w.db.query("SELECT COUNT(*) AS n FROM shipments").get() as any).n).toBe(60);
-      expect(
-        (w.db.query("SELECT COUNT(*) AS n FROM shipments WHERE status = 'open'").get() as any).n,
-      ).toBe(12);
+      expect(numberFrom(world.db, "SELECT COUNT(*) AS total FROM shipments")).toBe(60);
+      const openShipments = numberFrom(
+        world.db,
+        "SELECT COUNT(*) AS total FROM shipments WHERE status = 'open'",
+      );
+      expect(openShipments).toBe(12);
     } finally {
-      w.stop();
+      world.stop();
     }
   });
 
   test("a provider refuses a key it does not know and bills only what it answered", async () => {
-    const w = await startWorld({ db: join(STATE, "test-provider.db"), reset: true });
+    const world = await startWorld({ db: join(STATE, "test-provider.db"), reset: true });
     try {
-      const call = (key: string) =>
-        fetch(`${w.providerA.url}/v1/chat/completions`, {
+      const callProviderA = (key: string) =>
+        fetch(`${world.providerA.url}/v1/chat/completions`, {
           method: "POST",
           headers: { authorization: `Bearer ${key}` },
           body: JSON.stringify({
@@ -34,43 +44,43 @@ describe("the world", () => {
             messages: [{ role: "user", content: "TASK ping:1" }],
           }),
         });
-      expect((await call("hgk_paperwork_b2c604")).status).toBe(401);
-      expect((await call(w.env.PROVIDER_A_KEY)).status).toBe(200);
-      expect((w.db.query("SELECT COUNT(*) AS n FROM provider_calls").get() as any).n).toBe(1);
+      const teamKey = "hgk_paperwork_b2c604";
+      expect((await callProviderA(teamKey)).status).toBe(401);
+      expect((await callProviderA(world.env.PROVIDER_A_KEY)).status).toBe(200);
+      expect(numberFrom(world.db, "SELECT COUNT(*) AS total FROM provider_calls")).toBe(1);
     } finally {
-      w.stop();
+      world.stop();
     }
   });
 });
 
 describe("before and after", () => {
   test("the scripts as they are now break every line of the report card", async () => {
-    const w = await startWorld({ db: join(STATE, "test-before.db"), reset: true });
+    const world = await startWorld({ db: join(STATE, "test-before.db"), reset: true });
     try {
-      await runBefore(w, join(STATE, "test-before"));
-      const c = card(w.db, join(ROOT, "world", "legacy"));
-      for (const k of Object.keys(LABELS)) expect(c[k as keyof typeof c]).toBeGreaterThan(0);
+      await runBefore(world, join(STATE, "test-before"));
+      const reportCard = card(world.db, join(ROOT, "world", "legacy"));
+      for (const line of REPORT_CARD_LINES) expect(reportCard[line]).toBeGreaterThan(0);
     } finally {
-      w.stop();
+      world.stop();
     }
   }, 60000);
 
   test("the finished platform brings every line to zero and prices every importer", async () => {
-    const w = await startWorld({ db: join(STATE, "test-after.db"), reset: true });
+    const world = await startWorld({ db: join(STATE, "test-after.db"), reset: true });
     try {
-      await runAfter(w, join(STATE, "test-after"));
-      const c = card(w.db, join(ROOT, "teams"));
-      for (const k of Object.keys(LABELS)) expect(c[k as keyof typeof c]).toBe(0);
-      for (const r of costs(w.db)) {
-        expect(r.released).toBeGreaterThan(0);
-        expect(r.spend_micros).toBeGreaterThan(0);
+      await runAfter(world, join(STATE, "test-after"));
+      const reportCard = card(world.db, join(ROOT, "teams"));
+      for (const line of REPORT_CARD_LINES) expect(reportCard[line]).toBe(0);
+      for (const importerCosts of costs(world.db)) {
+        expect(importerCosts.released).toBeGreaterThan(0);
+        expect(importerCosts.spend_micros).toBeGreaterThan(0);
       }
-      const spend = (w.db.query("SELECT SUM(cost_micros) AS c FROM spend_log").get() as any).c;
-      const billed = (w.db.query("SELECT SUM(cost_micros) AS c FROM provider_calls").get() as any)
-        .c;
+      const spend = numberFrom(world.db, "SELECT SUM(cost_micros) AS total FROM spend_log");
+      const billed = numberFrom(world.db, "SELECT SUM(cost_micros) AS total FROM provider_calls");
       expect(spend).toBe(billed);
     } finally {
-      w.stop();
+      world.stop();
     }
   }, 60000);
 });
