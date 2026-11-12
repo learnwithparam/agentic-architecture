@@ -1,4 +1,4 @@
-// The Paperwork team's script as it runs today. It searches every importer's past papers for
+// The Paperwork team's script as it runs now. It searches every importer's past papers for
 // similar entries, asks for missing papers, and files entries once codes are proposed.
 const KEY = "pk-a-legacy-9ap3r";
 const tool = async (name: string, body: object) =>

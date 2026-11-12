@@ -1,4 +1,4 @@
-// The Classification team's script as it runs today, before the platform.
+// The Classification team's script as it runs now, before the platform.
 // It pastes its own provider key, calls tools with no identity, and files rush shipments itself.
 const PROVIDER_KEY = "pk-a-legacy-c1a55";
 const tools = (name: string, body: object) =>

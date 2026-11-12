@@ -1,4 +1,4 @@
-// Runs the open queue the way Harbourgate works today: Classification, then the broker desk,
+// Runs the open queue the way Harbourgate works now: Classification, then the broker desk,
 // then Paperwork, then Holds. The Holds worker is killed once, right after it pays.
 import { mkdirSync, rmSync } from "node:fs";
 import { join } from "node:path";

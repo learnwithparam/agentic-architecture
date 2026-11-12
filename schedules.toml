@@ -1,5 +1,29 @@
+# Parts mapped onto formats. This is the only file that talks about time.
+# Part minutes: meet-the-brokerage 20, route-model-calls 55, police-tool-calls 50, identify-each-agent 35,
+# separate-importer-data 35, choose-run-shapes 20, survive-a-crash 40, trace-and-cost-runs 35,
+# gate-each-release 25, swap-and-review 45. Total 360. Breaks are not counted.
+
 [one-day]
-sessions = [{ parts = ["meet-the-world"], minutes = 60 }]
+# 360 minutes of parts, plus about 75 minutes of breaks and lunch.
+sessions = [
+  { label = "Keys, tools and identity", parts = ["meet-the-brokerage", "route-model-calls", "police-tool-calls", "identify-each-agent"], minutes = 160 },
+  { label = "Tenants, runs, traces, gate and review", parts = ["separate-importer-data", "choose-run-shapes", "survive-a-crash", "trace-and-cost-runs", "gate-each-release", "swap-and-review"], minutes = 200 },
+]
 
 [four-evenings]
-sessions = [{ parts = ["meet-the-world"], minutes = 60 }]
+sessions = [
+  { label = "Meet the brokerage and route model calls", parts = ["meet-the-brokerage", "route-model-calls"], minutes = 75 },
+  { label = "Police tool calls and identify each agent", parts = ["police-tool-calls", "identify-each-agent"], minutes = 85 },
+  { label = "Separate importer data, choose run shapes, survive a crash", parts = ["separate-importer-data", "choose-run-shapes", "survive-a-crash"], minutes = 95 },
+  { label = "Trace and cost runs, gate each release, swap and review", parts = ["trace-and-cost-runs", "gate-each-release", "swap-and-review"], minutes = 105 },
+]
+
+[five-sessions]
+# One session at a time, spaced as the cohort likes.
+sessions = [
+  { label = "Meet the brokerage and route model calls", parts = ["meet-the-brokerage", "route-model-calls"], minutes = 75 },
+  { label = "Police tool calls and identify each agent", parts = ["police-tool-calls", "identify-each-agent"], minutes = 85 },
+  { label = "Separate importer data and choose run shapes", parts = ["separate-importer-data", "choose-run-shapes"], minutes = 55 },
+  { label = "Survive a crash and trace and cost runs", parts = ["survive-a-crash", "trace-and-cost-runs"], minutes = 75 },
+  { label = "Gate each release, swap and review", parts = ["gate-each-release", "swap-and-review"], minutes = 70 },
+]

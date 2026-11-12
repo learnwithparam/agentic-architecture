@@ -1,4 +1,4 @@
-// The Holds team's script as it runs today. It books the exam, pays the fee and waits for release.
+// The Holds team's script as it runs now. It books the exam, pays the fee and waits for release.
 // If the worker dies after paying, the restart starts from the top and pays again.
 import { existsSync, writeFileSync } from "node:fs";
 const key = "pk-a-legacy-h0ld5";

@@ -12,7 +12,7 @@ if (!existsSync(path)) {
 const db = new Database(path, { readonly: true });
 const usd = (m: number) => `USD ${(m / 1e6).toFixed(6)}`;
 console.log("Spend log, by importer and team:");
-console.log("  importer     team             calls  errors  refused?  cost");
+console.log("  importer     team             calls  errors  cost");
 for (const r of db.query(`SELECT importer, team, SUM(status = 'ok') AS ok, SUM(status <> 'ok') AS errors, SUM(cost_micros) AS cost
   FROM spend_log GROUP BY importer, team ORDER BY importer, team`).all() as any[])
   console.log(`  ${String(r.importer).padEnd(12)} ${String(r.team).padEnd(16)} ${String(r.ok).padStart(5)}  ${String(r.errors).padStart(6)}  ${usd(r.cost)}`);
