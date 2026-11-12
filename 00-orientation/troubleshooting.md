@@ -1,6 +1,7 @@
 # When something goes wrong
 
-Every message a script or a platform service prints on failure is in this table.
+When a script or a platform service fails, it prints a message.
+Find that message in the first column. Then read what it means and how to fix it.
 
 | What you see                                                | What it means                                                                                     | Fix                                                                                                     |
 | ----------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
@@ -19,7 +20,7 @@ Every message a script or a platform service prints on failure is in this table.
 | `missing or unknown team key` (401)                         | The call had no team key, or a key no team owns.                                                  | Send `Authorization: Bearer <team key>` from `world/data/teams.json`.                                   |
 | `x-importer must name one of Harbourgate's importers` (400) | Every model call says which importer it is for.                                                   | Add the header `x-importer: fjordline`, `ridgeway` or `northpoint`.                                     |
 | `Budget reached for importer ...` or `for team ...` (402)   | That budget in `world/data/budgets.json` is spent.                                                | Expected in `cap-spend-per-importer`. Otherwise raise the budget or reset the world.                    |
-| `every provider on this route failed` (502)                 | Every hop in the route answered with an error.                                                    | Check that the providers are up; in a check, read the FAIL lines above it.                              |
+| `every provider on this route failed` (502)                 | Every provider in the route answered with an error.                                               | Check that the providers are up; in a check, read the FAIL lines above it.                              |
 | `denied: ... may not call ...`                              | The tool gateway's policy refused that agent that tool.                                           | Expected for the Classification agent filing an entry. Otherwise ask for the tool in the policy.        |
 | `ask: a licensed broker must sign ...`                      | An entry was sent to file with a line no licensed broker signed.                                  | Wait for the broker desk to sign, then file again.                                                      |
 | `denied: no valid agent token`                              | A tool call had no token, an expired one, or one for another audience.                            | Get a fresh token from `/token` with the agent's name and secret.                                       |
