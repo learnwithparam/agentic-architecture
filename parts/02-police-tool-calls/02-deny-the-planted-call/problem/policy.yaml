@@ -1,0 +1,9 @@
+# Who may call which tool. Anything not listed here is denied.
+# Today every agent may call every tool. Write the real rules from world/data/teams.json.
+agents:
+  classification-agent:
+    allow: ["*"]
+  paperwork-agent:
+    allow: ["*"]
+  holds-agent:
+    allow: ["*"]
