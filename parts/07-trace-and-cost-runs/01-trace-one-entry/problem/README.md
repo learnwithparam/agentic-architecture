@@ -33,9 +33,13 @@ So the trace has 9 spans under one root.
 The `file_entry` span says `policy.decision=denied: classification-agent may not call file_entry`.
 The `read_shipment` answer holds the invoice text and prices. They must stay out of the trace.
 
+Run the check from the repo root. Then go into this folder to print the trace:
+
 ```bash
 bun run verify trace-one-entry
+cd parts/07-trace-and-cost-runs/01-trace-one-entry/problem
 bun show-trace.ts
+cd ../../../..
 ```
 
 Expect: `Done. All 6 rules pass.`, then `9 spans, 1 root(s):` and the tree.

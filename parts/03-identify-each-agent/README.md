@@ -56,7 +56,16 @@ kill %1
 cd ../../../..
 ```
 
-Expect: `{"token":"eyJ...` with a long token. Paste the token into any JWT decoder to read `sub`, `team`, `aud` and `exp`.
+Expect: `{"token":"eyJ...` with a long token.
+
+A JWT is three parts joined by dots. The middle part holds the claims.
+To read them, decode the token on your own machine. Do not paste a real token into a website.
+
+```bash
+bun -e 'import { decodeJwt } from "jose"; console.log(decodeJwt(process.argv[1]))' PASTE_THE_TOKEN_HERE
+```
+
+Expect: an object with `sub: "holds-agent"`, `team: "holds"`, `aud: "harbourgate-tools"` and `exp`.
 
 Last, check the whole part:
 
