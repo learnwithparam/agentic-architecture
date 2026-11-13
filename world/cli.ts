@@ -1,6 +1,7 @@
 // bun run world          show Harbourgate: importers, teams, the open queue and the one rule
 // bun run world reset    rebuild the system of record from world/data
 import { DEFAULT_DB, data, openDb, resetDb } from "./db";
+import { queueLine } from "./queue-line";
 
 type Importer = { id: string; name: string; goods: string };
 type Team = { team: string; does: string };
@@ -45,8 +46,7 @@ for (const team of data<Team[]>("teams")) {
 }
 console.log("\nOpen queue:");
 for (const shipment of db.query(OPEN_QUEUE).all() as OpenShipment[]) {
-  const rushLabel = shipment.rush ? "  rush" : "";
-  const lines = `${shipment.lineCount} line(s)${rushLabel}`;
+  const lines = queueLine(shipment.lineCount, Boolean(shipment.rush));
   console.log(`  ${shipment.id}  ${shipment.importer.padEnd(11)} ${shipment.container}  ${lines}`);
 }
 const rule = "The rule: a licensed broker signs every classification before an entry is filed.";
