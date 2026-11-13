@@ -1,4 +1,4 @@
-# Do it with the tools teams run
+# Make the resume survive a crash with Temporal
 
 ## The problem
 
