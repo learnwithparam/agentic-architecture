@@ -1,0 +1,27 @@
+# The approved tools. The gateway lists and runs a tool only while its description
+# still matches the pin. export_all_documents is left out on purpose: no agent needs it.
+tools:
+  - name: list_open_shipments
+    pin: sha256:9e942340f6862558
+  - name: read_shipment
+    pin: sha256:7b12e6a24f7b5e48
+  - name: search_documents
+    pin: sha256:480e4f67fdd58fe9
+  - name: email_importer
+    pin: sha256:d848bcd6f4506353
+  - name: lookup_tariff
+    pin: sha256:acd21583c55d26e5
+  - name: propose_code
+    pin: sha256:455bb9064395864d
+  - name: read_proposals
+    pin: sha256:3d238d1d9e125d4b
+  - name: file_entry
+    pin: sha256:fd9304b3f5bfe172
+  - name: list_holds
+    pin: sha256:66739ede55eeb065
+  - name: book_exam
+    pin: sha256:cfbcc6da9469a503
+  - name: check_release
+    pin: sha256:8c8f102d74d6d28d
+  - name: pay_fee
+    pin: sha256:5280189e82592356
