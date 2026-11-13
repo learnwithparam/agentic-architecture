@@ -1,0 +1,7 @@
+# How the checks start your services. The token service starts first; the tool gateway gets its
+# address as TOKENS_URL. Any language works: change a command, keep the contract.
+[tokens]
+start = "bun token-service.ts"
+
+[tools]
+start = "bun tool-gateway.ts"
