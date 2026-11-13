@@ -1,0 +1,11 @@
+# Who may call which tool. Anything not listed here is denied.
+# "ask" means the call waits for a licensed broker. The next step makes that work.
+agents:
+  classification-agent:
+    # Proposes codes. It may never file: a licensed broker signs every code first.
+    allow: [list_open_shipments, read_shipment, lookup_tariff, propose_code]
+  paperwork-agent:
+    allow: [list_open_shipments, read_shipment, search_documents, email_importer, read_proposals]
+    ask: [file_entry]
+  holds-agent:
+    allow: [list_holds, book_exam, pay_fee, check_release]

@@ -1,0 +1,10 @@
+# The rules a release candidate must meet before it reaches customs.
+
+# The share of the 40 broker-labelled lines the candidate must get right.
+# It is below 1.0 on purpose: the broker still reviews every code, and a gate that
+# demands perfection blocks every release.
+pass_rate_floor: 0.95
+
+# The most one entry may cost in model calls, in micro-dollars (1000000 = 1 USD).
+# Today's prompt costs about 1000 per entry.
+max_cost_per_entry_micros: 1500

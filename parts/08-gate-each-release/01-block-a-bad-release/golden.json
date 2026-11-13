@@ -1,0 +1,325 @@
+{
+  "note": "40 invoice lines a licensed broker classified and signed. The gate grades against these.",
+  "lines": [
+    {
+      "line_id": "HG-1049-L1",
+      "shipment_id": "HG-1049",
+      "importer": "fjordline",
+      "description": "Three-person dome tent, nylon",
+      "broker_code": "ST-6306-22",
+      "signed_by": "amara-okafor"
+    },
+    {
+      "line_id": "HG-1049-L2",
+      "shipment_id": "HG-1049",
+      "importer": "fjordline",
+      "description": "Hooded rain jacket, polyester shell",
+      "broker_code": "ST-6201-40",
+      "signed_by": "tomas-reyes"
+    },
+    {
+      "line_id": "HG-1051-L1",
+      "shipment_id": "HG-1051",
+      "importer": "northpoint",
+      "description": "Nitrile gloves, industrial grade (see packing list: examination grade, medical)",
+      "broker_code": "ST-4015-12",
+      "signed_by": "amara-okafor"
+    },
+    {
+      "line_id": "HG-1014-L1",
+      "shipment_id": "HG-1014",
+      "importer": "northpoint",
+      "description": "Nitrile examination gloves, powder free, box of 100",
+      "broker_code": "ST-4015-12",
+      "signed_by": "amara-okafor"
+    },
+    {
+      "line_id": "HG-1019-L1",
+      "shipment_id": "HG-1019",
+      "importer": "northpoint",
+      "description": "Nitrile examination gloves, powder free, box of 100",
+      "broker_code": "ST-4015-12",
+      "signed_by": "amara-okafor"
+    },
+    {
+      "line_id": "HG-1019-L2",
+      "shipment_id": "HG-1019",
+      "importer": "northpoint",
+      "description": "Nitrile examination gloves, powder free, box of 100",
+      "broker_code": "ST-4015-12",
+      "signed_by": "tomas-reyes"
+    },
+    {
+      "line_id": "HG-1020-L1",
+      "shipment_id": "HG-1020",
+      "importer": "northpoint",
+      "description": "Nitrile examination gloves, powder free, box of 100",
+      "broker_code": "ST-4015-12",
+      "signed_by": "amara-okafor"
+    },
+    {
+      "line_id": "HG-1021-L1",
+      "shipment_id": "HG-1021",
+      "importer": "northpoint",
+      "description": "Nitrile examination gloves, powder free, box of 100",
+      "broker_code": "ST-4015-12",
+      "signed_by": "amara-okafor"
+    },
+    {
+      "line_id": "HG-1007-L1",
+      "shipment_id": "HG-1007",
+      "importer": "northpoint",
+      "description": "Digital clinical thermometer",
+      "broker_code": "ST-9025-19",
+      "signed_by": "amara-okafor"
+    },
+    {
+      "line_id": "HG-1014-L2",
+      "shipment_id": "HG-1014",
+      "importer": "northpoint",
+      "description": "Digital clinical thermometer",
+      "broker_code": "ST-9025-19",
+      "signed_by": "tomas-reyes"
+    },
+    {
+      "line_id": "HG-1014-L3",
+      "shipment_id": "HG-1014",
+      "importer": "northpoint",
+      "description": "Digital clinical thermometer",
+      "broker_code": "ST-9025-19",
+      "signed_by": "amara-okafor"
+    },
+    {
+      "line_id": "HG-1020-L2",
+      "shipment_id": "HG-1020",
+      "importer": "northpoint",
+      "description": "Digital clinical thermometer",
+      "broker_code": "ST-9025-19",
+      "signed_by": "tomas-reyes"
+    },
+    {
+      "line_id": "HG-1022-L3",
+      "shipment_id": "HG-1022",
+      "importer": "northpoint",
+      "description": "Digital clinical thermometer",
+      "broker_code": "ST-9025-19",
+      "signed_by": "amara-okafor"
+    },
+    {
+      "line_id": "HG-1035-L1",
+      "shipment_id": "HG-1035",
+      "importer": "northpoint",
+      "description": "Digital clinical thermometer",
+      "broker_code": "ST-9025-19",
+      "signed_by": "amara-okafor"
+    },
+    {
+      "line_id": "HG-1002-L1",
+      "shipment_id": "HG-1002",
+      "importer": "fjordline",
+      "description": "Three-person dome tent, nylon",
+      "broker_code": "ST-6306-22",
+      "signed_by": "amara-okafor"
+    },
+    {
+      "line_id": "HG-1002-L2",
+      "shipment_id": "HG-1002",
+      "importer": "fjordline",
+      "description": "Down sleeping bag, mummy cut",
+      "broker_code": "ST-9404-40",
+      "signed_by": "tomas-reyes"
+    },
+    {
+      "line_id": "HG-1005-L1",
+      "shipment_id": "HG-1005",
+      "importer": "fjordline",
+      "description": "Hooded rain jacket, polyester shell",
+      "broker_code": "ST-6201-40",
+      "signed_by": "amara-okafor"
+    },
+    {
+      "line_id": "HG-1005-L2",
+      "shipment_id": "HG-1005",
+      "importer": "fjordline",
+      "description": "Three-person dome tent, nylon",
+      "broker_code": "ST-6306-22",
+      "signed_by": "tomas-reyes"
+    },
+    {
+      "line_id": "HG-1006-L1",
+      "shipment_id": "HG-1006",
+      "importer": "fjordline",
+      "description": "Hooded rain jacket, polyester shell",
+      "broker_code": "ST-6201-40",
+      "signed_by": "amara-okafor"
+    },
+    {
+      "line_id": "HG-1009-L1",
+      "shipment_id": "HG-1009",
+      "importer": "fjordline",
+      "description": "Three-person dome tent, nylon",
+      "broker_code": "ST-6306-22",
+      "signed_by": "amara-okafor"
+    },
+    {
+      "line_id": "HG-1010-L1",
+      "shipment_id": "HG-1010",
+      "importer": "fjordline",
+      "description": "Three-person dome tent, nylon",
+      "broker_code": "ST-6306-22",
+      "signed_by": "amara-okafor"
+    },
+    {
+      "line_id": "HG-1012-L1",
+      "shipment_id": "HG-1012",
+      "importer": "fjordline",
+      "description": "Hooded rain jacket, polyester shell",
+      "broker_code": "ST-6201-40",
+      "signed_by": "amara-okafor"
+    },
+    {
+      "line_id": "HG-1013-L1",
+      "shipment_id": "HG-1013",
+      "importer": "fjordline",
+      "description": "Hooded rain jacket, polyester shell",
+      "broker_code": "ST-6201-40",
+      "signed_by": "amara-okafor"
+    },
+    {
+      "line_id": "HG-1013-L2",
+      "shipment_id": "HG-1013",
+      "importer": "fjordline",
+      "description": "Three-person dome tent, nylon",
+      "broker_code": "ST-6306-22",
+      "signed_by": "tomas-reyes"
+    },
+    {
+      "line_id": "HG-1013-L3",
+      "shipment_id": "HG-1013",
+      "importer": "fjordline",
+      "description": "Hooded rain jacket, polyester shell",
+      "broker_code": "ST-6201-40",
+      "signed_by": "amara-okafor"
+    },
+    {
+      "line_id": "HG-1016-L1",
+      "shipment_id": "HG-1016",
+      "importer": "fjordline",
+      "description": "Hooded rain jacket, polyester shell",
+      "broker_code": "ST-6201-40",
+      "signed_by": "amara-okafor"
+    },
+    {
+      "line_id": "HG-1001-L1",
+      "shipment_id": "HG-1001",
+      "importer": "ridgeway",
+      "description": "Green coffee beans, decaffeinated, 60 kg sacks",
+      "broker_code": "ST-0901-12",
+      "signed_by": "amara-okafor"
+    },
+    {
+      "line_id": "HG-1001-L2",
+      "shipment_id": "HG-1001",
+      "importer": "ridgeway",
+      "description": "Green coffee beans, washed arabica, 60 kg sacks",
+      "broker_code": "ST-0901-11",
+      "signed_by": "tomas-reyes"
+    },
+    {
+      "line_id": "HG-1003-L1",
+      "shipment_id": "HG-1003",
+      "importer": "ridgeway",
+      "description": "Green coffee beans, decaffeinated, 60 kg sacks",
+      "broker_code": "ST-0901-12",
+      "signed_by": "amara-okafor"
+    },
+    {
+      "line_id": "HG-1004-L1",
+      "shipment_id": "HG-1004",
+      "importer": "ridgeway",
+      "description": "Green coffee beans, washed arabica, 60 kg sacks",
+      "broker_code": "ST-0901-11",
+      "signed_by": "amara-okafor"
+    },
+    {
+      "line_id": "HG-1004-L2",
+      "shipment_id": "HG-1004",
+      "importer": "ridgeway",
+      "description": "Green coffee beans, decaffeinated, 60 kg sacks",
+      "broker_code": "ST-0901-12",
+      "signed_by": "tomas-reyes"
+    },
+    {
+      "line_id": "HG-1004-L3",
+      "shipment_id": "HG-1004",
+      "importer": "ridgeway",
+      "description": "Green coffee beans, washed arabica, 60 kg sacks",
+      "broker_code": "ST-0901-11",
+      "signed_by": "amara-okafor"
+    },
+    {
+      "line_id": "HG-1008-L1",
+      "shipment_id": "HG-1008",
+      "importer": "ridgeway",
+      "description": "Green coffee beans, washed arabica, 60 kg sacks",
+      "broker_code": "ST-0901-11",
+      "signed_by": "amara-okafor"
+    },
+    {
+      "line_id": "HG-1008-L2",
+      "shipment_id": "HG-1008",
+      "importer": "ridgeway",
+      "description": "Green coffee beans, decaffeinated, 60 kg sacks",
+      "broker_code": "ST-0901-12",
+      "signed_by": "tomas-reyes"
+    },
+    {
+      "line_id": "HG-1011-L1",
+      "shipment_id": "HG-1011",
+      "importer": "ridgeway",
+      "description": "Green coffee beans, decaffeinated, 60 kg sacks",
+      "broker_code": "ST-0901-12",
+      "signed_by": "amara-okafor"
+    },
+    {
+      "line_id": "HG-1011-L2",
+      "shipment_id": "HG-1011",
+      "importer": "ridgeway",
+      "description": "Green coffee beans, washed arabica, 60 kg sacks",
+      "broker_code": "ST-0901-11",
+      "signed_by": "tomas-reyes"
+    },
+    {
+      "line_id": "HG-1011-L3",
+      "shipment_id": "HG-1011",
+      "importer": "ridgeway",
+      "description": "Green coffee beans, washed arabica, 60 kg sacks",
+      "broker_code": "ST-0901-11",
+      "signed_by": "amara-okafor"
+    },
+    {
+      "line_id": "HG-1015-L1",
+      "shipment_id": "HG-1015",
+      "importer": "ridgeway",
+      "description": "Green coffee beans, washed arabica, 60 kg sacks",
+      "broker_code": "ST-0901-11",
+      "signed_by": "amara-okafor"
+    },
+    {
+      "line_id": "HG-1015-L2",
+      "shipment_id": "HG-1015",
+      "importer": "ridgeway",
+      "description": "Green coffee beans, decaffeinated, 60 kg sacks",
+      "broker_code": "ST-0901-12",
+      "signed_by": "tomas-reyes"
+    },
+    {
+      "line_id": "HG-1017-L1",
+      "shipment_id": "HG-1017",
+      "importer": "ridgeway",
+      "description": "Green coffee beans, decaffeinated, 60 kg sacks",
+      "broker_code": "ST-0901-12",
+      "signed_by": "amara-okafor"
+    }
+  ]
+}

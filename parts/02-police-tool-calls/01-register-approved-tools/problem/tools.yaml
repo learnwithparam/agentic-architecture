@@ -1,0 +1,2 @@
+# The approved tools. Run bun list-tools.ts, review each description, and copy the pins.
+tools: []

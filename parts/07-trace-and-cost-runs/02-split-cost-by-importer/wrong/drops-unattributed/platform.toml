@@ -1,0 +1,6 @@
+# How the checks run your cost report and the nightly job. Any language works.
+[costs]
+run = "bun costs.ts"
+
+[nightly]
+run = "bun nightly.ts"

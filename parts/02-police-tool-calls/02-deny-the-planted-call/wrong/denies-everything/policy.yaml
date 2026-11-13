@@ -1,0 +1,9 @@
+# Who may call which tool. Anything not listed here is denied.
+# Safe at last: no agent may call anything.
+agents:
+  classification-agent:
+    allow: []
+  paperwork-agent:
+    allow: []
+  holds-agent:
+    allow: []
