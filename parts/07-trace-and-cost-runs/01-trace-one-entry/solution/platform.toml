@@ -1,0 +1,3 @@
+# How the checks run one entry. Any language works: change the command, keep the contract.
+[entry]
+run = "bun entry.ts"
