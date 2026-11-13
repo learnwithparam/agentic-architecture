@@ -163,11 +163,12 @@ export default [
   {
     says: "each exam was booked once: the restart went on from the next step",
     test: async (folder) => (await run(folder)).bookings === containerCount,
-    tryNext: "wrap book_exam in step() too, so a restart does not book again",
+    tryNext: "keep book_exam in step(), and make step() in journal.ts return the saved result",
   },
   {
     says: "model calls equal decision steps: one plan per container, none repeated",
     test: async (folder) => (await run(folder)).modelCalls === containerCount,
-    tryNext: "wrap the model call in step() as well; a saved plan must not be asked for again",
+    tryNext:
+      "keep the model call in step(); a plan saved in journal.ts must not be asked for again",
   },
 ] satisfies Rule[];
