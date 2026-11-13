@@ -1,0 +1,15 @@
+# Temporal dev server for the closing part. Server 1.32.2 ships in the 1.10.0 CLI image.
+# Memory is in-process, so `docker compose down -v` leaves nothing behind.
+name: agentic-architecture-assignment
+services:
+  temporal:
+    image: temporalio/temporal:1.10.0
+    command: server start-dev --ip 0.0.0.0 --port 7233 --ui-port 8233
+    ports:
+      - "127.0.0.1:7233:7233"
+      - "127.0.0.1:8233:8233"
+    healthcheck:
+      test: ["CMD", "temporal", "operator", "cluster", "health", "--address", "127.0.0.1:7233"]
+      interval: 3s
+      timeout: 5s
+      retries: 20
