@@ -1,7 +1,0 @@
-{
-  "candidate": "current",
-  "decision": "block",
-  "reasons": [
-    "could not judge: ECONNREFUSED: Unable to connect. Is the computer able to access the url?"
-  ]
-}

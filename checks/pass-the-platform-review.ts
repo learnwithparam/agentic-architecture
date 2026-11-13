@@ -228,7 +228,7 @@ export default [
       );
       return oneEach && layers.length === 9;
     },
-    tryNext: `write one table row per layer, starting with its name in backticks: ${Object.keys(LAYERS).join(", ")}`,
+    tryNext: `write one row per layer, its name in backticks: ${Object.keys(LAYERS).join(", ")}`,
   },
   {
     says: "every row fills the contract, the three products and the gap",
@@ -238,8 +238,7 @@ export default [
         [1, 3, 4, 5, 6].every((index) => filled(row.cells[index]));
       return rows.length === 9 && rows.every(fillsEveryCell);
     },
-    tryNext:
-      "fill Contract, the three product columns and Gap on every row; write none if a product has none",
+    tryNext: "fill Contract, the three products and Gap on every row; write none if there is none",
   },
   {
     says: "every row names a check that proves its layer",
@@ -247,8 +246,7 @@ export default [
       const rows = Object.keys(LAYERS).map((layer) => rowFor(folder, layer));
       return rows.every((row) => row !== undefined && LAYERS[row.layer].includes(row.check));
     },
-    tryNext:
-      "in Check, name one step of that layer, such as route-calls-through-gateway for model-gateway",
+    tryNext: "in Check, name a step of that layer, such as route-calls-through-gateway",
   },
   {
     says: "the named checks that run on this folder pass, the model gateway among them",
@@ -266,8 +264,8 @@ export default [
     test: async (folder) => {
       const { exitCodes, onboarded } = await run(folder);
       const tools = onboarded?.policy?.["billing-agent"] ?? [];
-      const sameTools =
-        JSON.stringify([...tools].sort()) === JSON.stringify([...BILLING_TOOLS].sort());
+      const toolsGiven = [...tools].sort().join();
+      const sameTools = toolsGiven === [...BILLING_TOOLS].sort().join();
       const budget = onboarded?.budgets?.teams?.billing === BILLING_BUDGET;
       return (
         exitCodes?.every((code) => code === 0) && hasOwnNewKey(onboarded) && sameTools && budget
