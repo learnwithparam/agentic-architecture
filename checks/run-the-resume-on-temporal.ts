@@ -20,6 +20,14 @@ const RESULT_WAIT_MS = 25000;
 const HOLD = { shipment: "HG-1050", importer: "ridgeway", fee_cents: 25000 };
 const EVENT = temporal.api.enums.v1.EventType;
 
+// CI runs the check without an install step, and the worker bundles its workflow from disk.
+function ensureInstalled(): void {
+  const worker = join(ROOT, "node_modules", "@temporalio", "worker", "package.json");
+  if (existsSync(worker)) return;
+  const install = Bun.spawnSync(["bun", "install", "--frozen-lockfile"], { cwd: ROOT });
+  if (install.exitCode !== 0) throw new Error("bun install failed");
+}
+
 async function temporalIsUp(): Promise<boolean> {
   try {
     const connection = await Connection.connect({ address: ADDRESS, connectTimeout: 2000 });
@@ -32,6 +40,7 @@ async function temporalIsUp(): Promise<boolean> {
 
 // Start the dev server only when nobody has. Whoever starts it stops it again when the run ends.
 async function ensureTemporal(): Promise<void> {
+  ensureInstalled();
   if (await temporalIsUp()) return;
   const started = Bun.spawnSync(["docker", "compose", "-f", COMPOSE_FILE, "up", "-d", "--wait"]);
   if (started.exitCode !== 0) throw new Error("docker compose could not start Temporal");
@@ -161,6 +170,7 @@ function run(folder: string): Promise<Outcome> {
 }
 
 function clientVersion(): string {
+  ensureInstalled();
   const manifest = join(ROOT, "node_modules", "@temporalio", "client", "package.json");
   if (!existsSync(manifest)) return "not installed";
   return JSON.parse(readFileSync(manifest, "utf8")).version;
