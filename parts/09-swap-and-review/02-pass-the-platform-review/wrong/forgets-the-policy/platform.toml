@@ -1,0 +1,12 @@
+# The platform under review. The checks start each service here and run the open queue on it.
+# The gateway is the finished reference gateway. The services read the team list and the policy
+# from this folder, so a new team joins by changing data only.
+[gateway]
+start = "bun ../../../../../reference/gateway.ts"
+
+[services]
+start = "bun ../../platform-services.ts"
+
+# One command onboards a team: bun onboard.ts <team> <tool,tool,...> <budget in micro-dollars>
+[onboard]
+command = "bun onboard.ts"

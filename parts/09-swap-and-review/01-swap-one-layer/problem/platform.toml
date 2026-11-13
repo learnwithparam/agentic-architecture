@@ -1,0 +1,9 @@
+# How the checks start your gateway. Today it is your own build from the model gateway part.
+[gateway]
+start = "bun gateway.ts"
+
+# TODO: name the one layer you swap for a product, and how to start the product.
+# [swap]
+# layer = "model-gateway"
+# product = "LiteLLM proxy"
+# product_start = "bun ../litellm-stand-in.ts --config $LITELLM_CONFIG --port $PRODUCT_PORT"
