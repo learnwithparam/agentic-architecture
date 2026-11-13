@@ -44,3 +44,10 @@ bun run verify meet-the-brokerage
 ```
 
 Expect: the open queue of 12 shipments, the "before" card, the "after" card with six zeros, then `Done. All 10 rules pass.` once `platform.toml` is filled in.
+
+## Finished
+
+You now have today's report card in `platform.toml`, with six numbers that are not zero.
+Every later part brings one of those numbers down to 0.
+
+The next part, `route-model-calls`, starts with the first number: 41 model calls that bypassed the gateway.

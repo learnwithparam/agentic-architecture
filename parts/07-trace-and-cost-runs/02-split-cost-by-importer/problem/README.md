@@ -31,9 +31,13 @@ If Northpoint's calls cost 6,126 micro-dollars, its cost per released entry is 6
 The check also adds last month's three untagged rows: 1,200, 800 and 450 micro-dollars.
 So `unattributed_micros` must be 2,450.
 
+Run the check from the repo root. Then go into this folder to print the cost table:
+
 ```bash
 bun run verify split-cost-by-importer
+cd parts/07-trace-and-cost-runs/02-split-cost-by-importer/problem
 bun costs.ts
+cd ../../../..
 ```
 
 Expect: `Done. All 6 rules pass.`, then a table that ends `They match.`

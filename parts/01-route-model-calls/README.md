@@ -50,3 +50,13 @@ Expect: each step ends `Done.` once your gateway is in place, then `Part route-m
 
 - Make `fast` fall back to `smart`, and check that the gateway still starts. Then make `smart` fall back to `fast`, and watch it refuse to start.
 - In a large company, budgets live in a finance system and start again each month. Where would your gateway read them from? What happens to a call that is already running when the limit changes?
+
+## Finished
+
+You now have one model gateway in front of every provider.
+Teams send their own team key, and only the gateway holds the provider keys.
+Every call writes a spend row, and the spend log adds up to the providers' bill.
+When provider a is down, calls go to provider b, never to a weaker model.
+When an importer's budget is used up, the gateway answers 402 in plain words.
+
+The next part, `police-tool-calls`, does the same for tool calls: one gateway decides which agent may call which tool.

@@ -51,7 +51,7 @@ bun run verify part swap-and-review
 
 Expect: once your work is in place, each step ends `Done.`, then `Part swap-and-review is done: 2/2 steps pass.`
 
-## FINISHED
+## Finished
 
 You now have a platform the review board can trust.
 One layer runs on a product, and the same checks prove it still keeps its contract.

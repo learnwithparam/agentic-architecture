@@ -28,13 +28,18 @@ Change `memory.sql`. `schema.sql` is the answer from the last step. Leave it as 
 
 For example, the check plants these notes and asks Ridgeway's question:
 
-| Note     | Importer  | Words                      | Distance from the question |
-| -------- | --------- | -------------------------- | -------------------------- |
-| `mem-f1` | fjordline | Tents of nylon: ST-6306-22 | 0.05                       |
-| `mem-r0` | ridgeway  | Decaf beans: ST-0901-11    | 0.25, superseded by r1     |
-| `mem-r1` | ridgeway  | Decaf beans: ST-0901-12    | 0.6                        |
+| Note     | Importer  | Words                        | Distance from the question |
+| -------- | --------- | ---------------------------- | -------------------------- |
+| `mem-f1` | fjordline | Tents of nylon: ST-6306-22   | 0.05                       |
+| `mem-f2` | fjordline | Anoraks: ST-6201-40          | 0.1                        |
+| `mem-f3` | fjordline | Fjordline pays on 30 days    | 0.15                       |
+| `mem-r0` | ridgeway  | Decaf beans: ST-0901-11      | 0.25, superseded by r1     |
+| `mem-r1` | ridgeway  | Decaf beans: ST-0901-12      | 0.6                        |
+| `mem-r2` | ridgeway  | Ridgeway lots come in bursts | 0.8                        |
+| `mem-r3` | ridgeway  | Green beans: ST-0901-11      | 1.0                        |
 
 The right answer for the 3 closest notes is `mem-r1`, `mem-r2` and `mem-r3`.
+`mem-r0` is closer, but a newer ruling replaced it, so it must not come back.
 If you rank first and filter after, the top 3 are all Fjordline's. After the filter, Ridgeway gets nothing.
 
 The check also saves a note with `remember()` in one run, and asks for it in the next run.

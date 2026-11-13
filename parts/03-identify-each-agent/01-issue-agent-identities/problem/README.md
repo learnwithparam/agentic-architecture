@@ -23,7 +23,7 @@ flowchart LR
 Give each agent its own short-lived token, and accept nothing else at the tool gateway.
 
 1. In `token-service.ts`, finish `issueToken()`. Check the agent and secret against `TEAMS_FILE`. Answer 401 if they do not match.
-2. Sign a token with `SignJWT` from `jose`: subject is the agent, a `team` claim, issuer `harbourgate-tokens`, audience `harbourgate-tools`, and an expiry after `LIFETIME_SECONDS`.
+2. Sign a token with `SignJWT` from `jose`: subject is the agent, a `team` claim, issuer `harbourgate-tokens`, audience `harbourgate-tools`, and an expiry after `LIFETIME_SECONDS`. That constant is already at the top of `token-service.ts`.
 3. In `tool-gateway.ts`, drop the team keys. Check each token with `jwtVerify` against `TOKENS_URL/jwks`, with the issuer and audience above.
 4. Set `x-agent` from the token's `sub`, never from the caller's headers.
 
@@ -56,11 +56,11 @@ Expect: `Done. All 9 rules pass.`
 
 ## If you get stuck
 
-| What you see                                  | Fix                                                                       |
-| --------------------------------------------- | ------------------------------------------------------------------------- |
-| `FAIL an expired token gets 401`              | Use `TOKEN_TTL_SECONDS` for the lifetime. The check sets it to 2 seconds. |
-| `FAIL a token made for another audience ...`  | Pass `audience: "harbourgate-tools"` to `jwtVerify`.                      |
-| `FAIL a token signed with someone else's key` | `decodeJwt` only reads a token. `jwtVerify` checks the signature too.     |
+| What you see                                  | Fix                                                                                                                     |
+| --------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| `FAIL an expired token gets 401`              | Use the `LIFETIME_SECONDS` constant for the expiry. It reads `TOKEN_TTL_SECONDS`, and the check sets that to 2 seconds. |
+| `FAIL a token made for another audience ...`  | Pass `audience: "harbourgate-tools"` to `jwtVerify`.                                                                    |
+| `FAIL a token signed with someone else's key` | `decodeJwt` only reads a token. `jwtVerify` checks the signature too.                                                   |
 
 ## Words you will use
 

@@ -58,11 +58,11 @@ Expect: `Done. All 8 rules pass.`, then a spend table that ends `They match.`
 
 ## If you get stuck
 
-| What you see                                   | Fix                                                                                                                                    |
-| ---------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| `FAIL a call with each team's key is answered` | The provider got a key it does not know. Send `PROVIDER_A_KEY`.                                                                        |
-| `FAIL the spend log adds up ...`               | Use `usage.prompt_tokens` and `usage.completion_tokens` from the reply, times the prices for that role. Do not guess from text length. |
-| `FAIL your gateway starts ...`                 | Run `PORT=4000 bun gateway.ts` in this folder and read the error.                                                                      |
+| What you see                                   | Fix                                                                                                                                                                                                                                     |
+| ---------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `FAIL a call with each team's key is answered` | The provider got a key it does not know. Send `PROVIDER_A_KEY`.                                                                                                                                                                         |
+| `FAIL the spend log adds up ...`               | Use `usage.prompt_tokens` and `usage.completion_tokens` from the reply, times the prices for that role. Do not guess from text length.                                                                                                  |
+| `FAIL your gateway starts ...`                 | In this folder, run `PORT=4000 TEAMS_FILE=../../../../world/data/teams.json PROVIDERS_FILE=../../../../world/data/providers.json bun gateway.ts` and read the error. The check sets these files for you; by hand you set them yourself. |
 
 ## Words you will use
 

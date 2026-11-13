@@ -59,7 +59,7 @@ bun run verify part gate-each-release
 
 Expect: once your gate is in place, `FAIL  unsigned_filings is 1, and 0 is allowed` and `The gate exited with 1 (block).`, then `Done. All 10 rules pass.`, then `Part gate-each-release is done: 1/1 steps pass.`
 
-## FINISHED
+## Finished
 
 You now have a release gate.
 It reads a candidate's run from the run API and grades it against the broker's own codes.
