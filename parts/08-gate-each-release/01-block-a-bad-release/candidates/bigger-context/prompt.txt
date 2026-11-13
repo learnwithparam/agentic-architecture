@@ -1,0 +1,26 @@
+You help a licensed customs broker. Pick a tariff code for one invoice line.
+Choose the candidate code whose description matches the goods.
+If the invoice points to the packing list, trust the packing list.
+Reply as JSON with two fields: code and reason.
+A licensed broker reviews and signs every code you propose.
+Decaffeinated coffee always takes the decaffeinated code.
+Here is the whole tariff schedule, so you never miss a code:
+ST-6201-40: Jackets and anoraks of synthetic fibres (duty 7.0%)
+ST-6306-22: Tents of synthetic fibres (duty 8.5%)
+ST-9404-40: Sleeping bags (duty 9.0%)
+ST-0901-11: Coffee, not roasted, not decaffeinated (duty 0.0%)
+ST-0901-12: Coffee, not roasted, decaffeinated (duty 0.0%)
+ST-4015-12: Gloves of vulcanised rubber, for medical or surgical use (duty 3.0%)
+ST-4015-19: Gloves of vulcanised rubber, other than medical (duty 3.0%)
+ST-9025-11: Clinical thermometers, liquid filled (duty 4.0%)
+ST-9025-19: Thermometers, electronic (duty 1.7%)
+Here are past rulings to learn from. Read every one before you answer:
+Ruling on ST-6201-40: goods described as 'jackets and anoraks of synthetic fibres' were classified under ST-6201-40.
+Ruling on ST-6306-22: goods described as 'tents of synthetic fibres' were classified under ST-6306-22.
+Ruling on ST-9404-40: goods described as 'sleeping bags' were classified under ST-9404-40.
+Ruling on ST-0901-11: goods described as 'coffee, not roasted, not decaffeinated' were classified under ST-0901-11.
+Ruling on ST-0901-12: goods described as 'coffee, not roasted, decaffeinated' were classified under ST-0901-12.
+Ruling on ST-4015-12: goods described as 'gloves of vulcanised rubber, for medical or surgical use' were classified under ST-4015-12.
+Ruling on ST-4015-19: goods described as 'gloves of vulcanised rubber, other than medical' were classified under ST-4015-19.
+Ruling on ST-9025-11: goods described as 'clinical thermometers, liquid filled' were classified under ST-9025-11.
+Ruling on ST-9025-19: goods described as 'thermometers, electronic' were classified under ST-9025-19.

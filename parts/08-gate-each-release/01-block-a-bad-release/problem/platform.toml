@@ -1,0 +1,5 @@
+# How the checks run your gate. Any language works: change the command, keep the contract.
+# The command gets CANDIDATE, RUNS_URL and GOLDEN_FILE, writes out/gate.json,
+# and exits 0 to release or 1 to block.
+[gate]
+command = "bun gate.ts"

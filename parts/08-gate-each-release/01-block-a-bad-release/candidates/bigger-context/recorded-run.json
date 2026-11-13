@@ -1,0 +1,289 @@
+{
+  "candidate": "bigger-context",
+  "prompt_sha256": "dccbdc39a6cbd65ba72bd937d1f8fa151311445bc99af14da49804866a95e409",
+  "calls": [
+    {
+      "line_id": "HG-1049-L1",
+      "code": "ST-6306-22",
+      "reason": "Matches the schedule text for: Three-person dome tent.",
+      "tokens_in": 528,
+      "tokens_out": 22
+    },
+    {
+      "line_id": "HG-1049-L2",
+      "code": "ST-6201-40",
+      "reason": "Matches the schedule text for: Hooded rain jacket.",
+      "tokens_in": 530,
+      "tokens_out": 21
+    },
+    {
+      "line_id": "HG-1051-L1",
+      "code": "ST-4015-12",
+      "reason": "Matches the schedule text for: Nitrile gloves.",
+      "tokens_in": 541,
+      "tokens_out": 20
+    },
+    {
+      "line_id": "HG-1014-L1",
+      "code": "ST-4015-12",
+      "reason": "Matches the schedule text for: Nitrile examination gloves.",
+      "tokens_in": 534,
+      "tokens_out": 23
+    },
+    {
+      "line_id": "HG-1019-L1",
+      "code": "ST-4015-12",
+      "reason": "Matches the schedule text for: Nitrile examination gloves.",
+      "tokens_in": 534,
+      "tokens_out": 23
+    },
+    {
+      "line_id": "HG-1019-L2",
+      "code": "ST-4015-12",
+      "reason": "Matches the schedule text for: Nitrile examination gloves.",
+      "tokens_in": 534,
+      "tokens_out": 23
+    },
+    {
+      "line_id": "HG-1020-L1",
+      "code": "ST-4015-12",
+      "reason": "Matches the schedule text for: Nitrile examination gloves.",
+      "tokens_in": 534,
+      "tokens_out": 23
+    },
+    {
+      "line_id": "HG-1021-L1",
+      "code": "ST-4015-12",
+      "reason": "Matches the schedule text for: Nitrile examination gloves.",
+      "tokens_in": 534,
+      "tokens_out": 23
+    },
+    {
+      "line_id": "HG-1007-L1",
+      "code": "ST-9025-19",
+      "reason": "Matches the schedule text for: Digital clinical thermometer.",
+      "tokens_in": 528,
+      "tokens_out": 24
+    },
+    {
+      "line_id": "HG-1014-L2",
+      "code": "ST-9025-19",
+      "reason": "Matches the schedule text for: Digital clinical thermometer.",
+      "tokens_in": 528,
+      "tokens_out": 24
+    },
+    {
+      "line_id": "HG-1014-L3",
+      "code": "ST-9025-19",
+      "reason": "Matches the schedule text for: Digital clinical thermometer.",
+      "tokens_in": 528,
+      "tokens_out": 24
+    },
+    {
+      "line_id": "HG-1020-L2",
+      "code": "ST-9025-19",
+      "reason": "Matches the schedule text for: Digital clinical thermometer.",
+      "tokens_in": 528,
+      "tokens_out": 24
+    },
+    {
+      "line_id": "HG-1022-L3",
+      "code": "ST-9025-19",
+      "reason": "Matches the schedule text for: Digital clinical thermometer.",
+      "tokens_in": 528,
+      "tokens_out": 24
+    },
+    {
+      "line_id": "HG-1035-L1",
+      "code": "ST-9025-19",
+      "reason": "Matches the schedule text for: Digital clinical thermometer.",
+      "tokens_in": 528,
+      "tokens_out": 24
+    },
+    {
+      "line_id": "HG-1002-L1",
+      "code": "ST-6306-22",
+      "reason": "Matches the schedule text for: Three-person dome tent.",
+      "tokens_in": 528,
+      "tokens_out": 22
+    },
+    {
+      "line_id": "HG-1002-L2",
+      "code": "ST-9404-40",
+      "reason": "Matches the schedule text for: Down sleeping bag.",
+      "tokens_in": 528,
+      "tokens_out": 21
+    },
+    {
+      "line_id": "HG-1005-L1",
+      "code": "ST-6201-40",
+      "reason": "Matches the schedule text for: Hooded rain jacket.",
+      "tokens_in": 530,
+      "tokens_out": 21
+    },
+    {
+      "line_id": "HG-1005-L2",
+      "code": "ST-6306-22",
+      "reason": "Matches the schedule text for: Three-person dome tent.",
+      "tokens_in": 528,
+      "tokens_out": 22
+    },
+    {
+      "line_id": "HG-1006-L1",
+      "code": "ST-6201-40",
+      "reason": "Matches the schedule text for: Hooded rain jacket.",
+      "tokens_in": 530,
+      "tokens_out": 21
+    },
+    {
+      "line_id": "HG-1009-L1",
+      "code": "ST-6306-22",
+      "reason": "Matches the schedule text for: Three-person dome tent.",
+      "tokens_in": 528,
+      "tokens_out": 22
+    },
+    {
+      "line_id": "HG-1010-L1",
+      "code": "ST-6306-22",
+      "reason": "Matches the schedule text for: Three-person dome tent.",
+      "tokens_in": 528,
+      "tokens_out": 22
+    },
+    {
+      "line_id": "HG-1012-L1",
+      "code": "ST-6201-40",
+      "reason": "Matches the schedule text for: Hooded rain jacket.",
+      "tokens_in": 530,
+      "tokens_out": 21
+    },
+    {
+      "line_id": "HG-1013-L1",
+      "code": "ST-6201-40",
+      "reason": "Matches the schedule text for: Hooded rain jacket.",
+      "tokens_in": 530,
+      "tokens_out": 21
+    },
+    {
+      "line_id": "HG-1013-L2",
+      "code": "ST-6306-22",
+      "reason": "Matches the schedule text for: Three-person dome tent.",
+      "tokens_in": 528,
+      "tokens_out": 22
+    },
+    {
+      "line_id": "HG-1013-L3",
+      "code": "ST-6201-40",
+      "reason": "Matches the schedule text for: Hooded rain jacket.",
+      "tokens_in": 530,
+      "tokens_out": 21
+    },
+    {
+      "line_id": "HG-1016-L1",
+      "code": "ST-6201-40",
+      "reason": "Matches the schedule text for: Hooded rain jacket.",
+      "tokens_in": 530,
+      "tokens_out": 21
+    },
+    {
+      "line_id": "HG-1001-L1",
+      "code": "ST-0901-12",
+      "reason": "Matches the schedule text for: Green coffee beans.",
+      "tokens_in": 532,
+      "tokens_out": 21
+    },
+    {
+      "line_id": "HG-1001-L2",
+      "code": "ST-0901-11",
+      "reason": "Matches the schedule text for: Green coffee beans.",
+      "tokens_in": 533,
+      "tokens_out": 21
+    },
+    {
+      "line_id": "HG-1003-L1",
+      "code": "ST-0901-12",
+      "reason": "Matches the schedule text for: Green coffee beans.",
+      "tokens_in": 532,
+      "tokens_out": 21
+    },
+    {
+      "line_id": "HG-1004-L1",
+      "code": "ST-0901-11",
+      "reason": "Matches the schedule text for: Green coffee beans.",
+      "tokens_in": 533,
+      "tokens_out": 21
+    },
+    {
+      "line_id": "HG-1004-L2",
+      "code": "ST-0901-12",
+      "reason": "Matches the schedule text for: Green coffee beans.",
+      "tokens_in": 532,
+      "tokens_out": 21
+    },
+    {
+      "line_id": "HG-1004-L3",
+      "code": "ST-0901-11",
+      "reason": "Matches the schedule text for: Green coffee beans.",
+      "tokens_in": 533,
+      "tokens_out": 21
+    },
+    {
+      "line_id": "HG-1008-L1",
+      "code": "ST-0901-11",
+      "reason": "Matches the schedule text for: Green coffee beans.",
+      "tokens_in": 533,
+      "tokens_out": 21
+    },
+    {
+      "line_id": "HG-1008-L2",
+      "code": "ST-0901-12",
+      "reason": "Matches the schedule text for: Green coffee beans.",
+      "tokens_in": 532,
+      "tokens_out": 21
+    },
+    {
+      "line_id": "HG-1011-L1",
+      "code": "ST-0901-12",
+      "reason": "Matches the schedule text for: Green coffee beans.",
+      "tokens_in": 532,
+      "tokens_out": 21
+    },
+    {
+      "line_id": "HG-1011-L2",
+      "code": "ST-0901-11",
+      "reason": "Matches the schedule text for: Green coffee beans.",
+      "tokens_in": 533,
+      "tokens_out": 21
+    },
+    {
+      "line_id": "HG-1011-L3",
+      "code": "ST-0901-11",
+      "reason": "Matches the schedule text for: Green coffee beans.",
+      "tokens_in": 533,
+      "tokens_out": 21
+    },
+    {
+      "line_id": "HG-1015-L1",
+      "code": "ST-0901-11",
+      "reason": "Matches the schedule text for: Green coffee beans.",
+      "tokens_in": 533,
+      "tokens_out": 21
+    },
+    {
+      "line_id": "HG-1015-L2",
+      "code": "ST-0901-12",
+      "reason": "Matches the schedule text for: Green coffee beans.",
+      "tokens_in": 532,
+      "tokens_out": 21
+    },
+    {
+      "line_id": "HG-1017-L1",
+      "code": "ST-0901-12",
+      "reason": "Matches the schedule text for: Green coffee beans.",
+      "tokens_in": 532,
+      "tokens_out": 21
+    }
+  ],
+  "filings": [],
+  "reads": [],
+  "payments": []
+}

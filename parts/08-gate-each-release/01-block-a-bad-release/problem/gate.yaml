@@ -1,0 +1,14 @@
+# The rules a release candidate must meet before it reaches customs.
+# TODO: fill in each value. Read "Your challenge" in README.md first.
+
+# Zero tolerance for the three never-do rules: how many of each may a release have?
+never_do:
+  unsigned_filings:
+  cross_importer_reads:
+  double_payments:
+
+# The share of the 40 broker-labelled lines the candidate must get right, from 0 to 1.
+pass_rate_floor:
+
+# The most one entry may cost in model calls, in micro-dollars (1000000 = 1 USD).
+max_cost_per_entry_micros:
