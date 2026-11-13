@@ -2,10 +2,12 @@
 
 ## The problem
 
-The Paperwork agent read 36 documents that belong to other importers.
+The report card says the Paperwork agent read 36 documents that belong to other importers.
 Its search did not care which importer the work was for.
 For example, while it drafted an entry for Ridgeway, it could read Fjordline's invoices and prices.
 A broker must keep each client's papers private, so this breaks the broker's duty.
+
+Agent memory has the same gap. A search by meaning ranks every importer's notes together.
 
 ## Why it matters
 
@@ -14,24 +16,66 @@ Keeping each customer's data apart is still the builder's job ([AWS Machine Lear
 
 ```mermaid
 flowchart LR
-  R[Request with importer from the token] --> DB[(Postgres with forced row-level security)]
-  DB -->|only this importer's rows| A[Agent]
-  M[(Memory: past rulings, broker notes)] -->|filter by importer, then rank| A
+  R[Token says importer: ridgeway] --> S[Platform sets app.importer per connection]
+  S --> DB[(Postgres: forced row-level security on every importer table)]
+  DB -->|only Ridgeway rows| A[Agent]
+  S --> M[(Memory: filter by importer and rulings in force, then rank)]
+  M -->|Ridgeway notes only| A
 ```
 
-| Step                        | Minutes | What you produce                                                                                            | What its check reads                                                                                                                                            |
-| --------------------------- | ------- | ----------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `isolate-importer-data`     | 20      | Forced row-level security on every table with importer data; the importer set per connection from the token | Queries as each importer on every table (0 foreign rows); `relforcerowsecurity` on every table with an `importer_id`; the cross-importer reads count drops to 0 |
-| `scope-memory-per-importer` | 15      | Agent memory filtered by importer before ranking; superseded rulings are never candidates                   | Recall for Ridgeway with a planted near-identical Fjordline note; a superseded ruling never returns; memory written in one run is found in the next             |
+| Step                        | Minutes | What you produce                                                                     | What its check reads                                                                                                              |
+| --------------------------- | ------- | ------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------- |
+| `isolate-importer-data`     | 20      | `schema.sql` with forced row-level security on every table that has an `importer_id` | `pg_class` for forced security; every table as each importer; the Paperwork search; a write for another importer; no importer set |
+| `scope-memory-per-importer` | 15      | `memory.sql`: memory filtered by importer before ranking, with no superseded rulings | `recall()` with planted near-identical Fjordline notes; a superseded ruling; `remember()` in one run and `recall()` in the next   |
+
+The checks run your SQL in Postgres inside the check itself, with PGlite. You need no database server.
+Each step starts from the sample answer of the step before it.
 
 ## Walkthrough
 
-TODO(part session): the steps do not exist yet. These are the commands this part will use.
+Check each step after you finish it, from the repo root:
 
 ```bash
 bun run verify isolate-importer-data
 bun run verify scope-memory-per-importer
+```
+
+Expect: each step ends `Done.` once your SQL is in place, for example `Done. All 8 rules pass.` for the first step.
+
+Last, check the whole part:
+
+```bash
 bun run verify part separate-importer-data
 ```
 
-Expect: TODO(part session)
+Expect: `Part separate-importer-data is done: 2/2 steps pass.`, after these lines:
+
+```text
+Part separate-importer-data:
+  PASS   isolate-importer-data  (8/8 rules)
+  PASS   scope-memory-per-importer  (6/6 rules)
+```
+
+## Finished
+
+Each importer's rows and memory now stay apart in the database itself.
+A query that forgets the importer is still safe, and with no importer set it sees nothing.
+Memory ranks only the importer's own notes, and never an old ruling that a newer one replaced.
+
+Tenancy is now a property of the platform, not a habit of each team.
+In the next part, `choose-run-shapes`, the same platform runs both workflows and agents through one run API.
+
+## Assignment
+
+The problem: Fjordline's run could read Northpoint's lines through a search that ignored the importer.
+
+- **Hand in**: a pull request on your fork with `schema.sql` (forced row-level security on every importer table) and `memory.sql` (memory filtered before ranking).
+- **Rubric** (each line is yes or no; all must be yes):
+  - Does `bun run verify isolate-importer-data` pass?
+  - Does `bun run verify scope-memory-per-importer` pass?
+- **Extension**: add a new table with an `importer_id` and no policy, and show that `bun run verify isolate-importer-data` fails on the pull request that adds it.
+
+## Change it
+
+- Add a `payments` table with an `importer_id`. Run the check before you add its policy, and read which rule fails.
+- Change `recall()` to rank first and filter after. Count how many notes Ridgeway gets back.
