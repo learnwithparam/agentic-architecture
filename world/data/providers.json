@@ -1,0 +1,26 @@
+{
+  "note": "Two fake model providers the world runs in replay mode. Prices are micro-dollars per token, so every cost is a whole number. The keys are fake and only work against these local services.",
+  "providers": {
+    "a": {
+      "platform_key": "pk-a-platform-4410",
+      "prices": {
+        "fast": { "in": 1, "out": 4 },
+        "smart": { "in": 3, "out": 15 },
+        "judge": { "in": 1, "out": 4 }
+      }
+    },
+    "b": {
+      "platform_key": "pk-b-platform-8823",
+      "prices": {
+        "fast": { "in": 2, "out": 6 },
+        "smart": { "in": 4, "out": 18 },
+        "judge": { "in": 2, "out": 6 }
+      }
+    }
+  },
+  "legacy_keys": {
+    "classification": "pk-a-legacy-c1a55",
+    "paperwork": "pk-a-legacy-9ap3r",
+    "holds": "pk-a-legacy-h0ld5"
+  }
+}

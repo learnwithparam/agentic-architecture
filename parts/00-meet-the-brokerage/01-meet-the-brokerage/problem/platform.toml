@@ -1,0 +1,15 @@
+# Your platform file. Later parts add the address of each layer you build.
+
+[learner]
+name = ""
+# replay needs no key. anthropic, openrouter, openai or ollama need .env (see .env.example).
+run_mode = ""
+
+# Copy each number from `bun run before`.
+[before]
+calls_outside_gateway = 0
+provider_keys_in_team_code = 0
+tool_calls_with_no_identity = 0
+cross_importer_reads = 0
+entries_with_no_broker_signature = 0
+exam_fees_paid_twice = 0

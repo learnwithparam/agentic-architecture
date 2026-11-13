@@ -1,0 +1,11 @@
+[
+  { "id": "amara-okafor", "name": "Amara Okafor", "licence": "SB-20417", "licensed": true },
+  { "id": "tomas-reyes", "name": "Tomas Reyes", "licence": "SB-31188", "licensed": true },
+  {
+    "id": "jo-whitfield",
+    "name": "Jo Whitfield",
+    "licence": null,
+    "licensed": false,
+    "note": "trainee; may prepare work but may not sign"
+  }
+]

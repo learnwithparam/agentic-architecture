@@ -1,0 +1,11 @@
+[learner]
+name = "Sample Learner"
+run_mode = "replay"
+
+[before]
+calls_outside_gateway = 31
+provider_keys_in_team_code = 3
+tool_calls_with_no_identity = 44
+cross_importer_reads = 7
+entries_with_no_broker_signature = 2
+exam_fees_paid_twice = 1
