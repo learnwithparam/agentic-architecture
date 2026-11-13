@@ -10,7 +10,7 @@ Today nobody has tried it, so nobody knows.
 flowchart LR
   T[Team agents: team key and x-importer] --> AD[Your adapter: keys, 402, spend log]
   RT[routes.json] --> AD
-  AD -->|writes out/litellm.yaml, starts| LL[LiteLLM proxy]
+  AD -->|writes the config, starts| LL[LiteLLM proxy]
   LL --> A[Provider a]
   LL -->|fallback| B[Provider b]
   AD --> L[(Spend log)]
@@ -38,7 +38,7 @@ The keys, the budgets and the spend log stay in the adapter, because LiteLLM doe
    [swap]
    layer = "model-gateway"
    product = "LiteLLM proxy"
-   product_start = "bun ../litellm-stand-in.ts --config out/litellm.yaml --port $PRODUCT_PORT"
+   product_start = "bun ../litellm-stand-in.ts --config $LITELLM_CONFIG --port $PRODUCT_PORT"
    ```
 
    CI has no Python, so `litellm-stand-in.ts` plays LiteLLM. It reads the same config and speaks the same API.

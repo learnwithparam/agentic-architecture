@@ -6,4 +6,4 @@ start = "bun gateway.ts"
 # [swap]
 # layer = "model-gateway"
 # product = "LiteLLM proxy"
-# product_start = "bun ../litellm-stand-in.ts --config out/litellm.yaml --port $PRODUCT_PORT"
+# product_start = "bun ../litellm-stand-in.ts --config $LITELLM_CONFIG --port $PRODUCT_PORT"

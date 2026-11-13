@@ -2,8 +2,8 @@
 // A stand-in for the LiteLLM proxy, so the swap runs in CI with Bun only.
 // It speaks the small part of LiteLLM's proxy API that the adapter uses, and reads the same config:
 //
-//   bun litellm-stand-in.ts --config out/litellm.yaml --port 4001
-//   litellm --config out/litellm.yaml --port 4001        (the real product, with Python)
+//   bun litellm-stand-in.ts --config litellm.yaml --port 4001
+//   litellm --config litellm.yaml --port 4001        (the real product, with Python)
 //
 // What it copies from LiteLLM:
 // - model_list: each model_name is one deployment, with litellm_params model, api_base, api_key.

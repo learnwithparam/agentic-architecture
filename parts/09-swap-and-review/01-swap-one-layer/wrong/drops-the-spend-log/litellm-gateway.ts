@@ -3,7 +3,9 @@
 // team keys, x-importer, 401 and 402, the spend log and the x-gateway-provider header.
 // What changed is who calls the providers: LiteLLM does the calls and the fallback,
 // from a config this adapter writes from routes.json. The teams never know.
-import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { readFileSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 
 type Team = { team: string; key: string };
 type Price = { in: number; out: number };
@@ -172,13 +174,15 @@ function freePort(): number {
 
 // Write the config, start LiteLLM next to this adapter, and wait until it answers.
 async function startLiteLLM(): Promise<string> {
-  mkdirSync("out", { recursive: true });
-  writeFileSync("out/litellm.yaml", JSON.stringify(liteLLMConfig(routesByRole), null, 2));
+  // The config is written outside your folder, so it never ends up in git.
+  const configFile = join(tmpdir(), `harbourgate-litellm-${process.pid}.yaml`);
+  writeFileSync(configFile, JSON.stringify(liteLLMConfig(routesByRole), null, 2));
   const port = freePort();
   const product = Bun.spawn(["sh", "-c", `exec ${productCommand()}`], {
     env: {
       ...process.env,
       PRODUCT_PORT: String(port),
+      LITELLM_CONFIG: configFile,
       LITELLM_MASTER_KEY: masterKey,
       PROVIDER_A_API_BASE: `${process.env.PROVIDER_A_URL}/v1`,
       PROVIDER_B_API_BASE: `${process.env.PROVIDER_B_URL}/v1`,
