@@ -1,0 +1,13 @@
+# How the checks start your gateway. The contract stays the same: only this file and the adapter change.
+[gateway]
+start = "bun litellm-gateway.ts"
+
+# The one layer you swapped for a product.
+[swap]
+layer = "model-gateway"
+product = "LiteLLM proxy"
+# The adapter starts the product with PRODUCT_PORT set. CI has no Python, so the sample runs
+# a stand-in that speaks the same proxy API and reads the same config.
+# With Python and uv, the real product is:
+#   product_start = "uvx --from 'litellm[proxy]' litellm --config out/litellm.yaml --port $PRODUCT_PORT"
+product_start = "bun ../../litellm-stand-in.ts --config out/litellm.yaml --port $PRODUCT_PORT"
