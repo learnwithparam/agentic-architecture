@@ -1,0 +1,7 @@
+# How the checks start your services. The policy engine starts first; the gateway gets its
+# address as POLICY_URL. Any language works: change a command, keep the contract.
+[policy]
+start = "bun policy.ts"
+
+[tools]
+start = "bun tool-gateway.ts"
