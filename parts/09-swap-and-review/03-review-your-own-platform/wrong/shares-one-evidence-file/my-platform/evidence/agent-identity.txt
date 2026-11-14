@@ -1,0 +1,5 @@
+Command: python auth/show_claims.py
+Date: 2026-03-02
+sub: order-agent
+aud: bakery-tools
+exp - iat: 600 seconds

@@ -1,0 +1,5 @@
+Command: python tests/recall_other_branch.py
+Date: 2026-03-02
+note n-17 saved for branch north
+recall as branch south: 0 notes
+recall as branch north: 1 note

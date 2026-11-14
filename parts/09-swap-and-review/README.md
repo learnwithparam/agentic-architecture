@@ -29,6 +29,7 @@ flowchart LR
 | -------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `swap-one-layer`           | 25      | The model gateway's provider calls swapped onto LiteLLM through an adapter, `[swap]` in `platform.toml`, and `decisions/swap.md`    | Every check of the swapped layer on the swapped platform; the three team agents on it with a clean report card; no change under `teams/`; the decision file's sections                   |
 | `pass-the-platform-review` | 20      | `review/platform.md`, one row per layer with its contract, its check and three managed products, and `onboard.ts` for a fourth team | Nine rows naming checks of their layer; those checks run again; Billing onboarded with a new key, its tools and budget and no code change; Billing's calls; the report card is all zeros |
+| `review-your-own-platform` | 20      | `my-platform/review.md` for your own project: nine rows, each with a saved output in `evidence/`, and gaps with owners              | The shape of the review, that each evidence file exists with its command and date, and that gaps have owners; never the course world                                                     |
 
 ## Walkthrough
 
@@ -41,15 +42,16 @@ bun parts/09-swap-and-review/02-pass-the-platform-review/review-card.ts solution
 
 Expect: `Done. All 7 rules pass.`, then six lines of `0`, `1 model call(s) billed to billing` and `pay_fee for billing-agent answered 403 (403 means refused)`.
 
-Then do each step in its `problem/` folder.
+Then do each step in its `problem/` folder. The last step is on your own project, so fill `my-platform/` with your own work.
 
 ```bash
 bun run verify swap-one-layer
 bun run verify pass-the-platform-review
+bun run verify review-your-own-platform
 bun run verify part swap-and-review
 ```
 
-Expect: once your work is in place, each step ends `Done.`, then `Part swap-and-review is done: 2/2 steps pass.`
+Expect: once your work is in place, each step ends `Done.`, then `Part swap-and-review is done: 3/3 steps pass.`
 
 ## Finished
 

@@ -1,0 +1,6 @@
+Command: python run_order.py --limit 8
+Date: 2026-03-02
+step 1 read order
+step 2 check stock
+step 8 stopped at limit
+status: stopped_at_limit
