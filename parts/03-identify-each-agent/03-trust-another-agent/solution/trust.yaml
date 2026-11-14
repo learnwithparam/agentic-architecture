@@ -1,0 +1,4 @@
+# Who may hand work to whom. An agent not listed here may not ask another agent for anything.
+# Each line is: caller, then the agent it may ask, then the tools that agent may use for it.
+paperwork-agent:
+  classification-agent: [propose_code, lookup_tariff]

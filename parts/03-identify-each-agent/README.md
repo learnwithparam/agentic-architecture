@@ -30,6 +30,7 @@ flowchart LR
 | -------------------------- | ------- | -------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
 | `issue-agent-identities`   | 15      | A token service that issues each agent a signed, short-lived token; a gateway that accepts only it | The token claims; 401 for a wrong secret, an expired token, the wrong audience, a forged token and a raw team key; the agent on every audit row |
 | `exchange-tokens-per-call` | 20      | Token exchange: one tool, one importer, on behalf of one broker (`act`)                            | 403 for a Northpoint token on a Ridgeway container; a token for the wrong tool; holds and payments; what the tool servers received              |
+| `trust-another-agent`      | 20      | `trust.yaml` and `POST /delegate`: a short token from one agent to another, with a scope           | A signed token's audience, scope and life; 403 for an agent not listed; a delegated token used again; audit lines                               |
 
 In this part the tool gateway is cut down to one job: identity.
 The catalog and the policy from `police-tool-calls` sit in front of it in the full platform.
@@ -41,6 +42,7 @@ Check each step after you finish it, from the repo root:
 ```bash
 bun run verify issue-agent-identities
 bun run verify exchange-tokens-per-call
+bun run verify trust-another-agent
 ```
 
 Expect: each step ends `Done.` once your work is in place, for example `Done. All 9 rules pass.`
@@ -73,12 +75,13 @@ Last, check the whole part:
 bun run verify part identify-each-agent
 ```
 
-Expect: `Part identify-each-agent is done: 2/2 steps pass.`, after these lines:
+Expect: `Part identify-each-agent is done: 3/3 steps pass.`, after these lines:
 
 ```text
 Part identify-each-agent:
   PASS   issue-agent-identities  (9/9 rules)
   PASS   exchange-tokens-per-call  (9/9 rules)
+  PASS   trust-another-agent  (8/8 rules)
 ```
 
 ## Finished

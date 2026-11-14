@@ -4,14 +4,14 @@
 [one-day]
 # 360 minutes of parts, plus about 75 minutes of breaks and lunch.
 sessions = [
-  { label = "Keys, tools and identity", parts = ["meet-the-brokerage", "route-model-calls", "police-tool-calls", "identify-each-agent"], minutes = 225 },
+  { label = "Keys, tools and identity", parts = ["meet-the-brokerage", "route-model-calls", "police-tool-calls", "identify-each-agent"], minutes = 245 },
   { label = "Tenants, runs, traces, gate and review", parts = ["separate-importer-data", "choose-run-shapes", "survive-a-crash", "trace-and-cost-runs", "gate-each-release", "swap-and-review", "make-the-resume-survive-a-crash-with-temporal", "decide-tool-calls-with-cedar"], minutes = 245 },
 ]
 
 [four-evenings]
 sessions = [
   { label = "Meet the brokerage and route model calls", parts = ["meet-the-brokerage", "route-model-calls"], minutes = 95 },
-  { label = "Police tool calls and identify each agent", parts = ["police-tool-calls", "identify-each-agent"], minutes = 130 },
+  { label = "Police tool calls and identify each agent", parts = ["police-tool-calls", "identify-each-agent"], minutes = 150 },
   { label = "Separate importer data, choose run shapes, survive a crash", parts = ["separate-importer-data", "choose-run-shapes", "survive-a-crash"], minutes = 95 },
   { label = "Trace and cost runs, gate each release, swap and review", parts = ["trace-and-cost-runs", "gate-each-release", "swap-and-review", "make-the-resume-survive-a-crash-with-temporal", "decide-tool-calls-with-cedar"], minutes = 150 },
 ]
@@ -20,7 +20,7 @@ sessions = [
 # One session at a time, spaced as the cohort likes.
 sessions = [
   { label = "Meet the brokerage and route model calls", parts = ["meet-the-brokerage", "route-model-calls"], minutes = 95 },
-  { label = "Police tool calls and identify each agent", parts = ["police-tool-calls", "identify-each-agent"], minutes = 130 },
+  { label = "Police tool calls and identify each agent", parts = ["police-tool-calls", "identify-each-agent"], minutes = 150 },
   { label = "Separate importer data and choose run shapes", parts = ["separate-importer-data", "choose-run-shapes"], minutes = 55 },
   { label = "Survive a crash and trace and cost runs", parts = ["survive-a-crash", "trace-and-cost-runs"], minutes = 75 },
   { label = "Gate each release, swap and review", parts = ["gate-each-release", "swap-and-review", "make-the-resume-survive-a-crash-with-temporal", "decide-tool-calls-with-cedar"], minutes = 115 },
