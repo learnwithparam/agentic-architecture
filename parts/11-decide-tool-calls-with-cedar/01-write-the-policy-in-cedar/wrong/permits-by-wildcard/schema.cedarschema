@@ -1,0 +1,22 @@
+// The shape of every question the policy engine answers.
+// An agent is the principal, an importer is the resource, and each tool is an action.
+// brokerSigned is true only when a licensed broker has signed every code on the entry.
+entity Agent;
+entity Importer;
+
+type SignedContext = {
+  brokerSigned: Bool,
+};
+
+action list_open_shipments appliesTo { principal: Agent, resource: Importer, context: SignedContext };
+action read_shipment appliesTo { principal: Agent, resource: Importer, context: SignedContext };
+action lookup_tariff appliesTo { principal: Agent, resource: Importer, context: SignedContext };
+action propose_code appliesTo { principal: Agent, resource: Importer, context: SignedContext };
+action read_proposals appliesTo { principal: Agent, resource: Importer, context: SignedContext };
+action search_documents appliesTo { principal: Agent, resource: Importer, context: SignedContext };
+action email_importer appliesTo { principal: Agent, resource: Importer, context: SignedContext };
+action file_entry appliesTo { principal: Agent, resource: Importer, context: SignedContext };
+action list_holds appliesTo { principal: Agent, resource: Importer, context: SignedContext };
+action book_exam appliesTo { principal: Agent, resource: Importer, context: SignedContext };
+action pay_fee appliesTo { principal: Agent, resource: Importer, context: SignedContext };
+action check_release appliesTo { principal: Agent, resource: Importer, context: SignedContext };
