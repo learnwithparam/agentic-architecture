@@ -314,6 +314,19 @@ function checkSchedules(allParts: Part[]) {
   }
 }
 
+// 7. Every folder under parts/ is listed in README.md and PARTS.md.
+function checkPartsAreListed(allParts: Part[]) {
+  for (const listing of ["README.md", "PARTS.md"]) {
+    const listingText = readText(join(ROOT, listing));
+    for (const part of allParts) {
+      const folderName = part.dir.split("/").pop() ?? part.name;
+      if (!listingText.includes(folderName)) {
+        report(join(ROOT, listing), `leaves out part folder "${folderName}"`);
+      }
+    }
+  }
+}
+
 function runEveryCheck() {
   const allParts = parts();
   checkNoMakefile();
@@ -327,6 +340,7 @@ function runEveryCheck() {
   checkPythonPackagesPinned();
   checkTroubleshootingTable();
   checkSchedules(allParts);
+  checkPartsAreListed(allParts);
   return allParts;
 }
 
