@@ -1,5 +1,13 @@
 # Police tool calls
 
+## After this part you can
+
+Make a tool gateway decide which agent may call which tool, outside the model, and keep an audit line for every call.
+
+## You leave with
+
+A `tools.yaml`, a `policy.yaml`, a `guardrails.yaml` and a tool gateway with a broker sign-off path.
+
 ## The problem
 
 The report card says 121 tool calls left no record of who asked.
@@ -42,6 +50,10 @@ flowchart LR
 
 Each step starts from the sample answer of the step before it.
 So you can begin at any step.
+
+## Project
+
+List the tools one of your own agents can call. Mark each one as allow, ask or deny, and write the one rule you would put in a policy file first.
 
 ## Walkthrough
 

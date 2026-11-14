@@ -1,5 +1,13 @@
 # Route model calls
 
+## After this part you can
+
+Put one model gateway in front of every provider, so each call has a team key, a budget and a spend row.
+
+## You leave with
+
+A model gateway that checks keys and caps spend per importer. It falls back to a provider of the same tier or better, and it limits and caches calls.
+
 ## The problem
 
 Today, 41 model calls went straight to a provider.
@@ -35,6 +43,10 @@ flowchart LR
 
 Each step starts from the sample answer of the step before it.
 So you can begin at any step.
+
+## Project
+
+Find one place in your own work where a model is called with a shared key. Sketch the gateway you would put in front of it, and name the first budget you would set.
 
 ## Walkthrough
 

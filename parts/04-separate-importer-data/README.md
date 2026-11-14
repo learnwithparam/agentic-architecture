@@ -1,5 +1,13 @@
 # Separate importer data
 
+## After this part you can
+
+Keep one importer's rows and memory apart from another's in the database itself.
+
+## You leave with
+
+A `schema.sql` with forced row-level security and a `memory.sql` that filters by importer before it ranks.
+
 ## The problem
 
 The report card says the Paperwork agent read 36 documents that belong to other importers.
@@ -30,6 +38,10 @@ flowchart LR
 
 The checks run your SQL in Postgres inside the check itself, with PGlite. You need no database server.
 Each step starts from the sample answer of the step before it.
+
+## Project
+
+Pick one table in your own work that holds more than one customer's rows. Write the rule that would hide each customer's rows from the others, and test it with a query that forgets to filter.
 
 ## Walkthrough
 

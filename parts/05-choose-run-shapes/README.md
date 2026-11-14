@@ -1,5 +1,13 @@
 # Choose run shapes
 
+## After this part you can
+
+Choose between a workflow and an agent loop for a job, and run both through one run API.
+
+## You leave with
+
+A run API that starts a workflow or an agent loop with a step limit, and a `decisions/run-shape.md` that says why.
+
 ## The problem
 
 Classification follows a fixed path. Holds needs an agent that decides its next step.
@@ -26,6 +34,10 @@ flowchart LR
 
 Before you start, read [Building effective agents](https://www.anthropic.com/engineering/building-effective-agents) by Anthropic.
 It names the two shapes this part uses: workflows and agents.
+
+## Project
+
+Take one job from your own work. Decide if it is a fixed path. Or does it need an agent that picks its next step? Write the choice and the step limit in a short note.
 
 ## Walkthrough
 

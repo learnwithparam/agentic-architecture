@@ -1,5 +1,13 @@
 # Identify each agent
 
+## After this part you can
+
+Give each agent its own short-lived token that names the agent, the importer and the broker.
+
+## You leave with
+
+A token service and a tool gateway that trust a signed token and not a header anyone can write.
+
 ## The problem
 
 All three agents act under one shared identity: a team key that never ends.
@@ -34,6 +42,10 @@ flowchart LR
 
 In this part the tool gateway is cut down to one job: identity.
 The catalog and the policy from `police-tool-calls` sit in front of it in the full platform.
+
+## Project
+
+Look at the audit log of one of your own systems. Write down which questions it cannot answer about who acted, and what claim in a token would answer each one.
 
 ## Walkthrough
 

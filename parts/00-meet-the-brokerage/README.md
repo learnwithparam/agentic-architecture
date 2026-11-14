@@ -1,5 +1,13 @@
 # Meet the brokerage
 
+## After this part you can
+
+Read a brokerage's report card and say which six numbers every later part must bring down to zero.
+
+## You leave with
+
+A `platform.toml` with your name, your run mode and the six "before" numbers.
+
 ## The problem
 
 Three teams at Harbourgate Brokerage run three agents, and each team built its agent in its own way.
@@ -33,6 +41,10 @@ flowchart LR
 | Step                 | Minutes | What you produce                                                      |
 | -------------------- | ------- | --------------------------------------------------------------------- |
 | `meet-the-brokerage` | 20      | `platform.toml` with your name, run mode and the six "before" numbers |
+
+## Project
+
+Pick one AI tool or script you use at work. Write down who calls it, which key it uses, and what it can reach. Then list three things it does that nobody could prove later.
 
 ## Walkthrough
 
