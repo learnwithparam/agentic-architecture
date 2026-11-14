@@ -13,7 +13,7 @@ For example, Grab runs an AI Gateway.
 It gives each person and each service its own key, and tracks the cost of every request
 ([Grab Engineering](https://engineering.grab.com/grab-ai-gateway)).
 
-In this part you build that gateway for Harbourgate, in three steps.
+In this part you build that gateway for Harbourgate, in four steps.
 
 ```mermaid
 flowchart LR
@@ -31,6 +31,7 @@ flowchart LR
 | `route-calls-through-gateway` | 20      | A gateway that checks team keys, calls the provider with the platform key and logs spend | Status codes, the provider's record of which key it saw, the spend log against the providers' bill, `teams/` for keys |
 | `fall-back-on-outage`         | 15      | A route table with fallback that never goes to a weaker model                            | The `x-gateway-provider` header with provider a down, `provider_error` rows, whether a bad route table starts         |
 | `cap-spend-per-importer`      | 20      | Budgets per importer and per team, refused with 402                                      | Status codes in a 40-call burst, spend per importer against its limit, the roles the provider billed                  |
+| `limit-and-cache-calls`       | 20      | A team limit with 429 and `retry-after`, and a cache that never crosses importers        | Status codes and headers for a fast burst, provider calls for repeats, the spend log against the providers' bill      |
 
 Each step starts from the sample answer of the step before it.
 So you can begin at any step.
@@ -41,10 +42,11 @@ So you can begin at any step.
 bun run verify route-calls-through-gateway
 bun run verify fall-back-on-outage
 bun run verify cap-spend-per-importer
+bun run verify limit-and-cache-calls
 bun run verify part route-model-calls
 ```
 
-Expect: each step ends `Done.` once your gateway is in place, then `Part route-model-calls is done: 3/3 steps pass.`
+Expect: each step ends `Done.` once your gateway is in place, then `Part route-model-calls is done: 4/4 steps pass.`
 
 ## Change it
 

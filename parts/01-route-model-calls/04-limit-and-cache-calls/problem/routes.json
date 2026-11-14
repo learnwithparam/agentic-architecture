@@ -1,0 +1,8 @@
+{
+  "note": "Per team (or * for every team) and role: the providers to try, in order, as provider:role. A fallback must be the same tier or stronger: fast and judge are tier 1, smart is tier 2.",
+  "*": {
+    "fast": ["a:fast", "b:fast"],
+    "smart": ["a:smart", "b:smart"],
+    "judge": ["a:judge", "b:judge"]
+  }
+}
