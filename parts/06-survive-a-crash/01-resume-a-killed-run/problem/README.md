@@ -15,7 +15,11 @@ flowchart LR
   J -->|no: do the work, then save it| F
 ```
 
-## Your challenge
+## Watch it done
+
+Run `bun run verify resume-a-killed-run` on the starter and see it fail. Run it again with `solution` on the end and see it pass.
+
+## Your turn
 
 `holds.ts` already wraps each step in `step(name, work)`.
 But `step()` in `journal.ts` remembers nothing. Make it durable:
@@ -41,6 +45,10 @@ Expect: `Done. All 5 rules pass.`
 
 ![The crash drill passing on the sample solution](../images/expected.png)
 
+## Do it on your work
+
+Pick one long job of yours. Stop it half way and show whether it picks up where it stopped. Use your own files. Good looks like proof for each line below.
+
 ## Done when
 
 - The worker really died right after paying. The check proves the crash happened.
@@ -48,6 +56,10 @@ Expect: `Done. All 5 rules pass.`
 - Each container's exam fee was paid exactly once.
 - Each exam was booked once.
 - The model was asked once per container. Model calls equal decision steps.
+
+## Solution
+
+The after state is in `solution/`. Compare it with `diff -r problem/ solution/`.
 
 ## If you get stuck
 

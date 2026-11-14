@@ -16,7 +16,11 @@ flowchart LR
   I & U -->|must equal| B[Providers' bill]
 ```
 
-## Your challenge
+## Watch it done
+
+Run `bun run verify split-cost-by-importer` on the starter and see it fail. Run it again with `solution` on the end and see it pass.
+
+## Your turn
 
 1. In `costs.ts`, add the spend rows whose importer is empty. Report them as `unattributed_micros`.
 2. Make `total_micros` the importers plus unattributed. It must equal the providers' bill, `billed_micros`.
@@ -44,6 +48,10 @@ Expect: `Done. All 6 rules pass.`, then a table that ends `They match.`
 
 ![The cost table, matching the providers' bill](../images/expected.png)
 
+## Do it on your work
+
+Take last month's model bill. Split it by customer and name the share you cannot place. Use your own files. Good looks like proof for each line below.
+
 ## Done when
 
 - `bun costs.ts --json` prints a row for each of the 3 importers.
@@ -53,11 +61,15 @@ Expect: `Done. All 6 rules pass.`, then a table that ends `They match.`
 - Importers plus unattributed add up to the providers' bill, to the micro-dollar.
 - The nightly job bills each importer one call, for its own notes.
 
+## Solution
+
+The after state is in `solution/`. Compare it with `diff -r problem/ solution/`.
+
 ## If you get stuck
 
 | What you see                                   | Fix                                                          |
 | ---------------------------------------------- | ------------------------------------------------------------ |
-| `FAIL last month's untagged rows ...`          | Sum `cost_micros` from `spend_log` where `importer IS NULL`. |
+| `FAIL last month's untagged rows ...`          | Sum `cost_micros` from `spend_log` where "importer IS NULL". |
 | `FAIL importers plus unattributed add up ...`  | Add `unattributed` into `total_micros`.                      |
 | `FAIL the nightly job bills each importer ...` | Send `"x-importer": importer`, not one fixed name.           |
 

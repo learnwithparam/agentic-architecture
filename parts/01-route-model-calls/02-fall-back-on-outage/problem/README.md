@@ -16,7 +16,11 @@ flowchart LR
   R[routes.json] -->|checked at start| G
 ```
 
-## Your challenge
+## Watch it done
+
+Run `bun run verify fall-back-on-outage` on the starter and see it fail. Run it again with `solution` on the end and see it pass.
+
+## Your turn
 
 `routes.json` lists, for each role, the hops to try in order.
 A hop is one provider and role, written `provider:role`.
@@ -29,7 +33,7 @@ For example, this route says: for `fast`, try provider a first, then provider b.
 
 If provider a is down, your gateway asks provider b.
 The answer then carries the header `x-gateway-provider: b`.
-A route like `"smart": ["a:smart", "b:fast"]` must stop your gateway at start, because `fast` is weaker than `smart`.
+A route like '"smart": ["a:smart", "b:fast"]' must stop your gateway at start, because `fast` is weaker than `smart`.
 
 1. Try each hop in order. Return the first answer. Set the header `x-gateway-provider` to the provider that answered.
 2. Log every failed try as a spend row with `status: "provider_error"` and cost 0.
@@ -42,12 +46,20 @@ bun run verify fall-back-on-outage
 
 Expect: `Done. All 6 rules pass.`
 
+## Do it on your work
+
+Pick one model your team depends on. Write the second model you would switch to, and how you would know the first one is down. Use your own files. Good looks like proof for each line below.
+
 ## Done when
 
 - With both providers up, calls go to provider a.
 - With provider a down, all 10 calls are answered by provider b.
 - Each failed try is in the spend log, and the log still adds up to the bill.
 - A route that falls back to a weaker model is refused at start.
+
+## Solution
+
+The after state is in `solution/`. Compare it with `diff -r problem/ solution/`.
 
 ## If you get stuck
 

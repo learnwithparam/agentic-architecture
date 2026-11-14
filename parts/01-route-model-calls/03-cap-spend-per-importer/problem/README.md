@@ -15,7 +15,11 @@ flowchart LR
   B[BUDGETS_FILE] --> Q
 ```
 
-## Your challenge
+## Watch it done
+
+Run `bun run verify cap-spend-per-importer` on the starter and see it fail. Run it again with `solution` on the end and see it pass.
+
+## Your turn
 
 Read `BUDGETS_FILE`. It holds spend limits in micro-dollars, under `importers` and `teams`.
 
@@ -47,12 +51,20 @@ Expect: `Done. All 7 rules pass.`, then a spend table where Ridgeway stops near 
 
 ![Spend per importer after the Ridgeway burst](../images/expected.png)
 
+## Do it on your work
+
+Pick one customer or team on your platform. Set a spend limit for them and show what happens when they reach it. Use your own files. Good looks like proof for each line below.
+
 ## Done when
 
 - Ridgeway's burst is answered until its budget is reached, then every call gets 402.
 - The 402 names the importer and says a budget was reached.
 - Ridgeway's spend stops within one call of its budget.
 - No call was moved to a cheaper model, Fjordline keeps working, and a team over its own budget gets 402.
+
+## Solution
+
+The after state is in `solution/`. Compare it with `diff -r problem/ solution/`.
 
 ## If you get stuck
 

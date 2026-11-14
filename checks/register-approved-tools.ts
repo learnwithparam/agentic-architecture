@@ -16,7 +16,12 @@ type ToolServersFile = {
   planted_update: { tool: string; description: string };
 };
 type ServedTool = { name: string; server: string; description: string };
-export type ReceivedCall = { tool: string; agent: string | null; importer: string | null };
+export type ReceivedCall = {
+  tool: string;
+  agent: string | null;
+  importer: string | null;
+  authorization?: string | null;
+};
 export type ToolServers = { url: string; received: ReceivedCall[]; stop: () => void };
 
 const toolServersFile: ToolServersFile = require(join(PART, "tool-servers.json"));
@@ -46,7 +51,7 @@ async function runTool(worldUrl: string, request: Request, received: ReceivedCal
   const tool = new URL(request.url).pathname.replace("/tools/", "");
   const agent = request.headers.get("x-agent");
   const importer = request.headers.get("x-importer");
-  received.push({ tool, agent, importer });
+  received.push({ tool, agent, importer, authorization: request.headers.get("authorization") });
   if (tool === UNAPPROVED_TOOL) return Response.json({ documents: ["every importer's papers"] });
   const headers: Record<string, string> = {};
   for (const name of ["x-agent", "x-importer", "x-run"]) {

@@ -1,5 +1,13 @@
 # Identify each agent
 
+## After this part you can
+
+Give each agent its own short-lived token that names the agent, the importer and the broker.
+
+## You leave with
+
+A token service and a tool gateway that trust a signed token and not a header anyone can write.
+
 ## The problem
 
 All three agents act under one shared identity: a team key that never ends.
@@ -30,9 +38,23 @@ flowchart LR
 | -------------------------- | ------- | -------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
 | `issue-agent-identities`   | 15      | A token service that issues each agent a signed, short-lived token; a gateway that accepts only it | The token claims; 401 for a wrong secret, an expired token, the wrong audience, a forged token and a raw team key; the agent on every audit row |
 | `exchange-tokens-per-call` | 20      | Token exchange: one tool, one importer, on behalf of one broker (`act`)                            | 403 for a Northpoint token on a Ridgeway container; a token for the wrong tool; holds and payments; what the tool servers received              |
+| `trust-another-agent`      | 20      | `trust.yaml` and `POST /delegate`: a short token from one agent to another, with a scope           | A signed token's audience, scope and life; 403 for an agent not listed; a delegated token used again; audit lines                               |
 
 In this part the tool gateway is cut down to one job: identity.
 The catalog and the policy from `police-tool-calls` sit in front of it in the full platform.
+
+## Watch and read
+
+| Kind  | Title                                                                                     | Author        | Why                                                                      | Link                                        |
+| ----- | ----------------------------------------------------------------------------------------- | ------------- | ------------------------------------------------------------------------ | ------------------------------------------- |
+| video | Demo of the Cedar Programming Language - The Open Source Language from AWS                | The New Stack | Shows how a policy file says who may do what, before a call runs.        | https://www.youtube.com/watch?v=PzmDYyyA5xM |
+| video | [OOPSLA24] Cedar: A New Language for Expressive, Fast, Safe, and Analyzable Authorization | ACM SIGPLAN   | Explains how the policy language checks each request quickly and safely. | https://www.youtube.com/watch?v=edQLkE5U04c |
+| read  | Cedar documentation                                                                       | Cedar project | Shows how to write a policy and test it.                                 | https://docs.cedarpolicy.com/               |
+| read  | jose, a JavaScript library for JSON Web Tokens                                            | panva         | Shows how to sign a token and check its signature, as this part does.    | https://github.com/panva/jose               |
+
+## Project
+
+Look at the audit log of one of your own systems. Write down which questions it cannot answer about who acted, and what claim in a token would answer each one.
 
 ## Walkthrough
 
@@ -41,6 +63,7 @@ Check each step after you finish it, from the repo root:
 ```bash
 bun run verify issue-agent-identities
 bun run verify exchange-tokens-per-call
+bun run verify trust-another-agent
 ```
 
 Expect: each step ends `Done.` once your work is in place, for example `Done. All 9 rules pass.`
@@ -73,12 +96,13 @@ Last, check the whole part:
 bun run verify part identify-each-agent
 ```
 
-Expect: `Part identify-each-agent is done: 2/2 steps pass.`, after these lines:
+Expect: `Part identify-each-agent is done: 3/3 steps pass.`, after these lines:
 
 ```text
 Part identify-each-agent:
   PASS   issue-agent-identities  (9/9 rules)
   PASS   exchange-tokens-per-call  (9/9 rules)
+  PASS   trust-another-agent  (8/8 rules)
 ```
 
 ## Finished

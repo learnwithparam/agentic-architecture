@@ -1,0 +1,5 @@
+# Guardrails read the words, not the caller. Policy decides who may call a tool;
+# a guardrail stops bad words going out in a call, or coming back in a result.
+# Each rule has a name and a pattern (a regular expression, not case sensitive).
+block_in_calls: []
+clean_in_results: []

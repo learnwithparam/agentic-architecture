@@ -1,0 +1,5 @@
+Command: python logs/show_run.py run-42
+Date: 2026-03-02
+run-42 model_call 2
+run-42 tool_call 3
+run-42 cost_cents 4

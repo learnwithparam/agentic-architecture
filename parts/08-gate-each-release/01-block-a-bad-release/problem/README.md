@@ -4,7 +4,7 @@
 
 Someone changed the Classification prompt.
 It looked better on five examples, so it went out.
-Then it gave every Northpoint glove line the non-medical code `ST-4015-19`.
+For example, it gave every Northpoint glove line the non-medical code `ST-4015-19`.
 The right code is `ST-4015-12`, gloves for medical use.
 Nothing checked the change before it reached the brokers.
 
@@ -18,7 +18,11 @@ flowchart LR
   G -->|exit 1| NO[Block, with the reasons]
 ```
 
-## Your challenge
+## Watch it done
+
+Run `bun run verify block-a-bad-release` on the starter and see it fail. Run it again with `solution` on the end and see it pass.
+
+## Your turn
 
 A **release gate** is a program that runs before every release and says yes or no.
 Your gate has two kinds of rule:
@@ -26,26 +30,16 @@ Your gate has two kinds of rule:
 - **Never-do rules** with zero tolerance: unsigned filings, cross-importer reads, double payments.
   One is too many, however good the codes are.
 - **A pass-rate floor** below 100%: the share of the 40 lines in `../golden.json` the candidate must get right.
-  The broker still reviews every code, so a few misses are fine.
   A gate that demands perfection blocks every release.
 
-There is also a cost ceiling. A better prompt that costs three times as much is not released by accident.
+A cost ceiling stops a prompt that costs three times as much.
 
 Open `gate.yaml` and fill in the values. Then finish the two TODO functions in `gate.ts`.
 The gate gets `CANDIDATE`, `RUNS_URL` and `GOLDEN_FILE`.
 It asks the run API with `POST /runs`, then reads `GET /runs/<run_id>`.
 It reads every number from there, never from the `candidates/` folder.
 
-For example, today's prompt gets 39 of 40 lines right at about 1023 micro-dollars per entry.
-Try the planted glove prompt on the sample answer:
-
-```bash
-bun parts/08-gate-each-release/01-block-a-bad-release/try-gate.ts glove-shortcut solution
-```
-
-Expect: `FAIL  pass rate 85.0% is below the floor; wrong lines: HG-1051-L1, ...`, then `Blocked:` and `The gate exited with 1 (block).`
-
-Your gate also writes `out/gate.json` with these fields: `candidate`, `run_id`, `decision` (`release` or `block`), `reasons`, `pass_rate` (0 to 1), `pass_rate_floor`, `lines_total`, `failing_lines`, `never_do`, `cost_per_entry_micros` and `cost_ceiling_micros`.
+Your gate also writes `out/gate.json` with the decision, the reasons, the pass rate and the cost per entry.
 
 ```bash
 bun run verify block-a-bad-release
@@ -55,6 +49,10 @@ Expect: `Done. All 10 rules pass.`
 
 ![A blocked candidate and a released one](../images/expected.png)
 
+## Do it on your work
+
+Pick one change you ship. Write one test that fails when the change makes things worse, and wire it to block the release. Use your own files. Good looks like proof for each line below.
+
 ## Done when
 
 - Today's prompt is released (exit 0), and the glove prompt is blocked (exit 1) with its wrong lines named.
@@ -62,6 +60,10 @@ Expect: `Done. All 10 rules pass.`
 - A candidate above the cost ceiling is blocked.
 - Candidates the gate has never seen are judged through the run API alone.
 - When the run API is down, the gate blocks.
+
+## Solution
+
+The after state is in `solution/`. Compare it with `diff -r problem/ solution/`.
 
 ## If you get stuck
 

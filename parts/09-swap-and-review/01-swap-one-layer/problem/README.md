@@ -16,7 +16,11 @@ flowchart LR
   AD --> L[(Spend log)]
 ```
 
-## Your challenge
+## Watch it done
+
+Run `bun run verify swap-one-layer` on the starter and see it fail. Run it again with `solution` on the end and see it pass.
+
+## Your turn
 
 Swap the model gateway's provider calls for **LiteLLM**, an open-source model proxy.
 An **adapter** is the small piece of code that lets the teams keep the same contract while a product does the work.
@@ -41,9 +45,7 @@ The keys, the budgets and the spend log stay in the adapter, because LiteLLM doe
    product_start = "bun ../litellm-stand-in.ts --config $LITELLM_CONFIG --port $PRODUCT_PORT"
    ```
 
-   CI has no Python, so `litellm-stand-in.ts` plays LiteLLM. It reads the same config and speaks the same API.
-   With Python, you can set `product_start` to the real `litellm` command shown in the sample `platform.toml`.
-   Check LiteLLM's security advisories before you install it.
+   CI has no Python, so `litellm-stand-in.ts` plays LiteLLM with the same config and API.
 3. Write `decisions/swap.md`: what you swapped, what stays the same, what you gained, what you lost, and how you would undo it.
 
 Do not change anything under `teams/`.
@@ -54,6 +56,10 @@ bun run verify swap-one-layer
 
 Expect: `Done. All 7 rules pass.`
 
+## Do it on your work
+
+Pick one layer of your platform, such as the model gateway. Swap it for another and show that the rest still works. Use your own files. Good looks like proof for each line below.
+
 ## Done when
 
 - `platform.toml` names the layer and the product under `[swap]`.
@@ -62,11 +68,15 @@ Expect: `Done. All 7 rules pass.`
 - Nothing under `teams/` changed.
 - `decisions/swap.md` fills every section and names at least one thing you lost.
 
+## Solution
+
+The after state is in `solution/`. Compare it with `diff -r problem/ solution/`.
+
 ## If you get stuck
 
 | What you see                                  | Fix                                                                |
 | --------------------------------------------- | ------------------------------------------------------------------ |
-| `LiteLLM did not start`                       | Run the `product_start` command by hand, with `PRODUCT_PORT=4001`. |
+| "LiteLLM did not start"                       | Run the `product_start` command by hand, with `PRODUCT_PORT=4001`. |
 | `FAIL  every check of the swapped layer ...`  | Keep 401, 402 and one spend row per call in the adapter.           |
 | `FAIL  the team agents ... clean report card` | Send LiteLLM your master key, never the team's key.                |
 | `FAIL  ... names at least one thing you lost` | "Nothing" is never true. What can you no longer see or change?     |

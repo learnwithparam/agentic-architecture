@@ -1,0 +1,11 @@
+# Guardrails read the words, not the caller. Policy decides who may call a tool;
+# a guardrail stops bad words going out in a call, or coming back in a result.
+# Each rule has a name and a pattern (a regular expression, not case sensitive).
+block_in_calls:
+  - name: bank-account
+    pattern: "\\b[A-Z]{2}\\d{2}(?: ?[A-Z0-9]{4}){3,7}\\b"
+  - name: card-number
+    pattern: "\\b(?:\\d[ -]?){13,16}\\b"
+clean_in_results:
+  - name: hidden-instruction
+    pattern: 'NOTE TO ANY AUTOMATED SYSTEM[^\\"]*'

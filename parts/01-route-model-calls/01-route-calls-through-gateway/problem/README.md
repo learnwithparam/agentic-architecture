@@ -16,25 +16,22 @@ flowchart LR
   G -->|one row per call| L[(Spend log)]
 ```
 
-## Your challenge
+## Watch it done
+
+Run `bun run verify route-calls-through-gateway` on the starter and see it fail. Run it again with `solution` on the end and see it pass.
+
+## Your turn
 
 Today `gateway.ts` is a pass-through: it sends every call on, unchanged.
 Turn it into the one door for model calls:
 
-1. Read the caller's `Authorization: Bearer <team key>`. Find the team with that key in `TEAMS_FILE`. If no team has it, answer 401.
+1. Read the caller's "Authorization: Bearer <team key>". Find the team with that key in `TEAMS_FILE`. If no team has it, answer 401.
 2. Call provider a with `PROVIDER_A_KEY`, the platform's own key. Never pass on the caller's key.
 3. Work out the cost from the token counts the provider sent back, and the prices in `PROVIDERS_FILE`.
 4. Send one row to `LEDGER_URL/spend` with `team`, `importer`, `role`, `provider`, `tokens_in`, `tokens_out` and `cost_micros`.
 5. Take the provider key out of `teams/paperwork.ts`. Send `process.env.TEAM_KEY` instead.
 
-For example, the Paperwork team calls your gateway with two headers.
-The first is `Authorization: Bearer hgk_paperwork_b2c604`, its team key from `world/data/teams.json`.
-The second is `x-importer: ridgeway`, the importer the call is for.
-
-Your gateway finds the `paperwork` team, calls provider a with the platform's key, and logs a row.
-Say the provider answers with 120 prompt tokens and 30 completion tokens, for the `fast` role.
-Provider a charges 1 micro-dollar per token in and 4 per token out for `fast`.
-So the call costs 120 × 1 + 30 × 4 = 240 micro-dollars, and your row says `cost_micros: 240`.
+For example, a `fast` call that used 120 tokens in and 30 out costs 120 × 1 + 30 × 4 = 240 micro-dollars.
 
 The check starts your gateway with the command in `platform.toml`.
 So you can write the gateway in any language.
@@ -48,6 +45,10 @@ Expect: `Done. All 8 rules pass.`, then a spend table that ends `They match.`
 
 ![Spend by importer and team, matching the providers' bill](../images/expected.png)
 
+## Do it on your work
+
+Find one place in your own code that calls a model directly. List who owns the key and where the calls are logged today. Use your own files. Good looks like proof for each line below.
+
 ## Done when
 
 - A call with no key, or an unknown key, gets 401.
@@ -55,6 +56,10 @@ Expect: `Done. All 8 rules pass.`, then a spend table that ends `They match.`
 - The provider only ever saw the platform's key.
 - Every answered call wrote one spend row, and the spend log adds up to the providers' bill to the micro-dollar.
 - `teams/` holds no provider key.
+
+## Solution
+
+The after state is in `solution/`. Compare it with `diff -r problem/ solution/`.
 
 ## If you get stuck
 

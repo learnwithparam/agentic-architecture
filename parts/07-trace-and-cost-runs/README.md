@@ -1,11 +1,19 @@
 # Trace and cost runs
 
+## After this part you can
+
+Follow one entry through every call and put a price on it for each importer.
+
+## You leave with
+
+Spans on every run, model call and tool call, plus `bun run costs` that adds up to the providers' bill.
+
 ## The problem
 
 Finance asks what Northpoint cost. The Holds team asks why one entry took so long.
 Nobody can answer either question.
 No call records the run, the team and the importer together.
-For example, `bun run before` prints `Cost per released entry: unknown, no call records which importer it was for`.
+For example, `bun run before` prints "Cost per released entry: unknown, no call records which importer it was for".
 
 ## Why it matters
 
@@ -28,6 +36,19 @@ flowchart LR
 Before you start, read the [OpenTelemetry semantic conventions for generative AI](https://github.com/open-telemetry/semantic-conventions-genai).
 They name the span attributes this part uses, such as `gen_ai.usage.input_tokens`.
 
+## Watch and read
+
+| Kind  | Title                                                                           | Author        | Why                                                             | Link                                                         |
+| ----- | ------------------------------------------------------------------------------- | ------------- | --------------------------------------------------------------- | ------------------------------------------------------------ |
+| video | OpenTelemetry Concepts for AI: Span, Trace, Session                             | Arize AI      | Explains spans and traces, the units this part records.         | https://www.youtube.com/watch?v=7XgNHzHXeaM                  |
+| video | Observability for Reliable Agentic AI with Strands SDK & OpenTelemetry (NTA406) | AWS Events    | Shows how an agent sends its traces through OpenTelemetry.      | https://www.youtube.com/watch?v=qJxF4XfMLhk                  |
+| read  | Semantic conventions for generative AI                                          | OpenTelemetry | Names the span attributes this part uses, such as token counts. | https://github.com/open-telemetry/semantic-conventions-genai |
+| read  | Traces                                                                          | OpenTelemetry | Explains how spans link into one trace across many calls.       | https://opentelemetry.io/docs/concepts/signals/traces/       |
+
+## Project
+
+Pick one question about your own agent that you cannot answer today, such as what one task cost. Write down which span or spend row would answer it, and which tag you would need to add.
+
 ## Walkthrough
 
 See the problem first. Today's report card cannot price an entry.
@@ -36,7 +57,7 @@ See the problem first. Today's report card cannot price an entry.
 bun run before
 ```
 
-Expect: the card ends `Cost per released entry: unknown, no call records which importer it was for`.
+Expect: the card ends "Cost per released entry: unknown, no call records which importer it was for".
 
 Then make each step's changes in its `problem/` folder, and check them.
 

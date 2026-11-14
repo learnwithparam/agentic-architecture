@@ -1,5 +1,13 @@
 # Choose run shapes
 
+## After this part you can
+
+Choose between a workflow and an agent loop for a job, and run both through one run API.
+
+## You leave with
+
+A run API that starts a workflow or an agent loop with a step limit, and a `decisions/run-shape.md` that says why.
+
 ## The problem
 
 Classification follows a fixed path. Holds needs an agent that decides its next step.
@@ -26,6 +34,19 @@ flowchart LR
 
 Before you start, read [Building effective agents](https://www.anthropic.com/engineering/building-effective-agents) by Anthropic.
 It names the two shapes this part uses: workflows and agents.
+
+## Watch and read
+
+| Kind  | Title                                                                             | Author                                  | Why                                                                 | Link                                                         |
+| ----- | --------------------------------------------------------------------------------- | --------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------ |
+| video | Build an AI Agent with Temporal                                                   | Temporal                                | Shows how a durable workflow runs an agent one step at a time.      | https://www.youtube.com/watch?v=GEXllEH2XiQ                  |
+| video | Samar Abbas, CEO of Temporal Technologies - Durable Execution for AI Agentic Apps | The Software Leaders Uncensored Podcast | Explains why an agent run must keep its place after a crash.        | https://www.youtube.com/watch?v=uzy6CNth6nw                  |
+| read  | Workflows                                                                         | Temporal                                | Shows what a workflow is and how it keeps its state.                | https://docs.temporal.io/workflows                           |
+| read  | Building effective agents                                                         | Anthropic                               | Explains the difference between a fixed workflow and an agent loop. | https://www.anthropic.com/research/building-effective-agents |
+
+## Project
+
+Take one job from your own work. Decide if it is a fixed path. Or does it need an agent that picks its next step? Write the choice and the step limit in a short note.
 
 ## Walkthrough
 

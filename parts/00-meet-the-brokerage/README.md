@@ -1,5 +1,13 @@
 # Meet the brokerage
 
+## After this part you can
+
+Read a brokerage's report card and say which six numbers every later part must bring down to zero.
+
+## You leave with
+
+A `platform.toml` with your name, your run mode and the six "before" numbers.
+
 ## The problem
 
 Three teams at Harbourgate Brokerage run three agents, and each team built its agent in its own way.
@@ -13,7 +21,7 @@ One exam fee was paid twice after a crash.
 
 This part measures all of that.
 Then every later part has a number to bring down to zero.
-For example, `bun run before` prints `41  model calls that bypassed the gateway`.
+For example, `bun run before` prints "41 model calls that bypassed the gateway".
 Part 1 builds the gateway that brings that number to 0.
 
 ```mermaid
@@ -33,6 +41,19 @@ flowchart LR
 | Step                 | Minutes | What you produce                                                      |
 | -------------------- | ------- | --------------------------------------------------------------------- |
 | `meet-the-brokerage` | 20      | `platform.toml` with your name, run mode and the six "before" numbers |
+
+## Watch and read
+
+| Kind  | Title                                                     | Author        | Why                                                                | Link                                                         |
+| ----- | --------------------------------------------------------- | ------------- | ------------------------------------------------------------------ | ------------------------------------------------------------ |
+| video | Observability and Evals for AI Agents: A Simple Breakdown | LangChain     | Shows how traces and checks tell you whether an agent still works. | https://www.youtube.com/watch?v=FDVdLrloFOw                  |
+| video | OpenTelemetry Concepts for AI: Span, Trace, Session       | Arize AI      | Explains the spans and traces that this part records.              | https://www.youtube.com/watch?v=7XgNHzHXeaM                  |
+| read  | OpenTelemetry traces                                      | OpenTelemetry | Explains what a trace is and how spans fit inside it.              | https://opentelemetry.io/docs/concepts/signals/traces/       |
+| read  | OpenTelemetry observability primer                        | OpenTelemetry | Explains why logs, metrics and traces are needed to see a system.  | https://opentelemetry.io/docs/concepts/observability-primer/ |
+
+## Project
+
+Pick one AI tool or script you use at work. Write down who calls it, which key it uses, and what it can reach. Then list three things it does that nobody could prove later.
 
 ## Walkthrough
 

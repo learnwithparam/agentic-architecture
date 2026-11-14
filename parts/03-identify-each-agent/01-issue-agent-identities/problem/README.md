@@ -2,12 +2,9 @@
 
 ## The problem
 
-Every tool call carries a team key, such as `hgk_paperwork_b2c604`.
-A team key is a long-lived secret. It never ends, and every tool server sees it.
-If one leaks, anyone can act as that team until someone notices.
-
-The tool gateway also passes on the `x-agent` header that the caller wrote.
-So any caller can claim to be the Holds agent, and the audit log believes it.
+Every tool call carries a team key such as `hgk_paperwork_b2c604`. It never ends, and every tool server sees it.
+If one leaks, anyone can act as that team.
+The gateway also trusts the `x-agent` header the caller wrote, so any caller can claim to be the Holds agent.
 
 ```mermaid
 flowchart LR
@@ -18,7 +15,11 @@ flowchart LR
   G -->|x-agent from the token| S[Tool servers]
 ```
 
-## Your challenge
+## Watch it done
+
+Run `bun run verify issue-agent-identities` on the starter and see it fail. Run it again with `solution` on the end and see it pass.
+
+## Your turn
 
 Give each agent its own short-lived token, and accept nothing else at the tool gateway.
 
@@ -29,14 +30,14 @@ Give each agent its own short-lived token, and accept nothing else at the tool g
 
 The key pair and `/jwks` are already done in `token-service.ts`.
 
-For example, the Paperwork agent sends `{ "agent": "paperwork-agent", "secret": "hgk_paperwork_b2c604" }` to `/token`.
+For example, the Paperwork agent sends '{ "agent": "paperwork-agent", "secret": "hgk_paperwork_b2c604" }' to `/token`.
 It gets back a token. Decoded, the token says:
 
 ```json
 { "sub": "paperwork-agent", "team": "paperwork", "aud": "harbourgate-tools", "exp": 1789000300 }
 ```
 
-The agent then calls `read_shipment` with `Authorization: Bearer <token>`.
+The agent then calls `read_shipment` with "Authorization: Bearer <token>".
 Five minutes later the token has ended, and the same call gets 401.
 
 ```bash
@@ -47,12 +48,20 @@ Expect: `Done. All 9 rules pass.`
 
 ![The check passing on the sample answer](../images/expected.png)
 
+## Do it on your work
+
+List the agents on your platform. Check that each one has its own name and its own key, not a shared one. Use your own files. Good looks like proof for each line below.
+
 ## Done when
 
-- Each agent gets a token that names it and ends within 15 minutes.
+- Each agent gets a token that names it and ends soon after it is made.
 - A wrong secret, an expired token, a token for another audience and a forged token all get 401.
 - A raw team key no longer works at the tool gateway.
 - Every audit row names the agent from the token.
+
+## Solution
+
+The after state is in `solution/`. Compare it with `diff -r problem/ solution/`.
 
 ## If you get stuck
 

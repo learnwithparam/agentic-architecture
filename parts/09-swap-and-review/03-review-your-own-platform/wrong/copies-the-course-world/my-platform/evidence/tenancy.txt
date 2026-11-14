@@ -1,0 +1,5 @@
+Command: psql -f tests/branch_a_reads_b.sql
+Date: 2026-03-02
+branch a asked for branch b orders
+rows returned: 0
+rows returned for branch a: 14

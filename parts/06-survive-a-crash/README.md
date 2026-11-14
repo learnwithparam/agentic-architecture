@@ -1,11 +1,19 @@
 # Survive a crash
 
+## After this part you can
+
+Make a multi-step run survive a crash, so a payment never happens twice.
+
+## You leave with
+
+A Holds run with a journal, idempotency keys and a release wait with a limit, that passes the crash check.
+
 ## The problem
 
 The Holds worker crashed right after it paid an exam fee.
 When it started again, it began from the top and paid a second time.
 The container also waited longer at the port.
-For example, `bun run before` prints `1  exam fees paid twice after a crash`.
+For example, `bun run before` prints "1 exam fees paid twice after a crash".
 
 ## Why it matters
 
@@ -27,6 +35,20 @@ flowchart LR
 Before you start, read [The thread is the Workflow](https://temporal.io/blog/manetu-the-thread-is-the-workflow) on the Temporal blog.
 It shows a run that a crashed worker started and another machine finished.
 
+## Watch and read
+
+| Kind  | Title                                                                                | Author        | Why                                                                          | Link                                        |
+| ----- | ------------------------------------------------------------------------------------ | ------------- | ---------------------------------------------------------------------------- | ------------------------------------------- |
+| video | Build an AI Agent with Temporal                                                      | Temporal      | Shows an agent run that a restart does not lose.                             | https://www.youtube.com/watch?v=GEXllEH2XiQ |
+| video | Durable Execution meets Durable Sessions: Resilient AI Agents with Temporal and Ably | Ably Realtime | Shows how a durable run picks up again after a failure.                      | https://www.youtube.com/watch?v=D_MRh0lJIR4 |
+| read  | Designing robust and predictable APIs with idempotency                               | Stripe        | Shows how one key stops a payment from running twice.                        | https://stripe.com/blog/idempotency         |
+| read  | Temporal Workflow                                                                    | Temporal      | Explains a workflow that keeps its steps, so a crash does not start it over. | https://docs.temporal.io/workflows          |
+| read  | TypeScript SDK developer guide                                                       | Temporal      | Shows how to write the workflows and activities in TypeScript.               | https://docs.temporal.io/develop/typescript |
+
+## Project
+
+Pick one step in a job you run today that moves money or sends a message. Write down what happens if that step runs twice after a crash.
+
 ## Walkthrough
 
 See the problem first. The report card counts the fee paid twice by today's Holds script.
@@ -35,7 +57,7 @@ See the problem first. The report card counts the fee paid twice by today's Hold
 bun run before
 ```
 
-Expect: a card with the line `1  exam fees paid twice after a crash`.
+Expect: a card with the line "1 exam fees paid twice after a crash".
 
 Then make each step's changes in its `problem/` folder, and check them.
 
@@ -52,7 +74,7 @@ Expect: each step ends `Done.` once your worker is in place, then `Part survive-
 The Holds worker paid an exam fee twice after a crash. Hand in a pull request on your fork with:
 
 - the Holds worker with a journal, idempotency keys built from the run, and a wait for release with a limit;
-- a recording of 3 minutes or less: the worker dies after paying, starts again, and one payment shows.
+- a short recording: the worker dies after paying, starts again, and one payment shows.
 
 It is checked by `bun run verify resume-a-killed-run` and `bun run verify release-the-container-once`.
 Each rule passes or fails. There is no partial grade.

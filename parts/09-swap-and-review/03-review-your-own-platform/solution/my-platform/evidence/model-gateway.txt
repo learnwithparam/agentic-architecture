@@ -1,0 +1,5 @@
+Command: curl -i localhost:8080/v1/chat
+Date: 2026-03-02
+401 with a wrong key
+200 with the branch key
+request id req-9f2 logged for branch north

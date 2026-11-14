@@ -28,7 +28,7 @@ Expect: the container and its network are removed.
 
 ## Done when
 
-- `@temporalio/client` resolves to 1.25.0.
+- `@temporalio/client` resolves to the pinned version in the lockfile.
 - The workflow reaches Completed after the scripted worker kill.
 - Each activity has exactly one completed event in the history.
 - The course's existing checks still pass.

@@ -17,7 +17,11 @@ flowchart LR
   R[review/platform.md: 9 layers] --> C[Named checks run again]
 ```
 
-## Your challenge
+## Watch it done
+
+Run `bun run verify pass-the-platform-review` on the starter and see it fail. Run it again with `solution` on the end and see it pass.
+
+## Your turn
 
 1. **Finish `onboard.ts`.** It already adds the team with a new key.
    Make it also give `<team>-agent` its tools in the policy, and the team its budget.
@@ -44,9 +48,13 @@ bun ../review-card.ts
 bun run verify pass-the-platform-review
 ```
 
-Expect: six lines of `0`, Billing's model and tool calls, `pay_fee for billing-agent answered 403`, then `Done. All 8 rules pass.`
+Expect: six lines of `0`, Billing's model and tool calls, "pay_fee for billing-agent answered 403", then `Done. All 8 rules pass.`
 
 ![The final report card with Billing on board](../images/expected.png)
+
+## Do it on your work
+
+Read your own platform with the same list of questions. Note which ones you can answer with proof. Use your own files. Good looks like proof for each line below.
 
 ## Done when
 
@@ -55,6 +63,10 @@ Expect: six lines of `0`, Billing's model and tool calls, `pay_fee for billing-a
 - Billing is onboarded once, with its own new key, its tools and its budget, and no code changed.
 - The Billing agent works, and is refused a tool it was not given.
 - The report card is still all zeros.
+
+## Solution
+
+The after state is in `solution/`. Compare it with `diff -r problem/ solution/`.
 
 ## If you get stuck
 
