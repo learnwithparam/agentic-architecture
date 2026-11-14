@@ -3,7 +3,7 @@
 ## The problem
 
 One team's loop can call the gateway so fast that everyone waits.
-The Paperwork agent also asks the same question for the same importer again and again, and each repeat is billed.
+For example, the Paperwork agent asks the same question for the same importer again and again, and each repeat is billed.
 A gateway should slow a team that goes too fast, and should not pay twice for an exact repeat.
 
 ```mermaid
@@ -39,12 +39,12 @@ Expect: `Done. All 7 rules pass.`
 
 ## If you get stuck
 
-| What you see                          | Fix                                                                  |
-| ------------------------------------- | -------------------------------------------------------------------- |
-| `FAIL ... the next one gets 429`      | Count calls per team and compare with `RATE_LIMIT` before the call.  |
-| `FAIL another team is still answered` | Key the list of call times by team name, not one list for everyone.  |
-| `FAIL ... another importer ...`       | Add the importer to the saved key.                                   |
-| `FAIL the spend log ...`              | A hit adds no spend row, because no provider was paid.               |
+| What you see                          | Fix                                                                 |
+| ------------------------------------- | ------------------------------------------------------------------- |
+| `FAIL ... the next one gets 429`      | Count calls per team and compare with `RATE_LIMIT` before the call. |
+| `FAIL another team is still answered` | Key the list of call times by team name, not one list for everyone. |
+| `FAIL ... another importer ...`       | Add the importer to the saved key.                                  |
+| `FAIL the spend log ...`              | A hit adds no spend row, because no provider was paid.              |
 
 ## Words you will use
 
