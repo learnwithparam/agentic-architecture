@@ -61,7 +61,7 @@ List the agents on your platform. Check that each one has its own name and its o
 
 ## Solution
 
-The after state is in `solution/`. Compare it with `diff -r problem solution`.
+The after state is in `solution/`. Compare it with `diff -r problem/ solution/`.
 
 ## If you get stuck
 

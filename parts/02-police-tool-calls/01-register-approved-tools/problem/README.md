@@ -59,7 +59,7 @@ List the tools one of your agents can call. Mark each one approved or not, and s
 
 ## Solution
 
-The after state is in `solution/`. Compare it with `diff -r problem solution`.
+The after state is in `solution/`. Compare it with `diff -r problem/ solution/`.
 
 ## If you get stuck
 

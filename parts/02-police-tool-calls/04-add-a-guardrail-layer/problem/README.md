@@ -53,7 +53,7 @@ Take one input your agent reads from outside, such as an email. Show what a bad 
 
 ## Solution
 
-The after state is in `solution/`. Compare it with `diff -r problem solution`.
+The after state is in `solution/`. Compare it with `diff -r problem/ solution/`.
 
 ## If you get stuck
 

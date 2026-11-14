@@ -60,7 +60,7 @@ Pick one tool call your agent should never make. Write the rule that refuses it 
 
 ## Solution
 
-The after state is in `solution/`. Compare it with `diff -r problem solution`.
+The after state is in `solution/`. Compare it with `diff -r problem/ solution/`.
 
 ## If you get stuck
 

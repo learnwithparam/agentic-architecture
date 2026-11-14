@@ -48,7 +48,7 @@ This whole step is the capstone. Fill in the review for your own platform and ru
 
 ## Solution
 
-The after state is in `solution/`. Compare it with `diff -r problem solution`.
+The after state is in `solution/`. Compare it with `diff -r problem/ solution/`.
 
 ## If you get stuck
 

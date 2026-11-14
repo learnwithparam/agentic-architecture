@@ -59,7 +59,7 @@ Pick one long job of yours. Stop it half way and show whether it picks up where 
 
 ## Solution
 
-The after state is in `solution/`. Compare it with `diff -r problem solution`.
+The after state is in `solution/`. Compare it with `diff -r problem/ solution/`.
 
 ## If you get stuck
 

@@ -59,7 +59,7 @@ Pick one model your team depends on. Write the second model you would switch to,
 
 ## Solution
 
-The after state is in `solution/`. Compare it with `diff -r problem solution`.
+The after state is in `solution/`. Compare it with `diff -r problem/ solution/`.
 
 ## If you get stuck
 

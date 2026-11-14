@@ -55,7 +55,7 @@ Pick one rule your platform checks in code today. Write it as a policy and show 
 
 ## Solution
 
-The after state is in `solution/`. Compare it with `diff -r problem solution`.
+The after state is in `solution/`. Compare it with `diff -r problem/ solution/`.
 
 ## If you get stuck
 

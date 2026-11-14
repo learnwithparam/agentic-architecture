@@ -63,7 +63,7 @@ Take last month's model bill. Split it by customer and name the share you cannot
 
 ## Solution
 
-The after state is in `solution/`. Compare it with `diff -r problem solution`.
+The after state is in `solution/`. Compare it with `diff -r problem/ solution/`.
 
 ## If you get stuck
 

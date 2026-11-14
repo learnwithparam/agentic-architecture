@@ -59,7 +59,7 @@ Find one place in your own code that calls a model directly. List who owns the k
 
 ## Solution
 
-The after state is in `solution/`. Compare it with `diff -r problem solution`.
+The after state is in `solution/`. Compare it with `diff -r problem/ solution/`.
 
 ## If you get stuck
 

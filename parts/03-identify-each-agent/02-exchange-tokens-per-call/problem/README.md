@@ -57,7 +57,7 @@ Pick one agent call. Show the token it uses, what the token allows, and when it 
 
 ## Solution
 
-The after state is in `solution/`. Compare it with `diff -r problem solution`.
+The after state is in `solution/`. Compare it with `diff -r problem/ solution/`.
 
 ## If you get stuck
 

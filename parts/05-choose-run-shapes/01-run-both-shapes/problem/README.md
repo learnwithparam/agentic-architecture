@@ -57,7 +57,7 @@ Pick one job on your platform. Say whether it is a fixed workflow or an agent lo
 
 ## Solution
 
-The after state is in `solution/`. Compare it with `diff -r problem solution`.
+The after state is in `solution/`. Compare it with `diff -r problem/ solution/`.
 
 ## If you get stuck
 

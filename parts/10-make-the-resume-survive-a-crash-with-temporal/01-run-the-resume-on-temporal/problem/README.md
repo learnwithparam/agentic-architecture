@@ -50,7 +50,7 @@ Pick one job of yours that must survive a crash. Say what a workflow tool would 
 
 ## Solution
 
-The after state is in `solution/`. Compare it with `diff -r problem solution`.
+The after state is in `solution/`. Compare it with `diff -r problem/ solution/`.
 
 ## If you get stuck
 

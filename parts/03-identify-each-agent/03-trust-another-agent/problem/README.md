@@ -50,7 +50,7 @@ Pick two agents that talk to each other. Write what the receiver checks before i
 
 ## Solution
 
-The after state is in `solution/`. Compare it with `diff -r problem solution`.
+The after state is in `solution/`. Compare it with `diff -r problem/ solution/`.
 
 ## If you get stuck
 

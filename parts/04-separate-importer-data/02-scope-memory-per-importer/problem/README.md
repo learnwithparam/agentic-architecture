@@ -62,7 +62,7 @@ Pick the place your agent keeps notes. Show that a note for one customer never c
 
 ## Solution
 
-The after state is in `solution/`. Compare it with `diff -r problem solution`.
+The after state is in `solution/`. Compare it with `diff -r problem/ solution/`.
 
 ## If you get stuck
 

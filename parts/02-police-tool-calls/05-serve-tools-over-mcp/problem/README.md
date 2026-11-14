@@ -52,7 +52,7 @@ Pick one tool your agents share. Serve it through one gateway with a list of who
 
 ## Solution
 
-The after state is in `solution/`. Compare it with `diff -r problem solution`.
+The after state is in `solution/`. Compare it with `diff -r problem/ solution/`.
 
 ## If you get stuck
 

@@ -4,7 +4,7 @@
 
 Someone changed the Classification prompt.
 It looked better on five examples, so it went out.
-Then it gave every Northpoint glove line the non-medical code `ST-4015-19`.
+For example, it gave every Northpoint glove line the non-medical code `ST-4015-19`.
 The right code is `ST-4015-12`, gloves for medical use.
 Nothing checked the change before it reached the brokers.
 
@@ -63,7 +63,7 @@ Pick one change you ship. Write one test that fails when the change makes things
 
 ## Solution
 
-The after state is in `solution/`. Compare it with `diff -r problem solution`.
+The after state is in `solution/`. Compare it with `diff -r problem/ solution/`.
 
 ## If you get stuck
 

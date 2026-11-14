@@ -57,7 +57,7 @@ Pick one action on your platform that a person must approve. Show that the actio
 
 ## Solution
 
-The after state is in `solution/`. Compare it with `diff -r problem solution`.
+The after state is in `solution/`. Compare it with `diff -r problem/ solution/`.
 
 ## If you get stuck
 

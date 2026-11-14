@@ -66,7 +66,7 @@ Read your own platform with the same list of questions. Note which ones you can 
 
 ## Solution
 
-The after state is in `solution/`. Compare it with `diff -r problem solution`.
+The after state is in `solution/`. Compare it with `diff -r problem/ solution/`.
 
 ## If you get stuck
 

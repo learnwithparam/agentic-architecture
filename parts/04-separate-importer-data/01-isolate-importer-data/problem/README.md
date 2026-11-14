@@ -65,7 +65,7 @@ Pick one table with data from many customers. Show that one customer cannot read
 
 ## Solution
 
-The after state is in `solution/`. Compare it with `diff -r problem solution`.
+The after state is in `solution/`. Compare it with `diff -r problem/ solution/`.
 
 ## If you get stuck
 

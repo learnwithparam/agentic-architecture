@@ -56,7 +56,7 @@ Write down, for one platform you own, the three numbers that show whether it is 
 
 ## Solution
 
-The after state is in `solution/`. Compare it with `diff -r problem solution`.
+The after state is in `solution/`. Compare it with `diff -r problem/ solution/`.
 
 ## If you get stuck
 

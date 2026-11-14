@@ -56,7 +56,7 @@ Pick one step on your platform that costs money or sends a message. Show that a 
 
 ## Solution
 
-The after state is in `solution/`. Compare it with `diff -r problem solution`.
+The after state is in `solution/`. Compare it with `diff -r problem/ solution/`.
 
 ## If you get stuck
 

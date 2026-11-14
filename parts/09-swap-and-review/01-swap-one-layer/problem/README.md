@@ -70,7 +70,7 @@ Pick one layer of your platform, such as the model gateway. Swap it for another 
 
 ## Solution
 
-The after state is in `solution/`. Compare it with `diff -r problem solution`.
+The after state is in `solution/`. Compare it with `diff -r problem/ solution/`.
 
 ## If you get stuck
 
