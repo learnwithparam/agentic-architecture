@@ -133,7 +133,9 @@ export default [
         outcome.other,
         ...(outcome.limited ?? []),
       ];
-      const fromProviders = everyAnswer.filter((a) => a?.status === 200 && a.cache !== "hit");
+      const fromProviders = everyAnswer.filter(
+        (answer) => answer?.status === 200 && answer.cache !== "hit",
+      );
       return fromProviders.length > 0 && outcome.limitedProviderCalls === fromProviders.length;
     },
     tryNext: "check the limit before you ask a provider, so a refused call costs nothing",
