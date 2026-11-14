@@ -9,7 +9,7 @@ We call this replay mode.
 
 ## Set up
 
-You need [Bun](https://bun.sh) 1.4.4 or newer, and git.
+You need [Bun](https://bun.sh) (a recent version), and git.
 You do not need Docker or a cloud account.
 
 ```bash
@@ -55,7 +55,7 @@ bun run world reset
 bun run world
 ```
 
-Expect: `World reset: 60 shipments, 12 open`, then the importers, the teams and the 12 open shipments.
+Expect: "World reset: 60 shipments, 12 open", then the importers, the teams and the 12 open shipments.
 
 ## Run the system as it is, then the finished platform
 

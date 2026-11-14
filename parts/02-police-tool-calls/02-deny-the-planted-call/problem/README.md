@@ -2,14 +2,9 @@
 
 ## The problem
 
-The legacy Classification script filed two rush entries, `HG-1049` and `HG-1053`, by itself.
-No licensed broker signed the codes.
-That breaks the one legal rule in this world.
-
-A sentence in a prompt such as "never file" does not stop this.
-A model can ignore it, or a hidden instruction in an invoice can undo it.
-So the rule must live outside the model, in a policy engine.
-A policy engine is a small service that answers one question: may this agent call this tool?
+The old Classification script filed two rush entries, HG-1049 and HG-1053, with no broker signature.
+A prompt that says "never file" can be ignored or undone by a hidden line in an invoice.
+So the rule must live outside the model, in a policy engine that answers one question: may this agent call this tool?
 
 ```mermaid
 flowchart LR
@@ -21,7 +16,11 @@ flowchart LR
   G --> L[(Audit log: one line per call)]
 ```
 
-## Your challenge
+## Watch it done
+
+Run `bun run verify deny-the-planted-call` on the starter and see it fail. Run it again with `solution` on the end and see it pass.
+
+## Your turn
 
 `policy.ts` is the engine. It is done. It reads the rules in `policy.yaml`.
 Today `policy.yaml` lets every agent call every tool.
@@ -32,8 +31,8 @@ Today `policy.yaml` lets every agent call every tool.
 4. Finish `writeAuditLine()`. Write one line per call to `LEDGER_URL/spans`, allowed or not.
 
 For example, the Classification agent asks to call `file_entry` for `HG-1049`.
-Your gateway asks the engine: `{ "agent": "classification-agent", "tool": "file_entry", "importer": "fjordline" }`.
-The engine answers `{ "decision": "deny", "reason": "denied: classification-agent may not call file_entry" }`.
+Your gateway asks the engine: '{ "agent": "classification-agent", "tool": "file_entry", "importer": "fjordline" }'.
+The engine answers '{ "decision": "deny", "reason": "denied: classification-agent may not call file_entry" }'.
 The gateway answers the agent with 403 and that reason.
 The audit log gets a line with the tool, the agent and the reason.
 
@@ -48,12 +47,20 @@ Expect: `Done. All 7 rules pass.`
 
 ![The check passing on the sample answer](../images/expected.png)
 
+## Do it on your work
+
+Pick one tool call your agent should never make. Write the rule that refuses it and show the refusal. Use your own files. Good looks like proof for each line below.
+
 ## Done when
 
 - All 36 cells of the policy table match: each agent may call only its own tools.
 - The planted `file_entry` call is denied, and the audit log shows why.
 - Allowed calls still run, so "deny everything" fails.
 - With the policy engine down, 2 of 2 calls are refused.
+
+## Solution
+
+The after state is in `solution/`. Compare it with `diff -r problem solution`.
 
 ## If you get stuck
 

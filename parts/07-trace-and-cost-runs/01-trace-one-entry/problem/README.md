@@ -15,7 +15,11 @@ flowchart TD
   R --> T4[execute_tool file_entry: denied]
 ```
 
-## Your challenge
+## Watch it done
+
+Run `bun run verify trace-one-entry` on the starter and see it fail. Run it again with `solution` on the end and see it pass.
+
+## Your turn
 
 `entry.ts` runs one entry for the Classification agent and makes a span for each call.
 A **span** is one timed piece of work, such as one model call. A **trace** is all the spans of one run, in a tree.
@@ -26,12 +30,7 @@ A **span** is one timed piece of work, such as one model call. A **trace** is al
 3. On model spans, set `gen_ai.request.model` and the token counts: `gen_ai.usage.input_tokens` and `gen_ai.usage.output_tokens`.
 4. On tool spans, set `gen_ai.tool.name` and `policy.decision`. Do not copy the tool's input or output into the span.
 
-For example, the check runs your entry for HG-1049, a rush shipment for Fjordline Outdoor.
-The agent reads the shipment and classifies its 2 lines.
-Then it tries `file_entry`, and the tool gateway refuses it.
-So the trace has 9 spans under one root.
-The `file_entry` span says `policy.decision=denied: classification-agent may not call file_entry`.
-The `read_shipment` answer holds the invoice text and prices. They must stay out of the trace.
+For example, the check runs your entry for HG-1049 and expects 9 spans under one root. The `read_shipment` answer holds invoice prices, so it must stay out of the trace.
 
 Run the check from the repo root. Then go into this folder to print the trace:
 
@@ -46,6 +45,10 @@ Expect: `Done. All 6 rules pass.`, then `9 spans, 1 root(s):` and the tree.
 
 ![The check passing and the trace of HG-1049](../images/expected.png)
 
+## Do it on your work
+
+Pick one finished job of yours. Follow it from the first request to the last result and list each hop. Use your own files. Good looks like proof for each line below.
+
 ## Done when
 
 - Your entry runs to the end and sends its spans to the trace store.
@@ -54,6 +57,10 @@ Expect: `Done. All 6 rules pass.`, then `9 spans, 1 root(s):` and the tree.
 - Model spans name the role, and their tokens add up to the gateway's spend log.
 - There is one tool span per tool call, with the tool's name and the policy decision.
 - No span holds invoice text, prices, team keys or tokens.
+
+## Solution
+
+The after state is in `solution/`. Compare it with `diff -r problem solution`.
 
 ## If you get stuck
 

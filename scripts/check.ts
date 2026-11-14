@@ -1,7 +1,16 @@
 // bun run check: the repo standard. CI runs this; any failure stops the build.
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { dirname, join, relative } from "node:path";
-import { allSteps, type Part, parts, ROOT, type Step } from "./structure";
+import {
+  allSteps,
+  exampleFilesProblems,
+  type Part,
+  partShapeProblems,
+  parts,
+  ROOT,
+  type Step,
+  stepShapeProblems,
+} from "./structure";
 
 const problems: string[] = [];
 
@@ -11,13 +20,6 @@ function report(where: string, what: string) {
 
 const readText = (path: string) => readFileSync(path, "utf8");
 
-const STEP_SECTIONS = [
-  "## The problem",
-  "## Your challenge",
-  "## Done when",
-  "## If you get stuck",
-  "## Words you will use",
-];
 const HYPE_PHRASES = [
   "supercharge|unleash|unlock|seamless(ly)?|leverage|dive into|game[- ]changer",
   "revolutioni[sz]e|magic(al)?|cutting[- ]edge|AI-powered",
@@ -33,7 +35,8 @@ const hasImage = (text: string) => [...text.matchAll(IMAGE)].length > 0;
 
 function listFiles(folder: string, found: string[] = []): string[] {
   for (const entry of readdirSync(folder)) {
-    if (entry === "node_modules" || entry === ".git") continue;
+    // Fixtures are pages that fail on purpose, so the shape tests can prove the checks bite.
+    if (entry === "node_modules" || entry === ".git" || entry === "fixtures") continue;
     const path = join(folder, entry);
     if (statSync(path).isDirectory()) listFiles(path, found);
     else found.push(path);
@@ -106,12 +109,7 @@ function checkPartReadme(part: Part) {
   if (!existsSync(readme)) return report(part.dir, "part has no README.md");
   const text = readText(readme);
   if (!MERMAID.test(text)) report(readme, "part README needs a Mermaid diagram");
-  const walkthrough = text.split("## Walkthrough")[1]?.split("\n## ")[0];
-  if (walkthrough === undefined) {
-    report(readme, `part README needs a "## Walkthrough" section`);
-  } else if (!walkthrough.includes("```bash")) {
-    report(readme, "the walkthrough needs the commands, each with an Expect: line");
-  }
+  for (const problem of partShapeProblems(text)) report(readme, problem);
 }
 
 function checkStepName(step: Step, namesSeen: Set<string>) {
@@ -138,9 +136,7 @@ function checkStepReadme(step: Step, readme: string) {
   if (wordCount > 600) {
     report(readme, `${wordCount} words; a step README stays under 600, split the step`);
   }
-  for (const section of STEP_SECTIONS) {
-    if (!text.includes(section)) report(readme, `missing section "${section}"`);
-  }
+  for (const problem of stepShapeProblems(text)) report(readme, problem);
   if (!MERMAID.test(text) && !hasImage(text)) {
     report(readme, "a step shows a picture: a screenshot or a Mermaid diagram");
   }
@@ -174,6 +170,7 @@ function checkStep(step: Step, namesSeen: Set<string>) {
   const readme = join(step.dir, "problem", "README.md");
   if (!existsSync(readme)) return report(step.dir, "missing problem/README.md");
   checkStepReadme(step, readme);
+  for (const problem of exampleFilesProblems(step.meta.exampleFiles)) report(step.dir, problem);
   checkStepSolutionAndCheck(step);
 }
 

@@ -5,7 +5,7 @@
 Finance asks what Northpoint cost. The Holds team asks why one entry took so long.
 Nobody can answer either question.
 No call records the run, the team and the importer together.
-For example, `bun run before` prints `Cost per released entry: unknown, no call records which importer it was for`.
+For example, `bun run before` prints "Cost per released entry: unknown, no call records which importer it was for".
 
 ## Why it matters
 
@@ -36,7 +36,7 @@ See the problem first. Today's report card cannot price an entry.
 bun run before
 ```
 
-Expect: the card ends `Cost per released entry: unknown, no call records which importer it was for`.
+Expect: the card ends "Cost per released entry: unknown, no call records which importer it was for".
 
 Then make each step's changes in its `problem/` folder, and check them.
 

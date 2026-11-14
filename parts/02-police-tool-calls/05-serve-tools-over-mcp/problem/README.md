@@ -18,7 +18,11 @@ sequenceDiagram
   G->>G: allowlist, policy, guardrails
 ```
 
-## Your challenge
+## Watch it done
+
+Run `bun run verify serve-tools-over-mcp` on the starter and see it fail. Run it again with `solution` on the end and see it pass.
+
+## Your turn
 
 Start from your gateway after `add-a-guardrail-layer`. Keep every old path working, and add three things.
 
@@ -34,6 +38,10 @@ bun run verify serve-tools-over-mcp
 
 Expect: `Done. All 8 rules pass.`
 
+## Do it on your work
+
+Pick one tool your agents share. Serve it through one gateway with a list of who may call it. Use your own files. Good looks like proof for each line below.
+
 ## Done when
 
 - The metadata path, the token path and `/mcp` all answer as above.
@@ -41,6 +49,10 @@ Expect: `Done. All 8 rules pass.`
 - A tool outside the allowlist, and a tool the policy denies, come back as errors and never reach a tool server.
 - The tool server sees the agent name, and no bearer token.
 - A token is refused once it has expired.
+
+## Solution
+
+The after state is in `solution/`. Compare it with `diff -r problem solution`.
 
 ## If you get stuck
 

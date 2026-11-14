@@ -14,7 +14,11 @@ flowchart LR
   H -->|yes| P
 ```
 
-## Your challenge
+## Watch it done
+
+Run `bun run verify run-the-resume-on-temporal` on the starter and see it fail. Run it again with `solution` on the end and see it pass.
+
+## Your turn
 
 The starter has `worker.ts` and `start.ts` done for you, and two stubs to fill in.
 
@@ -31,14 +35,22 @@ bun run verify run-the-resume-on-temporal
 
 Expect: `Done. All 6 rules pass.` In the web page at `http://localhost:8233`, the workflow shows `Completed`.
 
+## Do it on your work
+
+Pick one job of yours that must survive a crash. Say what a workflow tool would store so the job can resume. Use your own files. Good looks like proof for each line below.
+
 ## Done when
 
-- `@temporalio/client` resolves to 1.25.0.
+- `@temporalio/client` resolves to the pinned version in the lockfile.
 - The worker really died after the booking.
 - The workflow reaches Completed after the worker was killed and started again.
 - Each activity has exactly one completed event in the history.
 - The exam was booked once and the fee was paid once.
 - The course's existing checks still pass.
+
+## Solution
+
+The after state is in `solution/`. Compare it with `diff -r problem solution`.
 
 ## If you get stuck
 

@@ -19,13 +19,16 @@ flowchart LR
   S -->|no| D2[deny: not permitted]
 ```
 
-## Your challenge
+## Watch it done
+
+Run `bun run verify write-the-policy-in-cedar` on the starter and see it fail. Run it again with `solution` on the end and see it pass.
+
+## Your turn
 
 `policy.ts` asks Cedar one question for each call. Cedar reads the rules in `policy.cedar`.
 
 1. Write one `permit` for each tool that a team may use. Read `world/data/teams.json`. Permit nothing else.
-   For example, this line lets the Holds agent pay the exam fee:
-   `permit (principal == Agent::"holds-agent", action == Action::"pay_fee", resource);`
+   For example: `permit (principal == Agent::"holds-agent", action == Action::"pay_fee", resource);`
 2. Give the Paperwork agent `file_entry`, but only when the call has a broker's signature.
    For example, add `when { context.brokerSigned };` after the permit.
 3. In `policy.ts`, import `validate`, and set `schemaProblem` from the first error it reports.
@@ -39,12 +42,20 @@ bun run verify write-the-policy-in-cedar
 
 Expect: four lines that start with PASS or FAIL, then `Done. All 4 rules pass.` once your work is complete.
 
+## Do it on your work
+
+Pick one rule your platform checks in code today. Write it as a policy and show it allows and denies the right calls. Use your own files. Good looks like proof for each line below.
+
 ## Done when
 
 - Each agent may call only its own tools. The check asks about all 36 pairs.
 - The planted `file_entry` call from the Classification agent is refused with 403, and the reason names the agent.
 - A policy that does not match the schema refuses all 36 calls.
 - The policy engine and the tool gateway start from `platform.toml`.
+
+## Solution
+
+The after state is in `solution/`. Compare it with `diff -r problem solution`.
 
 ## If you get stuck
 

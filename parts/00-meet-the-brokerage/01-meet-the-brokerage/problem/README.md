@@ -9,7 +9,11 @@ Before you build anything, you need numbers that show what is wrong today.
 
 ![The report card before and after the platform](../images/expected.png)
 
-## Your challenge
+## Watch it done
+
+Run `bun run verify meet-the-brokerage` on the starter and see it fail. Run it again with `solution` on the end and see it pass.
+
+## Your turn
 
 Run the three team scripts as they work today.
 Read the report card they print, and copy it into `platform.toml` in this folder.
@@ -40,11 +44,19 @@ bun run verify meet-the-brokerage
 
 Expect: `Done. All 10 rules pass.`
 
+## Do it on your work
+
+Write down, for one platform you own, the three numbers that show whether it is under control. Name where each number comes from. Use your own files. Good looks like proof for each line below.
+
 ## Done when
 
 - The world starts and its open queue has 12 shipments.
 - `platform.toml` names you and a run mode: `replay`, `anthropic`, `openrouter`, `openai` or `ollama`.
 - Each of the six numbers under `[before]` matches what `bun run before` printed.
+
+## Solution
+
+The after state is in `solution/`. Compare it with `diff -r problem solution`.
 
 ## If you get stuck
 

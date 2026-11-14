@@ -15,13 +15,17 @@ flowchart LR
   W[wait: ask customs up to RELEASE_CHECKS times] -->|still held| P[Page a broker once: demurrage]
 ```
 
-## Your challenge
+## Watch it done
+
+Run `bun run verify release-the-container-once` on the starter and see it fail. Run it again with `solution` on the end and see it pass.
+
+## Your turn
 
 Start from your worker from the last step. In `holds.ts`:
 
 1. Build each payment's `idempotency_key` from the run: `RUN_ID`, the purpose and the shipment. Never at random.
 2. Make `waitForRelease` ask `check_release` up to `RELEASE_CHECKS` times. Pause `RELEASE_PAUSE_MS` between tries.
-3. If the container is still held, page a broker. Send `{ shipment, run_id, reason }` as a POST to `PAGER_URL`. Put "demurrage" in the reason.
+3. If the container is still held, page a broker. Send "{ shipment, run_id, reason }" as a POST to `PAGER_URL`. Put "demurrage" in the reason.
 4. Make the page a `step()`, so a restart does not page twice.
 
 An **idempotency key** is a name for one payment. The payments service moves money only the first time it sees a key.
@@ -38,6 +42,10 @@ bun run verify release-the-container-once
 
 Expect: `Done. All 6 rules pass.`
 
+## Do it on your work
+
+Pick one step on your platform that costs money or sends a message. Show that a restart does not do it twice. Use your own files. Good looks like proof for each line below.
+
 ## Done when
 
 - The worker finishes every time, even while HG-1057 is never released.
@@ -45,6 +53,10 @@ Expect: `Done. All 6 rules pass.`
 - A replay with an empty journal tries to pay again, and moves no money.
 - Every payment's key names its run.
 - HG-1057 was checked 5 times, and a broker was paged once, with a demurrage reason.
+
+## Solution
+
+The after state is in `solution/`. Compare it with `diff -r problem solution`.
 
 ## If you get stuck
 

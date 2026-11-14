@@ -15,7 +15,11 @@ flowchart LR
   D -->|not listed| X[403 and an audit line]
 ```
 
-## Your challenge
+## Watch it done
+
+Run `bun run verify trust-another-agent` on the starter and see it fail. Run it again with `solution` on the end and see it pass.
+
+## Your turn
 
 Start from your token service after `exchange-tokens-per-call`. Fill `trust.yaml` and add `POST /delegate`.
 It takes `subject_token` (the asking agent's own token), `target` (the other agent) and `tools` (what it needs).
@@ -33,12 +37,20 @@ bun run verify trust-another-agent
 
 Expect: `Done. All 8 rules pass.`
 
+## Do it on your work
+
+Pick two agents that talk to each other. Write what the receiver checks before it believes the sender. Use your own files. Good looks like proof for each line below.
+
 ## Done when
 
 - Paperwork gets a token for Classification, with the right audience and scope.
 - The Holds agent is refused, and so is an ask for a tool outside the list.
 - A delegated token cannot be used to ask a third agent.
 - Every ask has an audit line.
+
+## Solution
+
+The after state is in `solution/`. Compare it with `diff -r problem solution`.
 
 ## If you get stuck
 

@@ -17,13 +17,17 @@ flowchart LR
   DB -->|only ridgeway rows| A[Agent]
 ```
 
-## Your challenge
+## Watch it done
+
+Run `bun run verify isolate-importer-data` on the starter and see it fail. Run it again with `solution` on the end and see it pass.
+
+## Your turn
 
 Turn on row-level security in `schema.sql`.
 Row-level security is a Postgres feature: a policy decides which rows each query can see.
 
-1. For `shipments`, `invoice_lines` and `documents`, add `ENABLE ROW LEVEL SECURITY`.
-2. Add `FORCE ROW LEVEL SECURITY` too. The platform owns these tables, and without FORCE the owner sees every row.
+1. For `shipments`, `invoice_lines` and `documents`, add "ENABLE ROW LEVEL SECURITY".
+2. Add "FORCE ROW LEVEL SECURITY" too. The platform owns these tables, and without FORCE the owner sees every row.
 3. Add a policy that shows and accepts only rows where `importer_id = current_setting('app.importer', true)`. Use `USING` for reading and `WITH CHECK` for writing.
 4. Leave `tariff_codes` alone. It has no importer, and every importer may read it.
 
@@ -47,6 +51,10 @@ Expect: `Done. All 8 rules pass.`
 
 ![The check passing on the sample answer](../images/expected.png)
 
+## Do it on your work
+
+Pick one table with data from many customers. Show that one customer cannot read another one's rows. Use your own files. Good looks like proof for each line below.
+
 ## Done when
 
 - Every table with an `importer_id` has row-level security enabled and forced.
@@ -55,11 +63,15 @@ Expect: `Done. All 8 rules pass.`
 - With no importer set, every table is empty.
 - Every importer can still read `tariff_codes`.
 
+## Solution
+
+The after state is in `solution/`. Compare it with `diff -r problem solution`.
+
 ## If you get stuck
 
 | What you see                                     | Fix                                                                            |
 | ------------------------------------------------ | ------------------------------------------------------------------------------ |
-| `FAIL ... enabled and forced`                    | ENABLE alone does not cover the table's owner. Add `FORCE ROW LEVEL SECURITY`. |
+| `FAIL ... enabled and forced`                    | ENABLE alone does not cover the table's owner. Add "FORCE ROW LEVEL SECURITY". |
 | `FAIL Ridgeway cannot write a row for Fjordline` | `USING` covers reads only. Add `WITH CHECK` with the same test.                |
 | `FAIL your SQL loads ...`                        | Read the Postgres error in the output. Each statement ends with `;`.           |
 

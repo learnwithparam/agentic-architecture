@@ -34,7 +34,7 @@ When you finish, every one of those numbers is 0.
 
 ## Run the finished system
 
-You need Bun 1.4.4 or newer, and nothing else.
+You need a recent Bun, and nothing else.
 You do not need a model key, Docker or a cloud account.
 
 ```bash
@@ -42,21 +42,21 @@ bun install
 bun run world
 ```
 
-Expect: three importers, three teams, `12 shipments open` and the rule `a licensed broker signs every classification`.
+Expect: three importers, three teams, "12 shipments open" and the rule "a licensed broker signs every classification".
 
 ```bash
 bun run before
 ```
 
-Expect: `41  model calls that bypassed the gateway`, `2  entries filed with no broker signature` and `1  exam fees paid twice after a crash`.
+Expect: "41 model calls that bypassed the gateway", "2 entries filed with no broker signature" and "1 exam fees paid twice after a crash".
 
 ```bash
 bun run after
 ```
 
-Expect: `0` on all six lines and a `Cost per released entry` for `fjordline`, `northpoint` and `ridgeway`.
+Expect: `0` on all six lines and a "Cost per released entry" for `fjordline`, `northpoint` and `ridgeway`.
 
-Above the card you also see two lines like `HG-1049: denied: classification-agent may not call file_entry`.
+Above the card you also see two lines like "HG-1049: denied: classification-agent may not call file_entry".
 That is not an error. The platform refuses the Classification agent when it tries to file an entry by itself.
 
 ![The finished platform's report card: every count at zero and a cost per released entry](images/finished-system.png)

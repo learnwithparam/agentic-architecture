@@ -3,12 +3,8 @@
 ## The problem
 
 The Paperwork agent may file entries, but only after a licensed broker signs every tariff code.
-A licensed broker is a person who holds a customs broker licence.
-In this world, Amara Okafor and Tomas Reyes are licensed. Jo Whitfield is a trainee.
-
-Your policy already says `ask` for `file_entry`.
-Today the gateway refuses every `ask`, so no entry is ever filed.
-Harbourgate cannot clear any goods.
+Today the gateway refuses every `ask`, so no entry is ever filed and no goods clear.
+Amara Okafor and Tomas Reyes are licensed. Jo Whitfield is a trainee.
 
 ```mermaid
 flowchart LR
@@ -19,7 +15,11 @@ flowchart LR
   B[Broker signs on the approval card] --> C
 ```
 
-## Your challenge
+## Watch it done
+
+Run `bun run verify require-broker-signoff` on the starter and see it fail. Run it again with `solution` on the end and see it pass.
+
+## Your turn
 
 Make `ask` work for `file_entry`.
 
@@ -44,12 +44,20 @@ Expect: `Done. All 6 rules pass.`, then `Part police-tool-calls is done: 3/3 ste
 
 ![The check passing on the sample answer](../images/expected.png)
 
+## Do it on your work
+
+Pick one action on your platform that a person must approve. Show that the action stops until they do. Use your own files. Good looks like proof for each line below.
+
 ## Done when
 
 - A filing with an unsigned line gets 403 with `ask:`, and customs records nothing.
 - A trainee's signature does not count.
 - Once licensed brokers sign every line, the filing goes through and customs releases it.
 - Customs shows 0 filed lines without a licensed broker's signature.
+
+## Solution
+
+The after state is in `solution/`. Compare it with `diff -r problem solution`.
 
 ## If you get stuck
 

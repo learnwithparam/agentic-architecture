@@ -15,7 +15,11 @@ flowchart LR
   M -->|no| P[Provider] --> S[(Spend log)]
 ```
 
-## Your challenge
+## Watch it done
+
+Run `bun run verify limit-and-cache-calls` on the starter and see it fail. Run it again with `solution` on the end and see it pass.
+
+## Your turn
 
 Start from your gateway after `cap-spend-per-importer`. The gateway reads two settings: `RATE_LIMIT`, the calls one team may make in a window, and `RATE_WINDOW_MS`, how long the window lasts.
 
@@ -29,6 +33,10 @@ bun run verify limit-and-cache-calls
 
 Expect: `Done. All 7 rules pass.`
 
+## Do it on your work
+
+Find one caller on your platform that can flood a shared service. Set a limit for it and say which answers are safe to save. Use your own files. Good looks like proof for each line below.
+
 ## Done when
 
 - A team's calls are answered until its limit, then every call gets 429 with `retry-after`.
@@ -36,6 +44,10 @@ Expect: `Done. All 7 rules pass.`
 - An exact repeat for the same importer comes from memory and adds no provider call.
 - The same words for another importer reach a provider.
 - The spend log still adds up to the providers' bill.
+
+## Solution
+
+The after state is in `solution/`. Compare it with `diff -r problem solution`.
 
 ## If you get stuck
 

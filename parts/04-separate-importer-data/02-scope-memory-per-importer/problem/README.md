@@ -2,13 +2,9 @@
 
 ## The problem
 
-Agents keep a memory: past rulings and broker notes.
-They find a note by meaning, not by exact words.
-Each note has an embedding: a list of numbers for its meaning. Close lists mean close meanings.
-
-Today `recall()` ranks every note of every importer.
-So when the Classification agent asks about Ridgeway's decaf beans, Fjordline's notes can come first.
-And an old ruling that a newer one replaced still comes back. It can send goods to a wrong code.
+Agents keep memory: past rulings and broker notes, found by meaning.
+Today `recall()` ranks every note of every importer, so Fjordline's notes can answer Ridgeway's question.
+An old ruling that a newer one replaced also comes back, and it can send goods to a wrong code.
 
 ```mermaid
 flowchart LR
@@ -18,7 +14,11 @@ flowchart LR
   X[Fjordline notes, superseded rulings] -.->|never candidates| F
 ```
 
-## Your challenge
+## Watch it done
+
+Run `bun run verify scope-memory-per-importer` on the starter and see it fail. Run it again with `solution` on the end and see it pass.
+
+## Your turn
 
 Change `memory.sql`. `schema.sql` is the answer from the last step. Leave it as it is.
 
@@ -38,12 +38,7 @@ For example, the check plants these notes and asks Ridgeway's question:
 | `mem-r2` | ridgeway  | Ridgeway lots come in bursts | 0.8                        |
 | `mem-r3` | ridgeway  | Green beans: ST-0901-11      | 1.0                        |
 
-The right answer for the 3 closest notes is `mem-r1`, `mem-r2` and `mem-r3`.
-`mem-r0` is closer, but a newer ruling replaced it, so it must not come back.
-If you rank first and filter after, the top 3 are all Fjordline's. After the filter, Ridgeway gets nothing.
-
-The check also saves a note with `remember()` in one run, and asks for it in the next run.
-Ridgeway finds it. Fjordline never does.
+The right answer is `mem-r1`, `mem-r2` and `mem-r3`. `mem-r0` is closer, but a newer ruling replaced it. If you rank first and filter after, all 3 top notes are Fjordline's.
 
 ```bash
 bun run verify scope-memory-per-importer
@@ -54,6 +49,10 @@ Expect: `Done. All 6 rules pass.`, then `Part separate-importer-data is done: 2/
 
 ![The check passing on the sample answer](../images/expected.png)
 
+## Do it on your work
+
+Pick the place your agent keeps notes. Show that a note for one customer never comes back for another. Use your own files. Good looks like proof for each line below.
+
 ## Done when
 
 - The `memory` table has row-level security enabled and forced.
@@ -61,12 +60,16 @@ Expect: `Done. All 6 rules pass.`, then `Part separate-importer-data is done: 2/
 - A superseded ruling never comes back.
 - A note saved in one run is found in the next run, for the same importer only.
 
+## Solution
+
+The after state is in `solution/`. Compare it with `diff -r problem solution`.
+
 ## If you get stuck
 
 | What you see                                        | Fix                                                                       |
 | --------------------------------------------------- | ------------------------------------------------------------------------- |
 | `FAIL recall for Ridgeway returns its 3 closest...` | The filter must run before `LIMIT`. Row-level security does that for you. |
-| `FAIL recall never returns a superseded ruling`     | Put `superseded_by IS NULL` in the `WHERE` of `recall()`.                 |
+| `FAIL recall never returns a superseded ruling`     | Put "superseded_by IS NULL" in the `WHERE` of `recall()`.                 |
 
 ## Words you will use
 

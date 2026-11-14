@@ -13,7 +13,7 @@ One exam fee was paid twice after a crash.
 
 This part measures all of that.
 Then every later part has a number to bring down to zero.
-For example, `bun run before` prints `41  model calls that bypassed the gateway`.
+For example, `bun run before` prints "41 model calls that bypassed the gateway".
 Part 1 builds the gateway that brings that number to 0.
 
 ```mermaid

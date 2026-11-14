@@ -30,9 +30,9 @@ flowchart LR
   X -.->|started again: history says booking is done| A2
 ```
 
-| Step                         | Minutes | What you produce                                                                            | What its check reads                                                                                                    |
-| ---------------------------- | ------- | ------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| `run-the-resume-on-temporal` | 25      | `workflow.ts`, `activities.ts` and `worker.ts`: the Holds run as two activities on Temporal | The workflow history through `@temporalio/client` 1.25.0: Completed, and one completed event per activity, after a kill |
+| Step                         | Minutes | What you produce                                                                            | What its check reads                                                                                             |
+| ---------------------------- | ------- | ------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| `run-the-resume-on-temporal` | 25      | `workflow.ts`, `activities.ts` and `worker.ts`: the Holds run as two activities on Temporal | The workflow history through `@temporalio/client`: Completed, and one completed event per activity, after a kill |
 
 ## Walkthrough
 

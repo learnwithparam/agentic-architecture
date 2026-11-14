@@ -10,7 +10,7 @@ Rules written in a prompt do not hold.
 A model can skip them, and a hidden instruction in an invoice can undo them.
 So the platform decides which agent may call which tool, outside the model.
 For example, the Classification agent asks to call `file_entry`.
-The tool gateway answers `denied: classification-agent may not call file_entry`, and writes that in the audit log.
+The tool gateway answers "denied: classification-agent may not call file_entry", and writes that in the audit log.
 
 ## Why it matters
 
@@ -52,7 +52,7 @@ cd parts/02-police-tool-calls/01-register-approved-tools/problem
 bun list-tools.ts
 ```
 
-Expect: a list that starts `# server: shipments` and ends with `export_all_documents`, each tool with a `pin: sha256:...` line.
+Expect: a list that starts "# server: shipments" and ends with `export_all_documents`, each tool with a `pin: sha256:...` line.
 
 Go back to the repo root. Then check each step after you finish it:
 

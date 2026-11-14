@@ -5,7 +5,7 @@
 The Holds worker crashed right after it paid an exam fee.
 When it started again, it began from the top and paid a second time.
 The container also waited longer at the port.
-For example, `bun run before` prints `1  exam fees paid twice after a crash`.
+For example, `bun run before` prints "1 exam fees paid twice after a crash".
 
 ## Why it matters
 
@@ -35,7 +35,7 @@ See the problem first. The report card counts the fee paid twice by today's Hold
 bun run before
 ```
 
-Expect: a card with the line `1  exam fees paid twice after a crash`.
+Expect: a card with the line "1 exam fees paid twice after a crash".
 
 Then make each step's changes in its `problem/` folder, and check them.
 
@@ -52,7 +52,7 @@ Expect: each step ends `Done.` once your worker is in place, then `Part survive-
 The Holds worker paid an exam fee twice after a crash. Hand in a pull request on your fork with:
 
 - the Holds worker with a journal, idempotency keys built from the run, and a wait for release with a limit;
-- a recording of 3 minutes or less: the worker dies after paying, starts again, and one payment shows.
+- a short recording: the worker dies after paying, starts again, and one payment shows.
 
 It is checked by `bun run verify resume-a-killed-run` and `bun run verify release-the-container-once`.
 Each rule passes or fails. There is no partial grade.

@@ -16,7 +16,11 @@ flowchart LR
   W & A -->|x-run on every call| L[(Spend log, tool audit, spans)]
 ```
 
-## Your challenge
+## Watch it done
+
+Run `bun run verify run-both-shapes` on the starter and see it fail. Run it again with `solution` on the end and see it pass.
+
+## Your turn
 
 Your run API is in `runs.ts`. It already answers `POST /runs` and `GET /runs/:id`.
 The runners are in `runners.ts`. The calls to the gateways are in `platform-client.ts`.
@@ -29,15 +33,7 @@ The runners are in `runners.ts`. The calls to the gateways are in `platform-clie
 A **workflow** follows a path you write in code.
 An **agent loop** asks the model for the next action, each turn.
 
-For example, the check starts a Holds run on HG-1050, which customs holds for an x-ray.
-Each turn, the agent loop asks the model with the TASK line `hold:HG-1050`.
-The model answers with a plan: `book_exam`, `pay_exam_fee`, `wait_for_release`.
-The loop takes the first action that is not done yet.
-So the run asks the model 4 times: before each of the 3 actions, and once more to see it is done.
-
-The check also starts a Holds run on HG-1057 with `max_steps: 4`.
-HG-1057 has no hold yet, so booking its exam fails every time.
-Without a limit, that run never ends.
+For example, the check starts a Holds run on HG-1057 with `max_steps: 4`. Its exam booking fails every time, so without a limit that run never ends.
 
 ```bash
 bun run verify run-both-shapes
@@ -47,6 +43,10 @@ Expect: `Done. All 8 rules pass.`
 
 ![The check passing on the sample solution](../images/expected.png)
 
+## Do it on your work
+
+Pick one job on your platform. Say whether it is a fixed workflow or an agent loop, and why. Use your own files. Good looks like proof for each line below.
+
 ## Done when
 
 - Classification completes on 3 shipments, with one model call per invoice line.
@@ -54,6 +54,10 @@ Expect: `Done. All 8 rules pass.`
 - A Holds run that cannot finish ends as `stopped_at_limit`, within its limit.
 - Every row in the spend log, the tool audit and the spans carries its run's id.
 - `decisions/run-shape.md` fills in Shape, Why and What would change it, for every team.
+
+## Solution
+
+The after state is in `solution/`. Compare it with `diff -r problem solution`.
 
 ## If you get stuck
 
