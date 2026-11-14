@@ -117,18 +117,20 @@ flowchart LR
 
 ## Parts
 
-| Part                                                                | Minutes | What you build                                                   |
-| ------------------------------------------------------------------- | ------- | ---------------------------------------------------------------- |
-| [Meet the brokerage](parts/00-meet-the-brokerage/README.md)         | 20      | The current report card, recorded in `platform.toml`             |
-| [Route model calls](parts/01-route-model-calls/README.md)           | 55      | A model gateway: team keys, fallback, budgets per importer       |
-| [Police tool calls](parts/02-police-tool-calls/README.md)           | 50      | A tool gateway with a catalog, a policy file and broker sign-off |
-| [Identify each agent](parts/03-identify-each-agent/README.md)       | 35      | A token per agent, exchanged per call                            |
-| [Separate importer data](parts/04-separate-importer-data/README.md) | 35      | Forced row-level security and memory scoped per importer         |
-| [Choose run shapes](parts/05-choose-run-shapes/README.md)           | 20      | One run API for workflows and agent loops                        |
-| [Survive a crash](parts/06-survive-a-crash/README.md)               | 40      | Durable steps and idempotent payments                            |
-| [Trace and cost runs](parts/07-trace-and-cost-runs/README.md)       | 35      | Spans per run and a cost per released entry per importer         |
-| [Gate each release](parts/08-gate-each-release/README.md)           | 25      | A release gate with never-do metrics                             |
-| [Swap and review](parts/09-swap-and-review/README.md)               | 45      | One layer swapped for a product, and the platform review         |
+| Part                                                                                                              | Minutes | What you build                                                   |
+| ----------------------------------------------------------------------------------------------------------------- | ------- | ---------------------------------------------------------------- |
+| [Meet the brokerage](parts/00-meet-the-brokerage/README.md)                                                       | 20      | The current report card, recorded in `platform.toml`             |
+| [Route model calls](parts/01-route-model-calls/README.md)                                                         | 55      | A model gateway: team keys, fallback, budgets per importer       |
+| [Police tool calls](parts/02-police-tool-calls/README.md)                                                         | 50      | A tool gateway with a catalog, a policy file and broker sign-off |
+| [Identify each agent](parts/03-identify-each-agent/README.md)                                                     | 35      | A token per agent, exchanged per call                            |
+| [Separate importer data](parts/04-separate-importer-data/README.md)                                               | 35      | Forced row-level security and memory scoped per importer         |
+| [Choose run shapes](parts/05-choose-run-shapes/README.md)                                                         | 20      | One run API for workflows and agent loops                        |
+| [Survive a crash](parts/06-survive-a-crash/README.md)                                                             | 40      | Durable steps and idempotent payments                            |
+| [Trace and cost runs](parts/07-trace-and-cost-runs/README.md)                                                     | 35      | Spans per run and a cost per released entry per importer         |
+| [Gate each release](parts/08-gate-each-release/README.md)                                                         | 25      | A release gate with never-do metrics                             |
+| [Swap and review](parts/09-swap-and-review/README.md)                                                             | 45      | One layer swapped for a product, and the platform review         |
+| [Make the resume survive a crash with Temporal](parts/10-make-the-resume-survive-a-crash-with-temporal/README.md) | 25      | The same resume, run on Temporal                                 |
+| [Decide tool calls with Cedar](parts/11-decide-tool-calls-with-cedar/README.md)                                   | 20      | The tool policy written in Cedar and checked against a schema    |
 
 Start in [00-orientation](00-orientation/README.md).
 Every step ends with one command: `bun run verify <step-name>`.
