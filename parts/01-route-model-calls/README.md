@@ -44,6 +44,15 @@ flowchart LR
 Each step starts from the sample answer of the step before it.
 So you can begin at any step.
 
+## Watch and read
+
+| Kind  | Title                                                                                           | Author           | Why                                                                        | Link                                          |
+| ----- | ----------------------------------------------------------------------------------------------- | ---------------- | -------------------------------------------------------------------------- | --------------------------------------------- |
+| video | Observability and Evals for AI Agents: A Simple Breakdown                                       | LangChain        | Shows how to watch what an agent calls and what it costs.                  | https://www.youtube.com/watch?v=FDVdLrloFOw   |
+| video | AWS re:Invent - Observability for Reliable Agentic AI with Strands SDK & OpenTelemetry (NTA406) | AWS Events       | Shows how calls to models and tools get recorded in production.            | https://www.youtube.com/watch?v=qJxF4XfMLhk   |
+| read  | How Grab builds and runs AI agents at scale                                                     | Grab Engineering | Shows one gateway in front of every model, with keys and cost per request. | https://engineering.grab.com/grab-ai-gateway  |
+| read  | Cloudflare AI Gateway documentation                                                             | Cloudflare       | Shows a gateway that logs, caches, limits and retries model calls.         | https://developers.cloudflare.com/ai-gateway/ |
+
 ## Project
 
 Find one place in your own work where a model is called with a shared key. Sketch the gateway you would put in front of it, and name the first budget you would set.

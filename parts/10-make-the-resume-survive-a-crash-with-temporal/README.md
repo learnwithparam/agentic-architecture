@@ -1,5 +1,13 @@
 # Make the resume survive a crash with Temporal
 
+## After this part you can
+
+Make a multi-step agent run resume after a crash, using a durable workflow engine instead of a hand-built journal.
+
+## You leave with
+
+A `workflow.ts`, an `activities.ts` and a `worker.ts` that run the Holds run on Temporal.
+
 ## The problem
 
 You built the resume layer by hand. A journal file remembers each finished step.
@@ -33,6 +41,20 @@ flowchart LR
 | Step                         | Minutes | What you produce                                                                            | What its check reads                                                                                             |
 | ---------------------------- | ------- | ------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
 | `run-the-resume-on-temporal` | 25      | `workflow.ts`, `activities.ts` and `worker.ts`: the Holds run as two activities on Temporal | The workflow history through `@temporalio/client`: Completed, and one completed event per activity, after a kill |
+
+## Watch and read
+
+| Kind  | Title                            | Author                                               | Why                                                                       | Link                                              |
+| ----- | -------------------------------- | ---------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------- |
+| video | Build an AI Agent with Temporal  | Temporal                                             | Shows an agent run that goes on after a restart, the idea this part uses. | https://www.youtube.com/watch?v=GEXllEH2XiQ       |
+| video | Durable Execution for AI Agents  | Samar Abbas, The Software Leaders Uncensored Podcast | Explains why an agent run must resume after a crash, not start again.     | https://www.youtube.com/watch?v=uzy6CNth6nw       |
+| read  | Temporal TypeScript introduction | Temporal                                             | Shows the workflows and activities you write in this part.                | https://docs.temporal.io/typescript/introduction/ |
+| read  | Temporal documentation           | Temporal                                             | The home of the docs for every Temporal concept used here.                | https://docs.temporal.io                          |
+
+## Project
+
+List one multi-step job in your own system that could stop halfway. Write down its steps, and say which step you would not want to repeat.
+Then note whether a tool already keeps a record of finished steps for you. That note is your starting point.
 
 ## Walkthrough
 

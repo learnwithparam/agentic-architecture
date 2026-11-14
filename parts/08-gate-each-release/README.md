@@ -1,5 +1,13 @@
 # Gate each release
 
+## After this part you can
+
+Block a prompt or model change that breaks a rule, before it reaches a real filing.
+
+## You leave with
+
+A `gate.yaml` and a `gate.ts` that exit 1 on a bad candidate and exit 0 on a good one.
+
 ## The problem
 
 Someone changed the Classification prompt.
@@ -37,6 +45,19 @@ The step folder holds what the gate works on:
 - `candidates/`: four prompts, each with the run recorded from it in replay mode.
 - `run-api.ts`: the run API. It plays a candidate's run into a fresh ledger and answers from there.
 - `try-gate.ts`: runs your gate on one candidate, by hand.
+
+## Watch and read
+
+| Kind  | Title                                                                           | Author     | Why                                                                             | Link                                                     |
+| ----- | ------------------------------------------------------------------------------- | ---------- | ------------------------------------------------------------------------------- | -------------------------------------------------------- |
+| video | Observability and Evals for AI Agents: A Simple Breakdown                       | LangChain  | Explains how evals grade an agent's runs against expected answers.              | https://www.youtube.com/watch?v=FDVdLrloFOw              |
+| video | Observability for Reliable Agentic AI with Strands SDK & OpenTelemetry (NTA406) | AWS Events | Shows how traces give evidence of what an agent did, before and after a change. | https://www.youtube.com/watch?v=qJxF4XfMLhk              |
+| read  | Evaluation concepts                                                             | LangChain  | Explains datasets, evaluators and scores that a gate can read.                  | https://docs.langchain.com/langsmith/evaluation-concepts |
+| read  | LangSmith Evaluation                                                            | LangChain  | Shows how to run a set of examples against a prompt and score each result.      | https://docs.langchain.com/langsmith/evaluation          |
+
+## Project
+
+Pick one prompt or model setting in your own agent that you change often. Write the rule that would stop a bad change to it, and the examples you would use to test that rule.
 
 ## Walkthrough
 

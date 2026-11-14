@@ -1,5 +1,13 @@
 # Decide tool calls with Cedar
 
+## After this part you can
+
+Write a Cedar policy that permits one agent to call one tool, and refuses every other call by default.
+
+## You leave with
+
+A `policy.cedar` file and a `policy.ts` that checks the policy against the schema.
+
 ## The problem
 
 The rules in `policy.yaml` are plain text, and nothing checks them.
@@ -43,6 +51,20 @@ flowchart LR
 | Step                        | Minutes | What you produce                                                                    | What its check reads                                                                            |
 | --------------------------- | ------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
 | `write-the-policy-in-cedar` | 20      | `policy.cedar` with one permit per team tool; `policy.ts` that validates the policy | All 36 cells of the policy table; the planted `file_entry` call; a policy that fails the schema |
+
+## Watch and read
+
+| Kind  | Title                                                                          | Author        | Why                                                                          | Link                                                   |
+| ----- | ------------------------------------------------------------------------------ | ------------- | ---------------------------------------------------------------------------- | ------------------------------------------------------ |
+| video | Demo of the Cedar Programming Language                                         | The New Stack | Shows a short Cedar policy and how a call gets decided.                      | https://www.youtube.com/watch?v=PzmDYyyA5xM            |
+| video | Cedar: A New Language for Expressive, Fast, Safe, and Analyzable Authorization | ACM SIGPLAN   | Explains why Cedar is built so that a reviewer and a tool can both check it. | https://www.youtube.com/watch?v=edQLkE5U04c            |
+| read  | Cedar entities syntax                                                          | Cedar project | Shows how a principal, an action and a resource are written in a policy.     | https://docs.cedarpolicy.com/auth/entities-syntax.html |
+| read  | Cedar home page                                                                | Cedar project | The home of the language, with its docs and its schema tools.                | https://cedarpolicy.com                                |
+
+## Project
+
+List the agents in your own system and the tools each one calls. For each pair, write one permit, and mark any pair that must never be allowed.
+Keep the list in a file that a reviewer can open. A missing permit then means a call is refused.
 
 ## Walkthrough
 

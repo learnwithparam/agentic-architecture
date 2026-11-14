@@ -1,5 +1,13 @@
 # Survive a crash
 
+## After this part you can
+
+Make a multi-step run survive a crash, so a payment never happens twice.
+
+## You leave with
+
+A Holds run with a journal, idempotency keys and a release wait with a limit, that passes the crash check.
+
 ## The problem
 
 The Holds worker crashed right after it paid an exam fee.
@@ -26,6 +34,20 @@ flowchart LR
 
 Before you start, read [The thread is the Workflow](https://temporal.io/blog/manetu-the-thread-is-the-workflow) on the Temporal blog.
 It shows a run that a crashed worker started and another machine finished.
+
+## Watch and read
+
+| Kind  | Title                                                                                | Author        | Why                                                                          | Link                                        |
+| ----- | ------------------------------------------------------------------------------------ | ------------- | ---------------------------------------------------------------------------- | ------------------------------------------- |
+| video | Build an AI Agent with Temporal                                                      | Temporal      | Shows an agent run that a restart does not lose.                             | https://www.youtube.com/watch?v=GEXllEH2XiQ |
+| video | Durable Execution meets Durable Sessions: Resilient AI Agents with Temporal and Ably | Ably Realtime | Shows how a durable run picks up again after a failure.                      | https://www.youtube.com/watch?v=D_MRh0lJIR4 |
+| read  | Designing robust and predictable APIs with idempotency                               | Stripe        | Shows how one key stops a payment from running twice.                        | https://stripe.com/blog/idempotency         |
+| read  | Temporal Workflow                                                                    | Temporal      | Explains a workflow that keeps its steps, so a crash does not start it over. | https://docs.temporal.io/workflows          |
+| read  | TypeScript SDK developer guide                                                       | Temporal      | Shows how to write the workflows and activities in TypeScript.               | https://docs.temporal.io/develop/typescript |
+
+## Project
+
+Pick one step in a job you run today that moves money or sends a message. Write down what happens if that step runs twice after a crash.
 
 ## Walkthrough
 

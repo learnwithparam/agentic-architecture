@@ -51,6 +51,15 @@ flowchart LR
 Each step starts from the sample answer of the step before it.
 So you can begin at any step.
 
+## Watch and read
+
+| Kind  | Title                                                              | Author              | Why                                                                      | Link                                                   |
+| ----- | ------------------------------------------------------------------ | ------------------- | ------------------------------------------------------------------------ | ------------------------------------------------------ |
+| video | Securing AI Agents: How to Prevent Hidden Prompt Injection Attacks | IBM Technology      | Shows how a hidden instruction can push an agent into a bad tool call.   | https://www.youtube.com/watch?v=5ZA1lTxTH3c            |
+| video | Episode 1: What is AI Red Teaming?                                 | Microsoft Developer | Shows how testers try to make an AI system break its own rules.          | https://www.youtube.com/watch?v=DabrWAKNQZc            |
+| read  | Open Policy Agent documentation                                    | Open Policy Agent   | Shows a policy engine that answers yes or no outside the app.            | https://www.openpolicyagent.org/docs                   |
+| read  | Designing an MCP gateway                                           | Uber Engineering    | Shows a gateway for tool servers that starts each new tool switched off. | https://www.uber.com/us/en/blog/designing-mcp-gateway/ |
+
 ## Project
 
 List the tools one of your own agents can call. Mark each one as allow, ask or deny, and write the one rule you would put in a policy file first.

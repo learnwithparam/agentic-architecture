@@ -39,6 +39,15 @@ flowchart LR
 The checks run your SQL in Postgres inside the check itself, with PGlite. You need no database server.
 Each step starts from the sample answer of the step before it.
 
+## Watch and read
+
+| Kind  | Title                                                              | Author                              | Why                                                                            | Link                                                         |
+| ----- | ------------------------------------------------------------------ | ----------------------------------- | ------------------------------------------------------------------------------ | ------------------------------------------------------------ |
+| video | Prompt Injection, explained                                        | Simon Willison                      | Shows how text hidden in a document can make an agent read data it should not. | https://www.youtube.com/watch?v=FgxwCaL6UTA                  |
+| video | Securing AI Agents: How to Prevent Hidden Prompt Injection Attacks | IBM Technology                      | Shows the risks when an agent reads data from many sources.                    | https://www.youtube.com/watch?v=5ZA1lTxTH3c                  |
+| read  | Row Security Policies                                              | PostgreSQL Global Development Group | Shows how to force a row policy on every query, even for the table owner.      | https://www.postgresql.org/docs/current/ddl-rowsecurity.html |
+| read  | The lethal trifecta for AI agents                                  | Simon Willison                      | Names the three risks that together let an agent leak data.                    | https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/   |
+
 ## Project
 
 Pick one table in your own work that holds more than one customer's rows. Write the rule that would hide each customer's rows from the others, and test it with a query that forgets to filter.

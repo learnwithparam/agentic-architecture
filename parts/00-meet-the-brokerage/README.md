@@ -42,6 +42,15 @@ flowchart LR
 | -------------------- | ------- | --------------------------------------------------------------------- |
 | `meet-the-brokerage` | 20      | `platform.toml` with your name, run mode and the six "before" numbers |
 
+## Watch and read
+
+| Kind  | Title                                                     | Author        | Why                                                                | Link                                                         |
+| ----- | --------------------------------------------------------- | ------------- | ------------------------------------------------------------------ | ------------------------------------------------------------ |
+| video | Observability and Evals for AI Agents: A Simple Breakdown | LangChain     | Shows how traces and checks tell you whether an agent still works. | https://www.youtube.com/watch?v=FDVdLrloFOw                  |
+| video | OpenTelemetry Concepts for AI: Span, Trace, Session       | Arize AI      | Explains the spans and traces that this part records.              | https://www.youtube.com/watch?v=7XgNHzHXeaM                  |
+| read  | OpenTelemetry traces                                      | OpenTelemetry | Explains what a trace is and how spans fit inside it.              | https://opentelemetry.io/docs/concepts/signals/traces/       |
+| read  | OpenTelemetry observability primer                        | OpenTelemetry | Explains why logs, metrics and traces are needed to see a system.  | https://opentelemetry.io/docs/concepts/observability-primer/ |
+
 ## Project
 
 Pick one AI tool or script you use at work. Write down who calls it, which key it uses, and what it can reach. Then list three things it does that nobody could prove later.

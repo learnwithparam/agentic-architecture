@@ -43,6 +43,15 @@ flowchart LR
 In this part the tool gateway is cut down to one job: identity.
 The catalog and the policy from `police-tool-calls` sit in front of it in the full platform.
 
+## Watch and read
+
+| Kind  | Title                                                                                     | Author        | Why                                                                      | Link                                        |
+| ----- | ----------------------------------------------------------------------------------------- | ------------- | ------------------------------------------------------------------------ | ------------------------------------------- |
+| video | Demo of the Cedar Programming Language - The Open Source Language from AWS                | The New Stack | Shows how a policy file says who may do what, before a call runs.        | https://www.youtube.com/watch?v=PzmDYyyA5xM |
+| video | [OOPSLA24] Cedar: A New Language for Expressive, Fast, Safe, and Analyzable Authorization | ACM SIGPLAN   | Explains how the policy language checks each request quickly and safely. | https://www.youtube.com/watch?v=edQLkE5U04c |
+| read  | Cedar documentation                                                                       | Cedar project | Shows how to write a policy and test it.                                 | https://docs.cedarpolicy.com/               |
+| read  | jose, a JavaScript library for JSON Web Tokens                                            | panva         | Shows how to sign a token and check its signature, as this part does.    | https://github.com/panva/jose               |
+
 ## Project
 
 Look at the audit log of one of your own systems. Write down which questions it cannot answer about who acted, and what claim in a token would answer each one.
