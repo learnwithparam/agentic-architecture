@@ -5,7 +5,8 @@
 The journal saves a step after its work is done.
 But a worker can die after the payment and before the save.
 Then the journal says "not paid", and the worker pays again.
-And a wait for release that never ends leaves a container at the port, costing demurrage every day.
+
+Also, a wait for release that never ends leaves a container at the port, costing demurrage every day.
 
 ```mermaid
 flowchart LR
@@ -31,8 +32,10 @@ Start from your worker from the last step. In `holds.ts`:
 An **idempotency key** is a name for one payment. The payments service moves money only the first time it sees a key.
 
 For example, the check runs your worker three times with `RUN_ID=holds-replay-drill`.
-First a normal run. Customs releases HG-1050, but it never releases HG-1057.
-Then a restart with the same journal. Then a replay with the journal deleted.
+First, a normal run. Customs releases HG-1050, but it never releases HG-1057.
+Then a restart with the same journal.
+Then a replay with the journal deleted.
+
 In the replay, your worker pays for HG-1057 again with the key `holds-replay-drill:exam_fee:HG-1057`.
 The payments service has seen that key, so no money moves.
 

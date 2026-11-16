@@ -12,6 +12,7 @@ A `workflow.ts`, an `activities.ts` and a `worker.ts` that run the Holds run on 
 
 You built the resume layer by hand. A journal file remembers each finished step.
 When the Holds worker dies and starts again, it skips the steps already done.
+
 Most teams do not keep a journal file of their own. They run a durable workflow engine.
 For example, Instacart runs its batch model calls on Temporal.
 

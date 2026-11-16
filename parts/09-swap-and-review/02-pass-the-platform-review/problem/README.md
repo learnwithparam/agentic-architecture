@@ -38,6 +38,7 @@ Expect: `Team billing is onboarded. Agent: billing-agent. ...`, then only `budge
 2. **Fill `review/platform.md`.** One row per layer.
    For example, the `model-gateway` row says the contract is `POST /v1/chat/completions` with a team key and `x-importer`.
    Its check is `route-calls-through-gateway`, and AWS Bedrock AgentCore fills it with Bedrock model access.
+
    In Gap, write what the product does not do for Harbourgate.
    Vendors rename products often. Check each name on the vendor's own page.
 

@@ -33,6 +33,7 @@ Do not change `crash-drill.ts`. It kills the worker once, right after the pay st
 For example, the check puts holds on HG-1050 and HG-1057.
 It runs your worker with `CRASH_AFTER=pay_exam_fee`.
 The worker plans, books and pays for HG-1050, and then exits with code 137.
+
 The check starts it again with the same `RUN_ID` and the same journal.
 The journal already has `plan:HG-1050`, `book_exam:HG-1050` and `pay_exam_fee:HG-1050`.
 So the worker goes straight to `wait_for_release:HG-1050`.

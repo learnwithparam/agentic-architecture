@@ -25,7 +25,7 @@ Work in `my-platform/` on your own project, at work or at home. It does not use 
 1. Fill the top of `review.md`: your project's name, your name as owner, and the date.
 2. For each of the nine layers, fill one row. Say what your project uses, what it promises, and a command that tests it.
 3. Run each command. Save its output in `evidence/`. The first line is `Command:` and the second is `Date:`. Use a different file for each layer.
-4. If a layer has nothing yet, write `none` in Evidence. In the last cell, write what is missing and an owner, like "no spend cap; owner: Dana".
+4. If a layer has nothing yet, write `none` in Evidence. In the last cell, write what is missing and an owner, like "no spend cap, owner: Dana".
 5. Find at least three gaps, each with an owner.
 
 ```bash

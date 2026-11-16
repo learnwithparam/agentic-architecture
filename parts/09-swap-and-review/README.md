@@ -13,7 +13,8 @@ A `review/platform.md` table and a `decisions/swap.md` note, with your model gat
 The review board asks: what if Harbourgate moves to an agent platform it buys?
 The answer must be "the checks still pass".
 An architect must also show which product fills each layer, and what it misses.
-And the next team, Billing, wants to start soon.
+The next team, Billing, also wants to start soon.
+
 For example, you will swap your model gateway's provider calls for LiteLLM.
 Then you run the model gateway checks again, and they still pass.
 

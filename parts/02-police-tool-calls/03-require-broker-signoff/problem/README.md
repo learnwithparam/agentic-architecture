@@ -29,10 +29,12 @@ Make `ask` work for `file_entry`.
 4. If not, refuse with 403 and a reason that starts `ask:`. The agent waits and tries again later.
 
 For example, the Paperwork agent files `HG-1052` with three lines.
+
 At first nobody has signed, so your gateway answers `ask: a licensed broker must sign 3 line(s) before filing`.
 Then Amara Okafor signs lines 1 and 2.
 An old system also copied in a signature from Jo Whitfield for line 3.
 Jo is not licensed, so line 3 still does not count. The answer is `ask: ... 1 line(s) ...`.
+
 Then Tomas Reyes signs line 3. Now the filing goes through, and customs releases `HG-1052`.
 
 ```bash

@@ -23,6 +23,7 @@ Run `bun run verify trace-one-entry` on the starter and see it fail. Run it agai
 
 `entry.ts` runs one entry for the Classification agent and makes a span for each call.
 A **span** is one timed piece of work, such as one model call. A **trace** is all the spans of one run, in a tree.
+
 `tracing.ts` is a small tracing library. You do not need to change it. Change `entry.ts`:
 
 1. Put `tenant`, `team` and `run_id` in the run span's `baggage`. Baggage is copied to every child span.

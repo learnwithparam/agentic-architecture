@@ -121,7 +121,7 @@ Then the audit log can prove which agent acted, for which importer, and for whic
 The problem: the Classification agent filed an entry itself, which breaks the broker rule.
 
 - **Hand in**: a pull request on your fork with `tools.yaml`, `policy.yaml` and your tool gateway with the `ask` path.
-- **Rubric** (each line is yes or no; all must be yes):
+- **Rubric** (each line is yes or no, and all must be yes):
   - Does `bun run verify register-approved-tools` pass?
   - Does `bun run verify deny-the-planted-call` pass?
   - Does `bun run verify require-broker-signoff` pass?

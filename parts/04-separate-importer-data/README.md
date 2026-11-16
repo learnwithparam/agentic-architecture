@@ -91,7 +91,7 @@ In the next part, `choose-run-shapes`, the same platform runs both workflows and
 The problem: Fjordline's run could read Northpoint's lines through a search that ignored the importer.
 
 - **Hand in**: a pull request on your fork with `schema.sql` (forced row-level security on every importer table) and `memory.sql` (memory filtered before ranking).
-- **Rubric** (each line is yes or no; all must be yes):
+- **Rubric** (each line is yes or no, and all must be yes):
   - Does `bun run verify isolate-importer-data` pass?
   - Does `bun run verify scope-memory-per-importer` pass?
 - **Extension**: add a new table with an `importer_id` and no policy, and show that `bun run verify isolate-importer-data` fails on the pull request that adds it.

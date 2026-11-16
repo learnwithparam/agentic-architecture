@@ -120,7 +120,7 @@ In the next part, `separate-importer-data`, the database itself refuses to show 
 The problem: the audit log says "agent" and nothing more.
 
 - **Hand in**: a pull request on your fork with the token service (`/token`, `/exchange`, `/jwks`) and the tool gateway that reads the `act` claim.
-- **Rubric** (each line is yes or no; all must be yes):
+- **Rubric** (each line is yes or no, and all must be yes):
   - Does `bun run verify issue-agent-identities` pass?
   - Does `bun run verify exchange-tokens-per-call` pass?
 - **Extension**: rotate the signing key with no failed call. Publish the old and the new key in `/jwks` for a while.

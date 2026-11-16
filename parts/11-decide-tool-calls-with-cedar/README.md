@@ -101,7 +101,7 @@ A policy that does not match the schema stops every call, so a typo cannot open 
 ## Assignment
 
 - **Hand in**: a pull request with your `policy.cedar` and your `policy.ts`.
-- **Rubric** (each line is yes or no; all must be yes):
+- **Rubric** (each line is yes or no, and all must be yes):
   - Each team's agents hold only their own tools, and the policy passes schema validation.
   - The planted filing is denied with a reason, and a signed filing is allowed.
   - A broken policy file refuses every call.

@@ -19,6 +19,7 @@ At the end, you swap one layer for a product and prove that nothing broke.
 **Who it is for.** You are a staff engineer, on a platform team, or an architect.
 One team has an agent script, and you must make it safe for every team to use.
 You can write TypeScript and call an HTTP API.
+
 You do not need to know about policies, row-level security or durable workflows yet.
 The course explains each one when you meet it.
 
@@ -135,6 +136,7 @@ flowchart LR
 Start in [00-orientation](00-orientation/README.md).
 Every step ends with one command: `bun run verify <step-name>`.
 It starts your service, sends it work, and reads the world to judge the result.
+
 `schedules.toml` fits the parts into a one-day workshop, four evenings, or five sessions.
 All ten parts are built, and each one has a check.
 [PARTS.md](PARTS.md) lists what each part teaches.

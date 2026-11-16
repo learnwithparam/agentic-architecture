@@ -2,7 +2,10 @@
 
 ## The problem
 
-The review board asks: "What happens if we buy a product for one of these layers?"
+The review board asks a question.
+
+"What happens if we buy a product for one of these layers?"
+
 A good platform answers: "The teams change nothing, and the checks still pass."
 Today nobody has tried it, so nobody knows.
 
