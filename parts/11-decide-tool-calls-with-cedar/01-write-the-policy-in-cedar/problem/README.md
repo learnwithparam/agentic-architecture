@@ -2,11 +2,10 @@
 
 ## The problem
 
-In the last part, the rules lived in `policy.yaml`. Nothing checked them.
-A rule could name a tool that does not exist, and the engine would never notice.
-A wildcard `"*"` could also let every agent call every tool.
+In the last part, the rules lived in `policy.yaml`. Nothing checked them. A rule could name a tool that does not exist, and the
+engine would never notice. A wildcard `"*"` could also let every agent call every tool.
 
-The Classification agent must never file an entry. Its rules must say so, and the engine must enforce them.
+The Classification agent must never file an entry. The engine must enforce that.
 
 ```mermaid
 flowchart LR
@@ -21,18 +20,19 @@ flowchart LR
 
 ## Watch it done
 
-Run `bun run verify write-the-policy-in-cedar` on the starter and see it fail. Run it again with `solution` on the end and see it pass.
+Run `bun run verify write-the-policy-in-cedar` on the starter, and see it fail. Then run it again with `solution` at the end, and
+see it pass.
 
 ## Your turn
 
 `policy.ts` asks Cedar one question for each call. Cedar reads the rules in `policy.cedar`.
 
-1. Write one `permit` for each tool that a team may use. Read `world/data/teams.json`. Permit nothing else.
-   For example: `permit (principal == Agent::"holds-agent", action == Action::"pay_fee", resource);`
-2. Give the Paperwork agent `file_entry`, but only when the call has a broker's signature.
-   For example, add `when { context.brokerSigned };` after the permit.
-3. In `policy.ts`, import `validate`, and set `schemaProblem` from the first error it reports.
-   When the policy does not match `schema.cedarschema`, the engine refuses every call.
+1. Write one `permit` for each tool that a team may use. Read `world/data/teams.json`. Permit nothing else. For example:
+   `permit (principal == Agent::"holds-agent", action == Action::"pay_fee", resource);`
+2. Give the Paperwork agent `file_entry`, but only when the call has a broker's signature. For example, add
+   `when { context.brokerSigned };` after the permit.
+3. In `policy.ts`, import `validate`, and set `schemaProblem` from the first error it reports. When the policy does not match
+   `schema.cedarschema`, the engine refuses every call.
 
 Check your work:
 
@@ -44,7 +44,8 @@ Expect: four lines that start with PASS or FAIL, then `Done. All 4 rules pass.` 
 
 ## Do it on your work
 
-Pick one rule your platform checks in code today. Write it as a policy and show it allows and denies the right calls. Use your own files. Good looks like proof for each line below.
+Pick one rule that your platform checks in code today. Write it as a policy, and show that it allows and denies the right calls.
+Use your own files. A good answer gives proof for each line below.
 
 ## Done when
 
@@ -68,9 +69,9 @@ The after state is in `solution/`. Compare it with `diff -r problem/ solution/`.
 
 ## Words you will use
 
-- **Principal**: who asks. Here it is the agent, such as `Agent::"paperwork-agent"`.
-- **Action**: what the caller wants to do. Here it is the tool, such as `Action::"file_entry"`.
+- **Principal**: who asks. Here, it is the agent, such as `Agent::"paperwork-agent"`.
+- **Action**: what the caller wants to do. Here, it is the tool, such as `Action::"file_entry"`.
 - **Permit**: a rule that allows a call. Cedar denies every call that no permit allows.
-- **Schema**: the list of agents, tools and fields that a policy may use. Here it is `schema.cedarschema`.
+- **Schema**: the list of agents, tools and fields that a policy may use. Here, it is `schema.cedarschema`.
 - **Validate**: check a policy against the schema before you use it.
 - **Fail closed**: when the engine cannot decide, refuse the call.

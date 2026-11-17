@@ -2,10 +2,11 @@
 
 ## The problem
 
-When provider a is down, every agent at Harbourgate stops.
-No codes are proposed, no entries are drafted, and containers wait at the port.
-A fallback fixes that: when one provider fails, the gateway tries the next one.
-But a careless fallback quietly answers hard tariff questions with a weaker model.
+When provider a is down, every agent at Harbourgate stops. No codes are proposed, no entries are drafted, and containers wait
+at the port.
+
+A fallback fixes that. When one provider fails, the gateway tries the next one. But a careless fallback quietly answers hard
+tariff questions with a weaker model.
 
 ```mermaid
 flowchart LR
@@ -18,12 +19,12 @@ flowchart LR
 
 ## Watch it done
 
-Run `bun run verify fall-back-on-outage` on the starter and see it fail. Run it again with `solution` on the end and see it pass.
+Run `bun run verify fall-back-on-outage` on the starter, and see it fail. Then run it again with `solution` at the end, and see
+it pass.
 
 ## Your turn
 
-`routes.json` lists, for each role, the hops to try in order.
-A hop is one provider and role, written `provider:role`.
+`routes.json` lists, for each role, the hops to try in order. A hop is one provider and role, written `provider:role`.
 
 For example, this route says: for `fast`, try provider a first, then provider b.
 
@@ -31,14 +32,15 @@ For example, this route says: for `fast`, try provider a first, then provider b.
 "fast": ["a:fast", "b:fast"]
 ```
 
-If provider a is down, your gateway asks provider b.
-The answer then carries the header `x-gateway-provider: b`.
-A route like '"smart": ["a:smart", "b:fast"]' must stop your gateway at start, because `fast` is weaker than `smart`.
+If provider a is down, your gateway asks provider b. The answer then carries the header `x-gateway-provider: b`.
+
+A route like '"smart": ["a:smart", "b:fast"]' must stop your gateway at start. The reason: `fast` is weaker than `smart`.
 
 1. Try each hop in order. Return the first answer. Set the header `x-gateway-provider` to the provider that answered.
 2. Log every failed try as a spend row with `status: "provider_error"` and cost 0.
 3. Price each answer with the prices of the provider that gave it.
-4. At start, stop with an error if any hop has a weaker role than the one asked for. `fast` and `judge` are tier 1. `smart` is tier 2.
+4. At start, stop with an error if any hop has a weaker role than the one asked for. `fast` and `judge` are tier 1. `smart` is
+   tier 2.
 
 ```bash
 bun run verify fall-back-on-outage
@@ -48,7 +50,8 @@ Expect: `Done. All 6 rules pass.`
 
 ## Do it on your work
 
-Pick one model your team depends on. Write the second model you would switch to, and how you would know the first one is down. Use your own files. Good looks like proof for each line below.
+Pick one model your team depends on. Write the second model you would switch to. Then write how you would know the first one
+is down. Use your own files. A good answer gives proof for each line below.
 
 ## Done when
 
@@ -65,7 +68,7 @@ The after state is in `solution/`. Compare it with `diff -r problem/ solution/`.
 
 | What you see                              | Fix                                                                           |
 | ----------------------------------------- | ----------------------------------------------------------------------------- |
-| `FAIL ... still answered (200)`           | Catch the failed fetch or the non-200 status and move to the next hop.        |
+| `FAIL ... still answered (200)`           | Catch the failed fetch or the non-200 status, and move to the next hop.       |
 | `FAIL ... refused at start`               | Check the routes before `Bun.serve`, and call `process.exit(1)` on a bad hop. |
 | `FAIL ... adds up to the providers' bill` | Provider b has its own prices in `PROVIDERS_FILE`.                            |
 

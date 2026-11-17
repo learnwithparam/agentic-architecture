@@ -3,8 +3,9 @@
 ## The problem
 
 You have built a platform for the course. Now a board asks about yours.
-For example, your own team's agent may have a model key in code, no tool list, and no record of who ran what.
-A review is useful only when each claim has a saved output next to it.
+
+For example, your own team's agent may have a model key in code, no tool list, and no record of who ran what. A review is useful
+only when each claim has a saved output next to it.
 
 ```mermaid
 flowchart LR
@@ -16,16 +17,19 @@ flowchart LR
 
 ## Watch it done
 
-Run `bun run verify review-your-own-platform` on the starter and see it fail. Run it again with `solution` on the end and see it pass.
+Run `bun run verify review-your-own-platform` on the starter, and see it fail. Then run it again with `solution` at the end, and
+see it pass.
 
 ## Your turn
 
 Work in `my-platform/` on your own project, at work or at home. It does not use the course world.
 
-1. Fill the top of `review.md`: your project's name, your name as owner, and the date.
-2. For each of the nine layers, fill one row. Say what your project uses, what it promises, and a command that tests it.
-3. Run each command. Save its output in `evidence/`. The first line is `Command:` and the second is `Date:`. Use a different file for each layer.
-4. If a layer has nothing yet, write `none` in Evidence. In the last cell, write what is missing and an owner, like "no spend cap, owner: Dana".
+1. Fill in the top of `review.md`: your project's name, your name as owner, and the date.
+2. For each of the nine layers, fill in one row. Say what your project uses, what it promises, and a command that tests it.
+3. Run each command. Save its output in `evidence/`. The first line is `Command:`, and the second is `Date:`. Use a different file
+   for each layer.
+4. If a layer has nothing yet, write `none` in Evidence. In the last cell, write what is missing and an owner, such as "no spend
+   cap, owner: Dana".
 5. Find at least three gaps, each with an owner.
 
 ```bash
@@ -36,14 +40,15 @@ Expect: `Done. All 8 rules pass.`
 
 ## Do it on your work
 
-This whole step is the capstone. Fill in the review for your own platform and run the checker on that folder. Use your own files. Good looks like proof for each line below.
+This whole step is the capstone. Fill in the review for your own platform, and run the checker on that folder. Use your own files.
+A good answer gives proof for each line below.
 
 ## Done when
 
 - The review has a project name, an owner and a date.
 - There is one filled row for each of the nine layers.
 - At least six layers have an evidence file that exists, with its command and date.
-- A layer with no evidence says what is missing and who owns the fix.
+- A layer with no evidence says what is missing, and who owns the fix.
 - At least three gaps have an owner, and nothing is copied from the course.
 
 ## Solution
@@ -55,9 +60,9 @@ The after state is in `solution/`. Compare it with `diff -r problem/ solution/`.
 | What you see                         | Fix                                                                |
 | ------------------------------------ | ------------------------------------------------------------------ |
 | `FAIL ... an evidence file that ...` | Name a file that exists, and start it with `Command:` and `Date:`. |
-| `FAIL no two layers share ...`       | Run a separate command for each layer and save each output.        |
+| `FAIL no two layers share ...`       | Run a separate command for each layer, and save each output.       |
 | `FAIL ... who owns the fix`          | Write `owner:` and a name in the gap cell.                         |
-| `FAIL ... not the course world`      | Remove course names and describe your own project.                 |
+| `FAIL ... not the course world`      | Remove course names, and describe your own project.                |
 
 ## Words you will use
 

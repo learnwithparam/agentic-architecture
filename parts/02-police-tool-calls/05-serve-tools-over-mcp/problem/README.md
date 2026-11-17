@@ -2,9 +2,10 @@
 
 ## The problem
 
-Real agent tools speak MCP, a shared way for an agent to list and call tools.
-Your gateway so far has its own plain paths and a long-lived team key.
-For example, a real MCP client expects JSON-RPC, a short-lived token, and a 401 that says where to get one.
+Real agent tools speak MCP, a shared way to list and call tools. Your gateway uses plain paths and a long-lived team key.
+An MCP client expects JSON-RPC, a short-lived token and a 401 that says where to get one.
+
+For example, the Paperwork agent's first request has no token. The gateway answers 401 and says where to get one.
 
 ```mermaid
 sequenceDiagram
@@ -20,17 +21,23 @@ sequenceDiagram
 
 ## Watch it done
 
-Run `bun run verify serve-tools-over-mcp` on the starter and see it fail. Run it again with `solution` on the end and see it pass.
+Run `bun run verify serve-tools-over-mcp` on the starter, and see it fail. Then run it again with `solution` at the end, and see
+it pass.
 
 ## Your turn
 
-Start from your gateway after `add-a-guardrail-layer`. Keep every old path working, and add three things.
+Start from your gateway after `add-a-guardrail-layer`. Keep every old path working. Add three things.
 
 1. `GET /.well-known/oauth-protected-resource` returns `resource` and `authorization_servers`.
-2. `POST /oauth/token` takes `grant_type`, `client_id` (the agent) and `client_secret` (its team key). It returns `access_token`, `token_type` and `expires_in`. A wrong secret gets 401. The `TOKEN_SECONDS` setting sets the life of a token.
-3. `POST /mcp` takes JSON-RPC. Support `initialize`, `tools/list` and `tools/call`. With no valid token, answer 401 and a `www-authenticate: Bearer resource_metadata="..."` header.
+2. `POST /oauth/token` takes `grant_type`, `client_id` (the agent) and `client_secret` (its team key). It returns
+   `access_token`, `token_type` and `expires_in`. A wrong secret gets 401. The `TOKEN_SECONDS` setting sets how long a token
+   lives.
+3. `POST /mcp` takes JSON-RPC. Support `initialize`, `tools/list` and `tools/call`. With no valid token, answer 401 and a
+   `www-authenticate: Bearer resource_metadata="..."` header.
 
-A `tools/call` goes through the same allowlist, policy and guardrails as a plain call. A refused call comes back as a result with `isError: true`. Never pass the bearer token on to a tool server. An unknown method gets an error with code `-32601` and the same `id`.
+A `tools/call` goes through the same allowlist, policy and guardrails as a plain call. A refused call comes back as a result with
+`isError: true`. Never pass the bearer token on to a tool server. An unknown method gets an error with code `-32601` and the same
+`id`.
 
 ```bash
 bun run verify serve-tools-over-mcp
@@ -40,13 +47,14 @@ Expect: `Done. All 8 rules pass.`
 
 ## Do it on your work
 
-Pick one tool your agents share. Serve it through one gateway with a list of who may call it. Use your own files. Good looks like proof for each line below.
+Pick one tool that your agents share. Serve it through one gateway, with a list of who may call it. Use your own files. A good
+answer gives proof for each line below.
 
 ## Done when
 
 - The metadata path, the token path and `/mcp` all answer as above.
 - `tools/list` shows only approved tools, each with an `inputSchema`.
-- A tool outside the allowlist, and a tool the policy denies, come back as errors and never reach a tool server.
+- A tool outside the allowlist, and a tool the policy denies, come back as errors. They never reach a tool server.
 - The tool server sees the agent name, and no bearer token.
 - A token is refused once it has expired.
 

@@ -3,8 +3,9 @@
 ## The problem
 
 The old Classification script filed two rush entries, HG-1049 and HG-1053, with no broker signature.
-A prompt that says "never file" can be ignored or undone by a hidden line in an invoice.
-So the rule must live outside the model, in a policy engine that answers one question: may this agent call this tool?
+
+A prompt that says "never file" can be ignored. A hidden line in an invoice can undo it. So the rule must live outside the
+model. It belongs in a policy engine that answers one question: may this agent call this tool?
 
 ```mermaid
 flowchart LR
@@ -18,26 +19,27 @@ flowchart LR
 
 ## Watch it done
 
-Run `bun run verify deny-the-planted-call` on the starter and see it fail. Run it again with `solution` on the end and see it pass.
+Run `bun run verify deny-the-planted-call` on the starter, and see it fail. Then run it again with `solution` at the end, and see
+it pass.
 
 ## Your turn
 
-`policy.ts` is the engine. It is done. It reads the rules in `policy.yaml`.
-Today `policy.yaml` lets every agent call every tool.
+`policy.ts` is the engine. It is done. It reads the rules in `policy.yaml`. Today `policy.yaml` lets every agent call every tool.
 
-1. Write the real rules in `policy.yaml`. Read what each team may do in `world/data/teams.json`. Anything you leave out is denied.
-2. Put `file_entry` under `ask` for the `paperwork-agent`. A licensed broker must sign first. The next step makes `ask` work. For now the gateway refuses it.
-3. In `tool-gateway.ts`, make `decide()` fail closed: if the engine does not answer, refuse the call.
+1. Write the real rules in `policy.yaml`. Read what each team may do in `world/data/teams.json`. Anything you leave out is
+   denied.
+2. Put `file_entry` under `ask` for the `paperwork-agent`. A licensed broker must sign first. The next step makes `ask` work.
+   For now, the gateway refuses it.
+3. In `tool-gateway.ts`, make `decide()` fail closed. If the engine does not answer, refuse the call.
 4. Finish `writeAuditLine()`. Write one line per call to `LEDGER_URL/spans`, allowed or not.
 
-For example, the Classification agent asks to call `file_entry` for `HG-1049`.
-Your gateway asks the engine: '{ "agent": "classification-agent", "tool": "file_entry", "importer": "fjordline" }'.
-The engine answers '{ "decision": "deny", "reason": "denied: classification-agent may not call file_entry" }'.
-The gateway answers the agent with 403 and that reason.
-The audit log gets a line with the tool, the agent and the reason.
+For example, the Classification agent asks to call `file_entry` for `HG-1049`. Your gateway asks the engine:
+'{ "agent": "classification-agent", "tool": "file_entry", "importer": "fjordline" }'. The engine answers
+'{ "decision": "deny", "reason": "denied: classification-agent may not call file_entry" }'. The gateway answers the agent with
+403 and that reason. The audit log gets a line with the tool, the agent and the reason.
 
-The check asks your engine about all 36 pairs of agent and tool.
-Then it stops the engine and makes sure your gateway refuses every call.
+The check asks your engine about all 36 pairs of agent and tool. Then it stops the engine, and makes sure your gateway refuses
+every call.
 
 ```bash
 bun run verify deny-the-planted-call
@@ -49,7 +51,8 @@ Expect: `Done. All 7 rules pass.`
 
 ## Do it on your work
 
-Pick one tool call your agent should never make. Write the rule that refuses it and show the refusal. Use your own files. Good looks like proof for each line below.
+Pick one tool call that your agent should never make. Write the rule that refuses it, and show the refusal. Use your own files.
+A good answer gives proof for each line below.
 
 ## Done when
 

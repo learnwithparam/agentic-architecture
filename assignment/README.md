@@ -1,14 +1,16 @@
 # Assignment: move the resume layer onto Temporal
 
-Optional in the live session. Expected as homework.
+Optional in the live session, and expected as homework.
 
 ## Task
 
-Move the resume layer onto Temporal without changing the other six layers.
-Work in `assignment/starter/` (the same folder as the step's `problem/`). It has `worker.ts` and `start.ts` done, and two activity stubs.
-Start the server with `docker compose -f assignment/compose.yml up -d --wait`.
-Fill in `activities.ts` and `workflow.ts`, using the course's own tool calls from the survive-a-crash part.
-Also write `CHOICE.md`: one short paragraph on when DBOS would fit better than Temporal.
+Move the resume layer onto Temporal, without changing the other six layers.
+
+Work in `assignment/starter/`, the same folder as the step's `problem/`. It has `worker.ts` and `start.ts` done, and two activity
+stubs. Start the server with `docker compose -f assignment/compose.yml up -d --wait`.
+
+Fill in `activities.ts` and `workflow.ts`, using the course's own tool calls from the survive-a-crash part. Also write `CHOICE.md`:
+one short paragraph on when DBOS would fit better than Temporal.
 
 ## Check it
 
@@ -33,7 +35,7 @@ Expect: the container and its network are removed.
 - Each activity has exactly one completed event in the history.
 - The course's existing checks still pass.
 
-The script also checks that the worker really died and that the exam was booked and paid once.
+The script also checks that the worker really died, and that the exam was booked and paid once.
 
 ## Rubric (a person reads this)
 
@@ -43,4 +45,4 @@ The script also checks that the worker really died and that the exam was booked 
 
 ## Submit
 
-Push a branch named `assignment` and submit its URL. The grader runs `bun run assignment` again.
+Push a branch named `assignment`, and submit its URL. The grader runs `bun run assignment` again.

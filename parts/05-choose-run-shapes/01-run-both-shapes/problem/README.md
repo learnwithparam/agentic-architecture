@@ -3,9 +3,9 @@
 ## The problem
 
 Each team built its own runner. A runner is the code that starts a run and moves it along.
-Holds runs as a fixed list: plan once, then book, pay and check.
-When customs refuses the booking, the list goes on anyway.
-And no call says which run it belongs to, so nobody can follow one run through the logs.
+
+Holds runs as a fixed list: plan once, then book, pay and check. When customs refuses the booking, the list goes on anyway. And
+no call says which run it belongs to. So nobody can follow one run through the logs.
 
 ```mermaid
 flowchart LR
@@ -18,22 +18,23 @@ flowchart LR
 
 ## Watch it done
 
-Run `bun run verify run-both-shapes` on the starter and see it fail. Run it again with `solution` on the end and see it pass.
+Run `bun run verify run-both-shapes` on the starter, and see it fail. Then run it again with `solution` at the end, and see it
+pass.
 
 ## Your turn
 
-Your run API is in `runs.ts`. It already answers `POST /runs` and `GET /runs/:id`.
-The runners are in `runners.ts`. The calls to the gateways are in `platform-client.ts`.
+Your run API is in `runs.ts`. It already answers `POST /runs` and `GET /runs/:id`. The runners are in `runners.ts`. The calls to
+the gateways are in `platform-client.ts`.
 
 1. In `runs.ts`, pick the shape for each team. Classification stays a workflow. Make Holds an agent loop.
 2. In `runners.ts`, stop the agent loop after `stepLimit` turns. Return `stopped_at_limit`.
 3. In `platform-client.ts`, send the run's id as an `x-run` header on every call.
 4. Fill in `decisions/run-shape.md`: the shape for each team, why, and what would change it.
 
-A **workflow** follows a path you write in code.
-An **agent loop** asks the model for the next action, each turn.
+A **workflow** follows a path that you write in code. An **agent loop** asks the model for the next action, each turn.
 
-For example, the check starts a Holds run on HG-1057 with `max_steps: 4`. Its exam booking fails every time, so without a limit that run never ends.
+For example, the check starts a Holds run on HG-1057 with `max_steps: 4`. Its exam booking fails every time. So without a limit,
+that run never ends.
 
 ```bash
 bun run verify run-both-shapes
@@ -45,7 +46,8 @@ Expect: `Done. All 8 rules pass.`
 
 ## Do it on your work
 
-Pick one job on your platform. Say whether it is a fixed workflow or an agent loop, and why. Use your own files. Good looks like proof for each line below.
+Pick one job on your platform. Say whether it is a fixed workflow or an agent loop, and why. Use your own files. A good answer
+gives proof for each line below.
 
 ## Done when
 

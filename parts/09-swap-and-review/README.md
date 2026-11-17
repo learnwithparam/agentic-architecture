@@ -2,26 +2,25 @@
 
 ## After this part you can
 
-Swap one layer of your platform onto a product, then prove with the same checks that it still works.
+Swap one layer of your platform onto a product. Then prove with the same checks that it still works.
 
 ## You leave with
 
-A `review/platform.md` table and a `decisions/swap.md` note, with your model gateway swapped onto LiteLLM.
+A `review/platform.md` table and a `decisions/swap.md` note. Your model gateway is swapped onto LiteLLM.
 
 ## The problem
 
-The review board asks: what if Harbourgate moves to an agent platform it buys?
-The answer must be "the checks still pass".
-An architect must also show which product fills each layer, and what it misses.
-The next team, Billing, also wants to start soon.
+The review board asks: what if Harbourgate moves to an agent platform that it buys? The answer must be "the checks still pass".
+An architect must also show which product fills each layer, and what it misses. The next team, Billing, also wants to start soon.
 
-For example, you will swap your model gateway's provider calls for LiteLLM.
-Then you run the model gateway checks again, and they still pass.
+For example, you will swap your model gateway's provider calls for LiteLLM. Then you run the model gateway checks again, and they
+still pass.
 
 ## Why it matters
 
-Grab shows the shared framework and gateway its teams build agents on ([Grab Engineering](https://engineering.grab.com/how-grab-builds-and-runs-ai-agents-at-scale)).
-A shared platform pays off when a new team can join it without new platform code.
+Grab shows the shared framework and gateway that its teams build agents on
+([Grab Engineering](https://engineering.grab.com/how-grab-builds-and-runs-ai-agents-at-scale)). A shared platform pays off when a
+new team can join it without new platform code.
 
 ```mermaid
 flowchart LR
@@ -51,12 +50,13 @@ flowchart LR
 
 ## Project
 
-Pick one check you run on your own agent today. Name the product you would swap it onto, and write what that check would miss after the swap.
-Keep those two answers in a short note in your own repo. A reviewer can then see the gap before you make the change.
+Pick one check that you run on your own agent today. Name the product you would swap it onto. Write what that check would miss
+after the swap. Keep those two answers in a short note in your own repo. A reviewer can then see the gap before you make the
+change.
 
 ## Walkthrough
 
-First see the sample swap pass the model gateway checks, and the sample review's report card.
+First, see the sample swap pass the model gateway checks, and the sample review's report card.
 
 ```bash
 bun run verify swap-one-layer solution
@@ -78,15 +78,15 @@ Expect: once your work is in place, each step ends `Done.`, then `Part swap-and-
 
 ## Finished
 
-You now have a platform the review board can trust.
-One layer runs on a product, and the same checks prove it still keeps its contract.
-A table maps every layer to its contract, its check and three managed products, with the gaps.
-And a new team joins with one command and no platform code.
+You now have a platform that the review board can trust. One layer runs on a product, and the same checks prove it still keeps
+its contract. A table maps every layer to its contract, its check and three managed products, with the gaps. A new team joins
+with one command and no platform code.
 
-This is the end of the course.
-Your project is this platform: a repo where `bun run verify --all` passes, `decisions/swap.md` and `review/platform.md`.
+This is the end of the course. Your project is this platform: a repo where `bun run verify --all` passes, plus `decisions/swap.md`
+and `review/platform.md`.
 
 ## Change it
 
 - Swap a second layer once its part is in your repo, such as the tool gateway onto agentgateway. Do the same checks still pass?
-- At a startup, the review is a short note in the repo. At an enterprise, an architecture board may ask for the gaps as risks with owners. Who owns the tenancy gap at your company?
+- At a startup, the review is a short note in the repo. At an enterprise, an architecture board may ask for the gaps as risks
+  with owners. Who owns the tenancy gap at your company?

@@ -2,8 +2,9 @@
 
 ## The problem
 
-The Paperwork agent may file entries, but only after a licensed broker signs every tariff code.
-Today the gateway refuses every `ask`, so no entry is ever filed and no goods clear.
+The Paperwork agent may file entries. But it may file only after a licensed broker signs every tariff code. Today the gateway
+refuses every `ask`. So no entry is ever filed, and no goods clear.
+
 Amara Okafor and Tomas Reyes are licensed. Jo Whitfield is a trainee.
 
 ```mermaid
@@ -17,23 +18,27 @@ flowchart LR
 
 ## Watch it done
 
-Run `bun run verify require-broker-signoff` on the starter and see it fail. Run it again with `solution` on the end and see it pass.
+Run `bun run verify require-broker-signoff` on the starter, and see it fail. Then run it again with `solution` at the end, and
+see it pass.
 
 ## Your turn
 
 Make `ask` work for `file_entry`.
 
-1. When the policy says `ask`, read the proposals for the shipment with the `read_proposals` tool. Each proposal shows its line, its code and the broker who signed it.
-2. A line counts as signed only when the code on the filing matches the signed code, and the broker is licensed in `BROKERS_FILE`.
+1. When the policy says `ask`, read the proposals for the shipment with the `read_proposals` tool. Each proposal shows its line,
+   its code and the broker who signed it.
+2. A line counts as signed only when the code on the filing matches the signed code, and the broker is licensed in
+   `BROKERS_FILE`.
 3. If every line counts, change the decision to `allow` and forward the call.
 4. If not, refuse with 403 and a reason that starts `ask:`. The agent waits and tries again later.
 
 For example, the Paperwork agent files `HG-1052` with three lines.
 
-At first nobody has signed, so your gateway answers `ask: a licensed broker must sign 3 line(s) before filing`.
-Then Amara Okafor signs lines 1 and 2.
-An old system also copied in a signature from Jo Whitfield for line 3.
-Jo is not licensed, so line 3 still does not count. The answer is `ask: ... 1 line(s) ...`.
+At first, nobody has signed. So your gateway answers `ask: a licensed broker must sign 3 line(s) before filing`. Then Amara
+Okafor signs lines 1 and 2.
+
+An old system also copied in a signature from Jo Whitfield for line 3. Jo is not licensed, so line 3
+still does not count. The answer is `ask: ... 1 line(s) ...`.
 
 Then Tomas Reyes signs line 3. Now the filing goes through, and customs releases `HG-1052`.
 
@@ -48,13 +53,14 @@ Expect: `Done. All 6 rules pass.`, then `Part police-tool-calls is done: 3/3 ste
 
 ## Do it on your work
 
-Pick one action on your platform that a person must approve. Show that the action stops until they do. Use your own files. Good looks like proof for each line below.
+Pick one action on your platform that a person must approve. Show that the action stops until they do. Use your own files. A
+good answer gives proof for each line below.
 
 ## Done when
 
 - A filing with an unsigned line gets 403 with `ask:`, and customs records nothing.
 - A trainee's signature does not count.
-- Once licensed brokers sign every line, the filing goes through and customs releases it.
+- Once licensed brokers sign every line, the filing goes through, and customs releases it.
 - Customs shows 0 filed lines without a licensed broker's signature.
 
 ## Solution
@@ -72,5 +78,5 @@ The after state is in `solution/`. Compare it with `diff -r problem/ solution/`.
 ## Words you will use
 
 - **Ask**: a policy result that means "a person must approve first". It sits between allow and deny.
-- **Sign-off**: a licensed person's approval of one exact result, here one code on one line.
+- **Sign-off**: a licensed person's approval of one exact result. Here, it is one code on one line.
 - **Licence list**: the people allowed to sign, in `world/data/brokers.json`. A name that is not on it never counts.

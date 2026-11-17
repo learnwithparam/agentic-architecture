@@ -2,24 +2,22 @@
 
 ## After this part you can
 
-Put one model gateway in front of every provider, so each call has a team key, a budget and a spend row.
+Put one model gateway in front of every provider. Then each call has a team key, a budget and a spend row.
 
 ## You leave with
 
-A model gateway that checks keys and caps spend per importer. It falls back to a provider of the same tier or better, and it limits and caches calls.
+A model gateway that checks keys and caps spend per importer. It falls back to a provider of the same tier or better. It also
+limits and caches calls.
 
 ## The problem
 
-Today, 41 model calls went straight to a provider.
-Three provider keys sit in team code.
-Nobody can send Ridgeway Roasters a bill for its share.
-And when provider a goes down, every agent stops.
+Today, 41 model calls went straight to a provider. Three provider keys sit in team code. Nobody can send Ridgeway Roasters a
+bill for its share. And when provider a goes down, every agent stops.
 
 Large companies fix this with one model gateway in front of every provider.
-A model gateway is one service that every call to an AI model must pass through.
-For example, Grab runs an AI Gateway.
-It gives each person and each service its own key, and tracks the cost of every request
-([Grab Engineering](https://engineering.grab.com/grab-ai-gateway)).
+
+A model gateway is one service that every call to an AI model must pass through. For example, Grab runs an AI Gateway. It gives each person and each service its own key. It
+tracks the cost of every request ([Grab Engineering](https://engineering.grab.com/grab-ai-gateway)).
 
 In this part you build that gateway for Harbourgate, in four steps.
 
@@ -41,8 +39,7 @@ flowchart LR
 | `cap-spend-per-importer`      | 20      | Budgets per importer and per team, refused with 402                                      | Status codes in a 40-call burst, spend per importer against its limit, the roles the provider billed                  |
 | `limit-and-cache-calls`       | 20      | A team limit with 429 and `retry-after`, and a cache that never crosses importers        | Status codes and headers for a fast burst, provider calls for repeats, the spend log against the providers' bill      |
 
-Each step starts from the sample answer of the step before it.
-So you can begin at any step.
+Each step starts from the sample answer of the step before it. So you can begin at any step.
 
 ## Watch and read
 
@@ -55,7 +52,8 @@ So you can begin at any step.
 
 ## Project
 
-Find one place in your own work where a model is called with a shared key. Sketch the gateway you would put in front of it, and name the first budget you would set.
+Find one place in your own work where a model is called with a shared key. Sketch the gateway you would put in front of it.
+Name the first budget you would set.
 
 ## Walkthrough
 
@@ -71,15 +69,17 @@ Expect: each step ends `Done.` once your gateway is in place, then `Part route-m
 
 ## Change it
 
-- Make `fast` fall back to `smart`, and check that the gateway still starts. Then make `smart` fall back to `fast`, and watch it refuse to start.
-- In a large company, budgets live in a finance system and start again each month. Where would your gateway read them from? What happens to a call that is already running when the limit changes?
+- Make `fast` fall back to `smart`, and check that the gateway still starts. Then make `smart` fall back to `fast`. Watch it
+  refuse to start.
+- In a large company, budgets live in a finance system and start again each month. Where would your gateway read them from?
+  What happens to a call that is already running when the limit changes?
 
 ## Finished
 
-You now have one model gateway in front of every provider.
-Teams send their own team key, and only the gateway holds the provider keys.
-Every call writes a spend row, and the spend log adds up to the providers' bill.
-When provider a is down, calls go to provider b, never to a weaker model.
-When an importer's budget is used up, the gateway answers 402 in plain words.
+You now have one model gateway in front of every provider. Teams send their own team key. Only the gateway holds the provider
+keys.
 
-The next part, `police-tool-calls`, does the same for tool calls: one gateway decides which agent may call which tool.
+Every call writes a spend row, and the spend log adds up to the providers' bill. When provider a is down, calls go to
+provider b, never to a weaker model. When an importer's budget is used up, the gateway answers 402 in plain words.
+
+The next part, `police-tool-calls`, does the same for tool calls. One gateway decides which agent may call which tool.

@@ -2,9 +2,10 @@
 
 ## The problem
 
-One team's loop can call the gateway so fast that everyone waits.
-For example, the Paperwork agent asks the same question for the same importer again and again, and each repeat is billed.
-A gateway should slow a team that goes too fast, and should not pay twice for an exact repeat.
+One team's loop can call the gateway so fast that everyone waits. For example, the Paperwork agent asks the same question for
+the same importer again and again. Each repeat is billed.
+
+A gateway should slow a team that goes too fast. It should also not pay twice for an exact repeat.
 
 ```mermaid
 flowchart LR
@@ -17,14 +18,20 @@ flowchart LR
 
 ## Watch it done
 
-Run `bun run verify limit-and-cache-calls` on the starter and see it fail. Run it again with `solution` on the end and see it pass.
+Run `bun run verify limit-and-cache-calls` on the starter, and see it fail. Then run it again with `solution` at the end, and
+see it pass.
 
 ## Your turn
 
-Start from your gateway after `cap-spend-per-importer`. The gateway reads two settings: `RATE_LIMIT`, the calls one team may make in a window, and `RATE_WINDOW_MS`, how long the window lasts.
+Start from your gateway after `cap-spend-per-importer`. The gateway reads two settings:
 
-1. Keep the time of each call per team. When a team has made `RATE_LIMIT` calls inside the window, answer 429 with a `retry-after` header in seconds. Say "Try again in N seconds" in the message. Do this before you call any provider.
-2. Save each answer under the importer, the role and the messages. When the same call comes again for the same importer, answer from memory and add the header `x-gateway-cache: hit`.
+- `RATE_LIMIT`: the calls one team may make in a window.
+- `RATE_WINDOW_MS`: how long the window lasts.
+
+1. Keep the time of each call per team. When a team has made `RATE_LIMIT` calls inside the window, answer 429 with a
+   `retry-after` header in seconds. Say "Try again in N seconds" in the message. Do this before you call any provider.
+2. Save each answer under the importer, the role and the messages. When the same call comes again for the same importer,
+   answer from memory and add the header `x-gateway-cache: hit`.
 3. A saved answer is never shown to another importer. Put the importer in the key.
 
 ```bash
@@ -35,11 +42,12 @@ Expect: `Done. All 7 rules pass.`
 
 ## Do it on your work
 
-Find one caller on your platform that can flood a shared service. Set a limit for it and say which answers are safe to save. Use your own files. Good looks like proof for each line below.
+Find one caller on your platform that can flood a shared service. Set a limit for it, and say which answers are safe to save.
+Use your own files. A good answer gives proof for each line below.
 
 ## Done when
 
-- A team's calls are answered until its limit, then every call gets 429 with `retry-after`.
+- A team's calls are answered until its limit. Then every call gets 429 with `retry-after`.
 - A refused call never reaches a provider, and another team is still answered.
 - An exact repeat for the same importer comes from memory and adds no provider call.
 - The same words for another importer reach a provider.

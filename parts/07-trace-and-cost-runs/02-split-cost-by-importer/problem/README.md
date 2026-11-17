@@ -2,10 +2,10 @@
 
 ## The problem
 
-Finance asks what Northpoint Medical Supply cost.
-The gateway's spend log knows every call, and most rows name an importer.
-But last month's nightly job ran before the gateway asked for one, so its rows name nobody.
-And tonight's nightly job bills every call to Fjordline, even the calls for Ridgeway and Northpoint.
+Finance asks what Northpoint Medical Supply cost. The gateway's spend log knows every call, and most rows name an importer.
+
+But last month's nightly job ran before the gateway asked for an importer. So its rows name nobody. And tonight's nightly job
+bills every call to Fjordline, even the calls for Ridgeway and Northpoint.
 
 ```mermaid
 flowchart LR
@@ -18,7 +18,8 @@ flowchart LR
 
 ## Watch it done
 
-Run `bun run verify split-cost-by-importer` on the starter and see it fail. Run it again with `solution` on the end and see it pass.
+Run `bun run verify split-cost-by-importer` on the starter, and see it fail. Then run it again with `solution` at the end, and see
+it pass.
 
 ## Your turn
 
@@ -26,14 +27,13 @@ Run `bun run verify split-cost-by-importer` on the starter and see it fail. Run 
 2. Make `total_micros` the importers plus unattributed. It must equal the providers' bill, `billed_micros`.
 3. In `nightly.ts`, send each call's `x-importer` as the importer whose notes it refreshes.
 
-`costs.ts` already works out spend and released entries for each importer.
-A **released entry** is an entry customs has let through. Cost per released entry is spend divided by those entries.
+`costs.ts` already works out spend and released entries for each importer. A **released entry** is an entry that customs has let
+through. Cost per released entry is spend divided by those entries.
 
-For example, the check runs the open queue on the finished platform first.
-Northpoint ends with 4 released entries.
-If Northpoint's calls cost 6,126 micro-dollars, its cost per released entry is 6,126 / 4 = 1,532 (rounded).
-The check also adds last month's three untagged rows: 1,200, 800 and 450 micro-dollars.
-So `unattributed_micros` must be 2,450.
+For example, the check runs the open queue on the finished platform first. Northpoint ends with 4 released entries. If Northpoint's
+calls cost 6,126 micro-dollars, its cost per released entry is 6,126 / 4 = 1,532 (rounded).
+
+The check also adds last month's three untagged rows: 1,200, 800 and 450 micro-dollars. So `unattributed_micros` must be 2,450.
 
 Run the check from the repo root. Then go into this folder to print the cost table:
 
@@ -50,7 +50,8 @@ Expect: `Done. All 6 rules pass.`, then a table that ends `They match.`
 
 ## Do it on your work
 
-Take last month's model bill. Split it by customer and name the share you cannot place. Use your own files. Good looks like proof for each line below.
+Take last month's model bill. Split it by customer, and name the share you cannot place. Use your own files. A good answer gives
+proof for each line below.
 
 ## Done when
 
@@ -78,4 +79,4 @@ The after state is in `solution/`. Compare it with `diff -r problem/ solution/`.
 - **Spend log**: the gateway's record of every model call: team, importer, tokens and cost.
 - **Unattributed**: money spent that no importer can be billed for. You still show it.
 - **Providers' bill**: what the model providers charged. Your report must add up to it.
-- **Released entry**: an entry customs has let through. It is the unit finance prices.
+- **Released entry**: an entry that customs has let through. It is the unit finance prices.

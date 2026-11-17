@@ -2,10 +2,10 @@
 
 ## The problem
 
-The review board has two questions.
-First: "Which product would fill each layer if we bought one, and what would it miss?"
+The review board has two questions. First: "Which product would fill each layer if we bought one, and what would it miss?"
 Second: "A fourth team, Billing, wants to start next. How long until it can?"
-A good platform answers the second one with: "One command, and no code change."
+
+A good platform answers the second question with: "One command, and no code change."
 
 ```mermaid
 flowchart LR
@@ -19,13 +19,13 @@ flowchart LR
 
 ## Watch it done
 
-Run `bun run verify pass-the-platform-review` on the starter and see it fail. Run it again with `solution` on the end and see it pass.
+Run `bun run verify pass-the-platform-review` on the starter, and see it fail. Then run it again with `solution` at the end, and
+see it pass.
 
 ## Your turn
 
-1. **Finish `onboard.ts`.** It already adds the team with a new key.
-   Make it also give `<team>-agent` its tools in the policy, and the team its budget.
-   It changes data files only. The platform reads them when it starts.
+1. **Finish `onboard.ts`.** It already adds the team with a new key. Make it also give `<team>-agent` its tools in the policy,
+   and give the team its budget. It changes data files only. The platform reads them when it starts.
 
 ```bash
 cd parts/09-swap-and-review/02-pass-the-platform-review/problem
@@ -35,12 +35,12 @@ git diff --stat .
 
 Expect: `Team billing is onboarded. Agent: billing-agent. ...`, then only `budgets.json`, `policy.json` and `teams.json` in the diff.
 
-2. **Fill `review/platform.md`.** One row per layer.
-   For example, the `model-gateway` row says the contract is `POST /v1/chat/completions` with a team key and `x-importer`.
-   Its check is `route-calls-through-gateway`, and AWS Bedrock AgentCore fills it with Bedrock model access.
+2. **Fill `review/platform.md`.** Write one row per layer. For example, the `model-gateway` row says that the contract is
+   `POST /v1/chat/completions` with a team key and `x-importer`. Its check is `route-calls-through-gateway`. AWS Bedrock
+   AgentCore fills it with Bedrock model access.
 
-   In Gap, write what the product does not do for Harbourgate.
-   Vendors rename products often. Check each name on the vendor's own page.
+   In the Gap column, write what the product does not do for Harbourgate. Vendors rename products often. Check each name on the
+   vendor's own page.
 
 Then see the final report card, with Billing on board:
 
@@ -55,7 +55,8 @@ Expect: six lines of `0`, Billing's model and tool calls, "pay_fee for billing-a
 
 ## Do it on your work
 
-Read your own platform with the same list of questions. Note which ones you can answer with proof. Use your own files. Good looks like proof for each line below.
+Read your own platform with the same list of questions. Note which questions you can answer with proof. Use your own files. A good
+answer gives proof for each line below.
 
 ## Done when
 
@@ -80,6 +81,6 @@ The after state is in `solution/`. Compare it with `diff -r problem/ solution/`.
 
 ## Words you will use
 
-- **Onboarding**: adding a new team so its agent can use the platform.
-- **Contract**: what a layer promises to every team, written so a check can test it.
+- **Onboarding**: adding a new team, so its agent can use the platform.
+- **Contract**: what a layer promises to every team, written so that a check can test it.
 - **Gap**: what a product leaves for you to build or prove.

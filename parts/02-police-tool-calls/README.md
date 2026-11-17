@@ -2,7 +2,8 @@
 
 ## After this part you can
 
-Make a tool gateway decide which agent may call which tool, outside the model, and keep an audit line for every call.
+Make a tool gateway decide which agent may call which tool. The decision happens outside the model, and every call leaves an
+audit line.
 
 ## You leave with
 
@@ -10,22 +11,23 @@ A `tools.yaml`, a `policy.yaml`, a `guardrails.yaml` and a tool gateway with a b
 
 ## The problem
 
-The report card says 121 tool calls left no record of who asked.
-The legacy Classification script even filed two rush entries, `HG-1049` and `HG-1053`, by itself.
-That breaks the one legal rule in this world: a licensed broker signs every tariff code before filing.
+The report card says 121 tool calls left no record of who asked. The legacy Classification script even filed two rush
+entries, `HG-1049` and `HG-1053`, by itself. That breaks the one legal rule in this world: a licensed broker signs every
+tariff code before filing.
 
-Rules written in a prompt do not hold.
-A model can skip them, and a hidden instruction in an invoice can undo them.
-So the platform decides which agent may call which tool, outside the model.
-For example, the Classification agent asks to call `file_entry`.
-The tool gateway answers "denied: classification-agent may not call file_entry", and writes that in the audit log.
+Rules written in a prompt do not hold. A model can skip them. A hidden instruction in an invoice can undo them. So the platform
+decides which agent may call which tool, outside the model.
+
+For example, the Classification agent asks to call `file_entry`. The tool gateway answers "denied: classification-agent may not
+call file_entry". It writes that answer in the audit log.
 
 ## Why it matters
 
-DoorDash runs one gateway that every agent uses to find and call tools.
-So access and secrets live in one place ([DoorDash Engineering](https://careersatdoordash.com/blog/how-doordash-built-a-centralized-gateway-for-ai-agent-tool-access/)).
-Uber runs a gateway for MCP servers, the servers that offer tools to agents.
-It keeps a list of the servers, and a new tool starts switched off ([Uber Engineering](https://www.uber.com/us/en/blog/designing-mcp-gateway/)).
+DoorDash runs one gateway that every agent uses to find and call tools. So access and secrets live in one place
+([DoorDash Engineering](https://careersatdoordash.com/blog/how-doordash-built-a-centralized-gateway-for-ai-agent-tool-access/)).
+
+Uber runs a gateway for MCP servers. MCP servers are the servers that offer tools to agents. The gateway keeps a list of the
+servers. A new tool starts switched off ([Uber Engineering](https://www.uber.com/us/en/blog/designing-mcp-gateway/)).
 
 ```mermaid
 flowchart LR
@@ -48,8 +50,7 @@ flowchart LR
 | `add-a-guardrail-layer`   | 20      | `guardrails.yaml` rules; a gateway that blocks bad words in a call and cleans a tool's answer | The tool server's received calls; the answer for `HG-1055`; audit lines with the word guardrail; a new rule added to the file |
 | `serve-tools-over-mcp`    | 25      | An MCP endpoint behind OAuth: a token path, metadata, `tools/list` and `tools/call`           | The 401 header; the token and its expiry; the tools listed; what the tool server received, with no bearer token               |
 
-Each step starts from the sample answer of the step before it.
-So you can begin at any step.
+Each step starts from the sample answer of the step before it. So you can begin at any step.
 
 ## Watch and read
 
@@ -62,7 +63,8 @@ So you can begin at any step.
 
 ## Project
 
-List the tools one of your own agents can call. Mark each one as allow, ask or deny, and write the one rule you would put in a policy file first.
+List the tools that one of your own agents can call. Mark each one allow, ask or deny. Write the first rule you would put in a
+policy file.
 
 ## Walkthrough
 
@@ -107,18 +109,19 @@ Part police-tool-calls:
 
 ## Finished
 
-You now have a tool gateway that every agent call passes through.
-It runs only approved tools, and hides a tool whose words changed.
-A policy engine outside the model decides each call, and the gateway refuses when the engine is down.
-Every call leaves an audit line, and no entry reaches customs without a licensed broker's signature.
+You now have a tool gateway that every agent call passes through. It runs only approved tools, and it hides a tool whose words
+changed.
 
-One gap is left. The gateway knows a caller only by its team key, and the key is a long-lived secret.
-In the next part, `identify-each-agent`, each agent gets its own short-lived token.
-Then the audit log can prove which agent acted, for which importer, and for which broker.
+A policy engine outside the model decides each call. The gateway refuses when the engine is down. Every call leaves an
+audit line. No entry reaches customs without a licensed broker's signature.
+
+One gap is left. The gateway knows a caller only by its team key, and the key is a long-lived secret. In the next part,
+`identify-each-agent`, each agent gets its own short-lived token. Then the audit log can prove which agent acted, for which
+importer, and for which broker.
 
 ## Assignment
 
-The problem: the Classification agent filed an entry itself, which breaks the broker rule.
+The problem: the Classification agent filed an entry itself. That breaks the broker rule.
 
 - **Hand in**: a pull request on your fork with `tools.yaml`, `policy.yaml` and your tool gateway with the `ask` path.
 - **Rubric** (each line is yes or no, and all must be yes):

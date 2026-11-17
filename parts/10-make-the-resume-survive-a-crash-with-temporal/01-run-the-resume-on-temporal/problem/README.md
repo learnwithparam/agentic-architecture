@@ -3,8 +3,9 @@
 ## The problem
 
 Your journal file does the job, but you own it. A team that runs Temporal gets the same resume from the engine.
-For example, the Holds worker books an exam and dies before it pays. When it starts again, it must pay once and never book again.
-Move that resume layer onto Temporal without touching the other six layers.
+
+For example, the Holds worker books an exam, and then dies before it pays. When it starts again, it must pay once, and never book
+again. Move that resume layer onto Temporal, without touching the other six layers.
 
 ```mermaid
 flowchart LR
@@ -16,17 +17,20 @@ flowchart LR
 
 ## Watch it done
 
-Run `bun run verify run-the-resume-on-temporal` on the starter and see it fail. Run it again with `solution` on the end and see it pass.
+Run `bun run verify run-the-resume-on-temporal` on the starter, and see it fail. Then run it again with `solution` at the end, and
+see it pass.
 
 ## Your turn
 
 The starter has `worker.ts` and `start.ts` done for you, and two stubs to fill in.
 
-1. In `activities.ts`, make `bookExam` and `payExamFee` call the tools `book_exam` and `pay_fee` with `callTool`, as `holds.ts` does in the survive-a-crash part. Use one idempotency key per shipment.
+1. In `activities.ts`, make `bookExam` and `payExamFee` call the tools `book_exam` and `pay_fee` with `callTool`, as `holds.ts`
+   does in the survive-a-crash part. Use one idempotency key per shipment.
 2. In `workflow.ts`, make `clearHold` call `bookExam`, then `payExamFee`.
 3. Keep `crashDrill("pay_exam_fee")` at the top of `payExamFee`. Do not change `crash-drill.ts`.
 
-Start the dev server, then check your work. The check kills the worker after the booking, starts it again, and reads the workflow history.
+Start the dev server, then check your work. The check kills the worker after the booking, starts it again, and reads the workflow
+history.
 
 ```bash
 docker compose -f assignment/compose.yml up -d --wait
@@ -37,7 +41,8 @@ Expect: `Done. All 6 rules pass.` In the web page at `http://localhost:8233`, th
 
 ## Do it on your work
 
-Pick one job of yours that must survive a crash. Say what a workflow tool would store so the job can resume. Use your own files. Good looks like proof for each line below.
+Pick one job of yours that must survive a crash. Say what a workflow tool would store so the job can resume. Use your own files. A
+good answer gives proof for each line below.
 
 ## Done when
 
@@ -45,7 +50,7 @@ Pick one job of yours that must survive a crash. Say what a workflow tool would 
 - The worker really died after the booking.
 - The workflow reaches Completed after the worker was killed and started again.
 - Each activity has exactly one completed event in the history.
-- The exam was booked once and the fee was paid once.
+- The exam was booked once, and the fee was paid once.
 - The course's existing checks still pass.
 
 ## Solution

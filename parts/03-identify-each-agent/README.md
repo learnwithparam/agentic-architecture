@@ -2,26 +2,24 @@
 
 ## After this part you can
 
-Give each agent its own short-lived token that names the agent, the importer and the broker.
+Give each agent its own short-lived token. The token names the agent, the importer and the broker.
 
 ## You leave with
 
-A token service and a tool gateway that trust a signed token and not a header anyone can write.
+A token service and a tool gateway. They trust a signed token, not a header that anyone can write.
 
 ## The problem
 
-All three agents act under one shared identity: a team key that never ends.
-So the audit log says "agent" and nothing more.
-For example, the Holds agent pays an exam fee for Northpoint.
-Nobody can prove which agent paid, for which importer, or for which broker.
-And any caller can write `x-agent: holds-agent` in a header, and the log believes it.
+All three agents act under one shared identity: a team key that never ends. So the audit log says "agent" and nothing more.
+
+For example, the Holds agent pays an exam fee for Northpoint. Nobody can prove which agent paid, for which importer, or for
+which broker. And any caller can write `x-agent: holds-agent` in a header. The log believes it.
 
 ## Why it matters
 
-Uber gives each agent its own identity.
-Each agent gets tokens that end after a short time.
-A token is a signed note that says who you are.
-Uber's tokens also carry the chain of who acted for whom ([Uber Engineering](https://www.uber.com/blog/solving-the-agent-identity-crisis/)).
+Uber gives each agent its own identity. Each agent gets tokens that end after a short time. A token is a signed note that says
+who you are. Uber's tokens also carry the chain of who acted for whom
+([Uber Engineering](https://www.uber.com/blog/solving-the-agent-identity-crisis/)).
 
 ```mermaid
 flowchart LR
@@ -40,8 +38,8 @@ flowchart LR
 | `exchange-tokens-per-call` | 20      | Token exchange: one tool, one importer, on behalf of one broker (`act`)                            | 403 for a Northpoint token on a Ridgeway container; a token for the wrong tool; holds and payments; what the tool servers received              |
 | `trust-another-agent`      | 20      | `trust.yaml` and `POST /delegate`: a short token from one agent to another, with a scope           | A signed token's audience, scope and life; 403 for an agent not listed; a delegated token used again; audit lines                               |
 
-In this part the tool gateway is cut down to one job: identity.
-The catalog and the policy from `police-tool-calls` sit in front of it in the full platform.
+In this part, the tool gateway is cut down to one job: identity. The catalog and the policy from `police-tool-calls` sit in
+front of it in the full platform.
 
 ## Watch and read
 
@@ -54,7 +52,8 @@ The catalog and the policy from `police-tool-calls` sit in front of it in the fu
 
 ## Project
 
-Look at the audit log of one of your own systems. Write down which questions it cannot answer about who acted, and what claim in a token would answer each one.
+Look at the audit log of one of your own systems. Write down which questions it cannot answer about who acted. For each
+question, write which claim in a token would answer it.
 
 ## Walkthrough
 
@@ -81,8 +80,8 @@ cd ../../../..
 
 Expect: `{"token":"eyJ...` with a long token.
 
-A JWT is three parts joined by dots. The middle part holds the claims.
-To read them, decode the token on your own machine. Do not paste a real token into a website.
+A JWT is three parts joined by dots. The middle part holds the claims. To read them, decode the token on your own machine. Do
+not paste a real token into a website.
 
 ```bash
 bun -e 'import { decodeJwt } from "jose"; console.log(decodeJwt(process.argv[1]))' PASTE_THE_TOKEN_HERE
@@ -107,19 +106,19 @@ Part identify-each-agent:
 
 ## Finished
 
-Each agent now has its own identity, proven by a signature, and it ends in minutes.
-Before each call, the agent trades it for a token that fits one tool, one importer and one broker.
-The tool servers never see the agent's own token.
-The audit log names the agent and the importer from a token nobody can fake.
+Each agent now has its own identity. A signature proves it, and it ends in minutes. Before each call, the agent trades its
+token for one that fits one tool, one importer and one broker. The tool servers never see the agent's own token. The audit log
+names the agent and the importer, from a token nobody can fake.
 
-The tokens say which importer a call is for. But the data underneath is still one shared pile.
-In the next part, `separate-importer-data`, the database itself refuses to show one importer's rows to another.
+The tokens say which importer a call is for. But the data underneath is still one shared pile. In the next part,
+`separate-importer-data`, the database itself refuses to show one importer's rows to another.
 
 ## Assignment
 
 The problem: the audit log says "agent" and nothing more.
 
-- **Hand in**: a pull request on your fork with the token service (`/token`, `/exchange`, `/jwks`) and the tool gateway that reads the `act` claim.
+- **Hand in**: a pull request on your fork. It has the token service (`/token`, `/exchange`, `/jwks`) and the tool gateway
+  that reads the `act` claim.
 - **Rubric** (each line is yes or no, and all must be yes):
   - Does `bun run verify issue-agent-identities` pass?
   - Does `bun run verify exchange-tokens-per-call` pass?

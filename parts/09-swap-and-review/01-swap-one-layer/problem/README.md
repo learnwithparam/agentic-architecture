@@ -2,12 +2,9 @@
 
 ## The problem
 
-The review board asks a question.
+The review board asks a question: "What happens if we buy a product for one of these layers?"
 
-"What happens if we buy a product for one of these layers?"
-
-A good platform answers: "The teams change nothing, and the checks still pass."
-Today nobody has tried it, so nobody knows.
+A good platform answers: "The teams change nothing, and the checks still pass." Today nobody has tried it, so nobody knows.
 
 ```mermaid
 flowchart LR
@@ -21,21 +18,20 @@ flowchart LR
 
 ## Watch it done
 
-Run `bun run verify swap-one-layer` on the starter and see it fail. Run it again with `solution` on the end and see it pass.
+Run `bun run verify swap-one-layer` on the starter, and see it fail. Then run it again with `solution` at the end, and see it
+pass.
 
 ## Your turn
 
-Swap the model gateway's provider calls for **LiteLLM**, an open-source model proxy.
-An **adapter** is the small piece of code that lets the teams keep the same contract while a product does the work.
+Swap the model gateway's provider calls for **LiteLLM**, an open-source model proxy. An **adapter** is the small piece of code
+that lets the teams keep the same contract, while a product does the work.
 
-Your adapter is `litellm-gateway.ts`.
-It already writes LiteLLM's config from `routes.json` and starts LiteLLM.
-The keys, the budgets and the spend log stay in the adapter, because LiteLLM does not know Harbourgate's teams.
+Your adapter is `litellm-gateway.ts`. It already writes LiteLLM's config from `routes.json`, and it starts LiteLLM. The keys, the
+budgets and the spend log stay in the adapter, because LiteLLM does not know Harbourgate's teams.
 
-1. Finish the three TODO functions: `askLiteLLM`, `failedTries` and `whoAnswered`.
-   LiteLLM answers with two headers you need.
-   For example, with provider a down, a call for `fast` comes back with `x-litellm-model-group: b-fast` and `x-litellm-attempted-fallbacks: 1`.
-   So you log one `provider_error` row for `a:fast`, and answer with `x-gateway-provider: b`.
+1. Finish the three TODO functions: `askLiteLLM`, `failedTries` and `whoAnswered`. LiteLLM answers with two headers that you need.
+   For example, with provider a down, a call for `fast` comes back with `x-litellm-model-group: b-fast` and
+   `x-litellm-attempted-fallbacks: 1`. So you log one `provider_error` row for `a:fast`, and answer with `x-gateway-provider: b`.
 2. In `platform.toml`, start the adapter and add `[swap]`:
 
    ```toml
@@ -48,8 +44,9 @@ The keys, the budgets and the spend log stay in the adapter, because LiteLLM doe
    product_start = "bun ../litellm-stand-in.ts --config $LITELLM_CONFIG --port $PRODUCT_PORT"
    ```
 
-   CI has no Python, so `litellm-stand-in.ts` plays LiteLLM with the same config and API.
-3. Write `decisions/swap.md`: what you swapped, what stays the same, what you gained, what you lost, and how you would undo it.
+   CI has no Python. So `litellm-stand-in.ts` plays LiteLLM, with the same config and API.
+3. Write `decisions/swap.md`. Say what you swapped, what stays the same, what you gained, what you lost, and how you would undo
+   it.
 
 Do not change anything under `teams/`.
 
@@ -61,7 +58,8 @@ Expect: `Done. All 7 rules pass.`
 
 ## Do it on your work
 
-Pick one layer of your platform, such as the model gateway. Swap it for another and show that the rest still works. Use your own files. Good looks like proof for each line below.
+Pick one layer of your platform, such as the model gateway. Swap it for another product, and show that the rest still works. Use
+your own files. A good answer gives proof for each line below.
 
 ## Done when
 
@@ -69,7 +67,7 @@ Pick one layer of your platform, such as the model gateway. Swap it for another 
 - Every model gateway check passes again on the swapped gateway.
 - The three team agents run the open queue on it with a clean report card.
 - Nothing under `teams/` changed.
-- `decisions/swap.md` fills every section and names at least one thing you lost.
+- `decisions/swap.md` fills every section, and names at least one thing you lost.
 
 ## Solution
 
@@ -87,5 +85,5 @@ The after state is in `solution/`. Compare it with `diff -r problem/ solution/`.
 ## Words you will use
 
 - **Adapter**: code that keeps your contract while a product does the work behind it.
-- **Model group**: LiteLLM's name for a model the caller asks for. Here `b-fast` means provider b, fast role.
+- **Model group**: LiteLLM's name for a model that the caller asks for. Here `b-fast` means provider b, fast role.
 - **Fallback**: trying the next provider when the first one fails.

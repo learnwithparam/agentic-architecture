@@ -2,37 +2,34 @@
 
 ## After this part you can
 
-Write a Cedar policy that permits one agent to call one tool, and refuses every other call by default.
+Write a Cedar policy that permits one agent to call one tool. Cedar refuses every other call by default.
 
 ## You leave with
 
-A `policy.cedar` file and a `policy.ts` that checks the policy against the schema.
+A `policy.cedar` file, and a `policy.ts` that checks the policy against the schema.
 
 ## The problem
 
-The rules in `policy.yaml` are plain text, and nothing checks them.
-A rule can name a tool that does not exist, and the engine would never notice.
-A wildcard `"*"` can also let every agent call every tool.
+The rules in `policy.yaml` are plain text, and nothing checks them. A rule can name a tool that does not exist, and the engine
+would never notice. A wildcard `"*"` can also let every agent call every tool.
 
-We need a policy language that a reviewer can read.
-A tool must be able to check it against a schema.
-It must refuse any call that the rules do not name.
+We need a policy language that a reviewer can read. A tool must be able to check it against a schema. And it must refuse any call
+that the rules do not name.
 
 ## Why it matters
 
-A rule that a reviewer can read is a rule a team can check.
-A schema check catches a wrong tool name before the engine decides anything.
-Deny by default means a new tool stays closed until someone writes a permit for it.
+A rule that a reviewer can read is a rule that a team can check. A schema check catches a wrong tool name before the engine decides
+anything. Deny by default means a new tool stays closed until someone writes a permit for it.
 
-For example, the Classification agent asks to call `file_entry`.
-No permit names that pair, so the engine refuses the call and the reason names the agent.
+For example, the Classification agent asks to call `file_entry`. No permit names that pair. So the engine refuses the call, and the
+reason names the agent.
 
 ## What we teach
 
 - A policy has three parts: a principal (the agent), an action (the tool) and a resource (the importer).
 - A `permit` allows one pair. Every call that no permit allows is denied.
-- Cedar has no "ask" state. The engine adds it: a call without a broker's signature is refused
-  with the reason "ask". The same call with `brokerSigned: true` is allowed.
+- Cedar has no "ask" state. The engine adds it. A call without a broker's signature is refused with the reason "ask". The same
+  call with `brokerSigned: true` is allowed.
 - The schema lists every agent, tool and field. A policy that uses a name the schema does not know is refused.
 
 ```mermaid
@@ -63,8 +60,8 @@ flowchart LR
 
 ## Project
 
-List the agents in your own system and the tools each one calls. For each pair, write one permit, and mark any pair that must never be allowed.
-Keep the list in a file that a reviewer can open. A missing permit then means a call is refused.
+List the agents in your own system, and the tools each one calls. For each pair, write one permit. Mark any pair that must never be
+allowed. Keep the list in a file that a reviewer can open. A missing permit then means a call is refused.
 
 ## Walkthrough
 
@@ -94,9 +91,8 @@ Expect: `Part decide-tool-calls-with-cedar is done: 1/1 steps pass.`
 
 ## Finished
 
-The engine asks Cedar each call, and Cedar answers from the policy file.
-A permit names one agent and one tool. A call that no permit names is refused.
-A policy that does not match the schema stops every call, so a typo cannot open a door.
+The engine asks Cedar on each call, and Cedar answers from the policy file. A permit names one agent and one tool. A call that no
+permit names is refused. A policy that does not match the schema stops every call, so a typo cannot open a door.
 
 ## Assignment
 
@@ -110,16 +106,15 @@ A policy that does not match the schema stops every call, so a typo cannot open 
 
 ### Choose Cedar when
 
-Choose Cedar when you need rules that a reviewer can read and a schema check before the engine starts.
-Choose it also when the decision must run inside the same process, in well under a millisecond.
+Choose Cedar when you need rules that a reviewer can read, and a schema check before the engine starts. Choose it also when the
+decision must run inside the same process, in well under a millisecond.
 
 ### Trade-off
 
-Cedar has no "ask" state, and it has no relationships between users and objects.
-This part adds the ask in the engine. It does not model who owns what.
+Cedar has no "ask" state, and it has no relationships between users and objects. This part adds the ask in the engine. It does not
+model who owns what.
 
 ### Runner-up: OpenFGA
 
-Choose OpenFGA when access follows who owns what, such as a user who owns a shipment.
-OpenFGA is relationship based, and you accept running a server for it.
-Open Policy Agent is another option. This part does not use it.
+Choose OpenFGA when access follows who owns what, such as a user who owns a shipment. OpenFGA is relationship based, and you accept
+running a server for it. Open Policy Agent is another option. This part does not use it.

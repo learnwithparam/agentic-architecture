@@ -2,10 +2,8 @@
 
 ## The problem
 
-The Holds worker paid the x-ray fee for HG-1050. Then it died.
-When it started again, it began from the top.
-It asked the model for a plan again, booked the exam again, and paid again.
-So Ridgeway Roasters paid USD 250 twice.
+The Holds worker paid the x-ray fee for HG-1050. Then it died. When it started again, it began from the top. It asked the model
+for a plan again, booked the exam again, and paid again. So Ridgeway Roasters paid USD 250 twice.
 
 ```mermaid
 flowchart LR
@@ -17,26 +15,24 @@ flowchart LR
 
 ## Watch it done
 
-Run `bun run verify resume-a-killed-run` on the starter and see it fail. Run it again with `solution` on the end and see it pass.
+Run `bun run verify resume-a-killed-run` on the starter, and see it fail. Then run it again with `solution` at the end, and see
+it pass.
 
 ## Your turn
 
-`holds.ts` already wraps each step in `step(name, work)`.
-But `step()` in `journal.ts` remembers nothing. Make it durable:
+`holds.ts` already wraps each step in `step(name, work)`. But `step()` in `journal.ts` remembers nothing. Make it durable:
 
 1. Open the file named by `JOURNAL_DB` with `bun:sqlite`. Make a table for runs, step names and results.
-2. Before the work, look the step up for this `RUN_ID`. If it is there, return the saved result. Do no work.
+2. Before the work, look up the step for this `RUN_ID`. If it is there, return the saved result. Do no work.
 3. After the work, save the result. Then return it.
 
 Do not change `crash-drill.ts`. It kills the worker once, right after the pay step, like a real crash.
 
-For example, the check puts holds on HG-1050 and HG-1057.
-It runs your worker with `CRASH_AFTER=pay_exam_fee`.
-The worker plans, books and pays for HG-1050, and then exits with code 137.
+For example, the check puts holds on HG-1050 and HG-1057. It runs your worker with `CRASH_AFTER=pay_exam_fee`. The worker plans,
+books and pays for HG-1050, and then exits with code 137.
 
-The check starts it again with the same `RUN_ID` and the same journal.
-The journal already has `plan:HG-1050`, `book_exam:HG-1050` and `pay_exam_fee:HG-1050`.
-So the worker goes straight to `wait_for_release:HG-1050`.
+The check starts it again with the same `RUN_ID` and the same journal. The journal already has `plan:HG-1050`,
+`book_exam:HG-1050` and `pay_exam_fee:HG-1050`. So the worker goes straight to `wait_for_release:HG-1050`.
 
 ```bash
 bun run verify resume-a-killed-run
@@ -48,7 +44,8 @@ Expect: `Done. All 5 rules pass.`
 
 ## Do it on your work
 
-Pick one long job of yours. Stop it half way and show whether it picks up where it stopped. Use your own files. Good looks like proof for each line below.
+Pick one long job of yours. Stop it halfway, and show whether it picks up where it stopped. Use your own files. A good answer
+gives proof for each line below.
 
 ## Done when
 
@@ -74,5 +71,5 @@ The after state is in `solution/`. Compare it with `diff -r problem/ solution/`.
 
 - **Durable step**: a step whose result is saved before the run moves on. It never runs twice for one run.
 - **Journal**: the file that holds the saved steps. It lives outside the worker, so it survives a crash.
-- **Resume**: start a run again and go on from the first step that is not saved.
-- **Decision step**: a step where the model decides something. Here, the plan for one container.
+- **Resume**: start a run again, and go on from the first step that is not saved.
+- **Decision step**: a step where the model decides something. Here, it is the plan for one container.

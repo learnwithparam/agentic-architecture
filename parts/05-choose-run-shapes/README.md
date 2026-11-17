@@ -2,23 +2,24 @@
 
 ## After this part you can
 
-Choose between a workflow and an agent loop for a job, and run both through one run API.
+Choose between a workflow and an agent loop for a job. Run both through one run API.
 
 ## You leave with
 
-A run API that starts a workflow or an agent loop with a step limit, and a `decisions/run-shape.md` that says why.
+A run API that starts a workflow or an agent loop with a step limit. It also has a `decisions/run-shape.md` that says why.
 
 ## The problem
 
 Classification follows a fixed path. Holds needs an agent that decides its next step.
-Each team built its own runner, the code that starts a run and moves it along.
-Nothing is shared: not identity, not budgets, not the record of a run.
-For example, a Holds run and a Classification run for the same shipment leave no common record.
+
+Each team built its own runner. A runner is the code that starts a run and moves it along. Nothing is shared: not identity,
+not budgets, and not the record of a run. For example, a Holds run and a Classification run for the same shipment leave no
+common record.
 
 ## Why it matters
 
-Allianz runs Project Nemo, where several agents handle insurance claims together.
-A planner agent leads them, and people handle the claims that will likely be refused ([Allianz](https://www.allianz.com/en/mediacenter/news/articles/251103-when-the-storm-clears-so-should-the-claim-queue.html)).
+Allianz runs Project Nemo, where several agents handle insurance claims together. A planner agent leads them. People handle the
+claims that will likely be refused ([Allianz](https://www.allianz.com/en/mediacenter/news/articles/251103-when-the-storm-clears-so-should-the-claim-queue.html)).
 
 ```mermaid
 flowchart LR
@@ -46,7 +47,8 @@ It names the two shapes this part uses: workflows and agents.
 
 ## Project
 
-Take one job from your own work. Decide if it is a fixed path. Or does it need an agent that picks its next step? Write the choice and the step limit in a short note.
+Take one job from your own work. Decide whether it is a fixed path, or whether it needs an agent that picks its next step. Write
+the choice and the step limit in a short note.
 
 ## Walkthrough
 
@@ -80,15 +82,14 @@ Extension: add a third shape, a fan-out run. It classifies many lines at the sam
 
 ## Change it
 
-- Set the step limit to 2 and start a Holds run on HG-1050. Which status do you get, and why?
+- Set the step limit to 2, and start a Holds run on HG-1050. Which status do you get, and why?
 - Make Classification an agent loop. Count the model calls in `bun run spend`. What did the change cost?
 - At a startup: one run API with two shapes is often enough for a long time.
 - At an enterprise: teams ask for their own runners. The run API is what keeps identity, budgets and records shared.
 
 ## Finished
 
-You now have one run API for every team.
-Classification runs as a workflow, and Holds runs as an agent loop that cannot spin forever.
+You now have one run API for every team. Classification runs as a workflow. Holds runs as an agent loop that cannot spin forever.
 Every model call and tool call carries its run's id.
 
 The next part, Survive a crash, makes a Holds run pick up where it stopped after its worker dies.

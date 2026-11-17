@@ -2,10 +2,11 @@
 
 ## The problem
 
-Sooner or later one agent asks another for help.
-For example, the Paperwork agent wants a tariff code from the Classification agent.
-If the Classification agent believes any caller, then the Holds agent can ask it for things it must never get.
-Agents need the same care between each other as they get from people.
+Sooner or later, one agent asks another for help. For example, the Paperwork agent wants a tariff code from the Classification
+agent.
+
+If the Classification agent believes any caller, the Holds agent can ask it for things it must never get. Agents need the same
+care between each other that they get from people.
 
 ```mermaid
 flowchart LR
@@ -17,19 +18,22 @@ flowchart LR
 
 ## Watch it done
 
-Run `bun run verify trust-another-agent` on the starter and see it fail. Run it again with `solution` on the end and see it pass.
+Run `bun run verify trust-another-agent` on the starter, and see it fail. Then run it again with `solution` at the end, and see
+it pass.
 
 ## Your turn
 
-Start from your token service after `exchange-tokens-per-call`. Fill `trust.yaml` and add `POST /delegate`.
-It takes `subject_token` (the asking agent's own token), `target` (the other agent) and `tools` (what it needs).
+Start from your token service after `exchange-tokens-per-call`. Fill in `trust.yaml`, and add `POST /delegate`. It takes three
+things: `subject_token` (the asking agent's own token), `target` (the other agent), and `tools` (what it needs).
 
-1. In `trust.yaml`, let `paperwork-agent` ask `classification-agent` for `propose_code` and `lookup_tariff`. Nobody else may ask anyone.
-2. On a listed ask, sign a token. Its `sub` is the asking agent, its audience is `agent:<target>`, its `scope` is the tools, and it ends within one minute.
-3. Refuse with 403 an agent that is not listed, and refuse an ask for any tool outside the list.
+1. In `trust.yaml`, let `paperwork-agent` ask `classification-agent` for `propose_code` and `lookup_tariff`. Nobody else may ask
+   anyone.
+2. On a listed ask, sign a token. Its `sub` is the asking agent. Its audience is `agent:<target>`. Its `scope` is the tools. It
+   ends within one minute.
+3. Refuse with 403 an agent that is not listed. Refuse an ask for any tool outside the list.
 4. Accept only an agent's own token. A delegated token cannot hand the work on.
 5. Write one audit line for every ask, allowed or refused.
-6. Read `trust.yaml` when the service starts, so a new line needs no code change.
+6. Read `trust.yaml` when the service starts. A new line then needs no code change.
 
 ```bash
 bun run verify trust-another-agent
@@ -39,7 +43,8 @@ Expect: `Done. All 8 rules pass.`
 
 ## Do it on your work
 
-Pick two agents that talk to each other. Write what the receiver checks before it believes the sender. Use your own files. Good looks like proof for each line below.
+Pick two agents that talk to each other. Write what the receiver checks before it believes the sender. Use your own files. A
+good answer gives proof for each line below.
 
 ## Done when
 
@@ -54,12 +59,12 @@ The after state is in `solution/`. Compare it with `diff -r problem/ solution/`.
 
 ## If you get stuck
 
-| What you see                       | Fix                                                                       |
-| ---------------------------------- | ------------------------------------------------------------------------- |
-| `FAIL ... token is for the other`  | Set the audience to `agent:classification-agent` and add a `scope` claim. |
-| `FAIL an agent that is not listed` | Look up the caller, then the target. No line means 403.                   |
-| `FAIL ... hand the work on`        | In `/delegate`, check the audience of the token you were given.           |
-| `FAIL ... no code change`          | Do not write the pairs in code. Read the file.                            |
+| What you see                       | Fix                                                                        |
+| ---------------------------------- | -------------------------------------------------------------------------- |
+| `FAIL ... token is for the other`  | Set the audience to `agent:classification-agent`, and add a `scope` claim. |
+| `FAIL an agent that is not listed` | Look up the caller, then the target. No line means 403.                    |
+| `FAIL ... hand the work on`        | In `/delegate`, check the audience of the token you were given.            |
+| `FAIL ... no code change`          | Do not write the pairs in code. Read the file.                             |
 
 ## Words you will use
 

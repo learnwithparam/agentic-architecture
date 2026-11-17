@@ -2,12 +2,11 @@
 
 ## The problem
 
-Harbourgate keeps every importer's papers in one database.
-The Paperwork agent's search does not say which importer it works for.
-So while it drafts an entry for Ridgeway, it can read Fjordline's invoices and prices.
+Harbourgate keeps every importer's papers in one database. The Paperwork agent's search does not say which importer it works
+for. So while it drafts an entry for Ridgeway, it can read Fjordline's invoices and prices.
 
-Every team could remember to add `WHERE importer_id = ...` to every query.
-One forgotten filter is enough for a leak. So the database itself must refuse.
+Every team could remember to add `WHERE importer_id = ...` to every query. But one forgotten filter is enough for a leak. So the
+database itself must refuse.
 
 ```mermaid
 flowchart LR
@@ -19,20 +18,22 @@ flowchart LR
 
 ## Watch it done
 
-Run `bun run verify isolate-importer-data` on the starter and see it fail. Run it again with `solution` on the end and see it pass.
+Run `bun run verify isolate-importer-data` on the starter, and see it fail. Then run it again with `solution` at the end, and see
+it pass.
 
 ## Your turn
 
-Turn on row-level security in `schema.sql`.
-Row-level security is a Postgres feature: a policy decides which rows each query can see.
+Turn on row-level security in `schema.sql`. Row-level security is a Postgres feature. A policy decides which rows each query can
+see.
 
-1. For `shipments`, `invoice_lines` and `documents`, add "ENABLE ROW LEVEL SECURITY".
-2. Add "FORCE ROW LEVEL SECURITY" too. The platform owns these tables, and without FORCE the owner sees every row.
-3. Add a policy that shows and accepts only rows where `importer_id = current_setting('app.importer', true)`. Use `USING` for reading and `WITH CHECK` for writing.
+1. For `shipments`, `invoice_lines` and `documents`, turn row-level security on, with ENABLE.
+2. Also turn on FORCE for row-level security. The platform owns these tables. Without FORCE, the owner sees every row.
+3. Add a policy that shows and accepts only rows where `importer_id = current_setting('app.importer', true)`. Use `USING` for
+   reading and `WITH CHECK` for writing.
 4. Leave `tariff_codes` alone. It has no importer, and every importer may read it.
 
-The check runs your SQL as the role `platform` in Postgres. Then it fills the tables with the world's 60 shipments.
-For each importer it sets `app.importer`, the way the platform does for each connection.
+The check runs your SQL as the role `platform` in Postgres. Then it fills the tables with the world's 60 shipments. For each
+importer, it sets `app.importer`, the way the platform does for each connection.
 
 For example, the Paperwork search runs as Ridgeway:
 
@@ -40,8 +41,8 @@ For example, the Paperwork search runs as Ridgeway:
 SELECT id FROM documents WHERE body ILIKE '%invoice%';
 ```
 
-Before your change, it returns 39 invoices from Fjordline and Northpoint.
-After it, it returns only Ridgeway's own invoices, though the query has no importer filter.
+Before your change, it returns 39 invoices from Fjordline and Northpoint. After it, it returns only Ridgeway's own invoices,
+though the query has no importer filter.
 
 ```bash
 bun run verify isolate-importer-data
@@ -53,7 +54,8 @@ Expect: `Done. All 8 rules pass.`
 
 ## Do it on your work
 
-Pick one table with data from many customers. Show that one customer cannot read another one's rows. Use your own files. Good looks like proof for each line below.
+Pick one table with data from many customers. Show that one customer cannot read another one's rows. Use your own files. A good
+answer gives proof for each line below.
 
 ## Done when
 
@@ -69,15 +71,15 @@ The after state is in `solution/`. Compare it with `diff -r problem/ solution/`.
 
 ## If you get stuck
 
-| What you see                                     | Fix                                                                            |
-| ------------------------------------------------ | ------------------------------------------------------------------------------ |
-| `FAIL ... enabled and forced`                    | ENABLE alone does not cover the table's owner. Add "FORCE ROW LEVEL SECURITY". |
-| `FAIL Ridgeway cannot write a row for Fjordline` | `USING` covers reads only. Add `WITH CHECK` with the same test.                |
-| `FAIL your SQL loads ...`                        | Read the Postgres error in the output. Each statement ends with `;`.           |
+| What you see                                     | Fix                                                                              |
+| ------------------------------------------------ | -------------------------------------------------------------------------------- |
+| `FAIL ... enabled and forced`                    | ENABLE alone does not cover the table's owner. Add FORCE for row-level security. |
+| `FAIL Ridgeway cannot write a row for Fjordline` | `USING` covers reads only. Add `WITH CHECK` with the same test.                  |
+| `FAIL your SQL loads ...`                        | Read the Postgres error in the output. Each statement ends with `;`.             |
 
 ## Words you will use
 
-- **Tenant**: one client of a shared system. Here each importer is a tenant.
+- **Tenant**: one client of a shared system. Here, each importer is a tenant.
 - **Row-level security**: rules in Postgres that pick which rows a query can see or write.
 - **Policy**: one such rule, for example "only rows of this importer".
 - **Table owner**: the role that created the table. Postgres skips row-level security for the owner unless you FORCE it.

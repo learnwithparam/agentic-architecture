@@ -2,22 +2,24 @@
 
 ## After this part you can
 
-Follow one entry through every call and put a price on it for each importer.
+Follow one entry through every call, and put a price on it for each importer.
 
 ## You leave with
 
-Spans on every run, model call and tool call, plus `bun run costs` that adds up to the providers' bill.
+Spans on every run, every model call and every tool call. Also a `bun run costs` command whose totals add up to the providers'
+bill.
 
 ## The problem
 
-Finance asks what Northpoint cost. The Holds team asks why one entry took so long.
-Nobody can answer either question.
-No call records the run, the team and the importer together.
+Finance asks what Northpoint cost. The Holds team asks why one entry took so long. Nobody can answer either question. No call
+records the run, the team and the importer together.
+
 For example, `bun run before` prints "Cost per released entry: unknown, no call records which importer it was for".
 
 ## Why it matters
 
-Booking.com runs AgentHub. It gives every team's agent the same tracing, safety rules and tests ([Booking.com](https://booking.ai/introducing-agenthub-booking-com-platform-for-modular-travel-ai-agents-68bc521a0f50)).
+Booking.com runs AgentHub. It gives every team's agent the same tracing, safety rules and tests
+([Booking.com](https://booking.ai/introducing-agenthub-booking-com-platform-for-modular-travel-ai-agents-68bc521a0f50)).
 
 ```mermaid
 flowchart LR
@@ -47,7 +49,8 @@ They name the span attributes this part uses, such as `gen_ai.usage.input_tokens
 
 ## Project
 
-Pick one question about your own agent that you cannot answer today, such as what one task cost. Write down which span or spend row would answer it, and which tag you would need to add.
+Pick one question about your own agent that you cannot answer today, such as what one task cost. Write down which span or spend
+row would answer it, and which tag you would need to add.
 
 ## Walkthrough
 
@@ -73,11 +76,11 @@ Expect: each step ends `Done.` once your work is in place, then `Part trace-and-
 
 Finance cannot say what Northpoint cost. Hand in a pull request on your fork with:
 
-- spans with GenAI attributes and `tenant`, `team` and `run_id` as baggage;
+- spans with GenAI attributes, and `tenant`, `team` and `run_id` as baggage;
 - `costs.ts`, whose numbers add up to the providers' bill, and the fixed nightly job.
 
-It is checked by `bun run verify trace-one-entry` and `bun run verify split-cost-by-importer`.
-Each rule passes or fails. There is no partial grade.
+It is checked by `bun run verify trace-one-entry` and `bun run verify split-cost-by-importer`. Each rule passes or fails. There
+is no partial grade.
 
 Extension: send the same spans to Langfuse as a second trace store. Show that both agree on cost.
 
@@ -90,7 +93,7 @@ Extension: send the same spans to Langfuse as a second trace store. Show that bo
 
 ## Finished
 
-You now see every entry as one trace, with its importer, team and run on every span.
-You can price a released entry for each importer, and your total matches the providers' bill.
+You now see every entry as one trace. Each span carries its importer, team and run. You can price a released entry for each
+importer, and your total matches the providers' bill.
 
-The next part, Gate each release, uses these runs to block a prompt change that sends gloves to the wrong code.
+The next part, Gate each release, uses these runs. It blocks a prompt change that sends gloves to the wrong code.

@@ -10,23 +10,26 @@ A `workflow.ts`, an `activities.ts` and a `worker.ts` that run the Holds run on 
 
 ## The problem
 
-You built the resume layer by hand. A journal file remembers each finished step.
-When the Holds worker dies and starts again, it skips the steps already done.
+You built the resume layer by hand. A journal file remembers each finished step. When the Holds worker dies and starts again, it
+skips the steps that are already done.
 
-Most teams do not keep a journal file of their own. They run a durable workflow engine.
-For example, Instacart runs its batch model calls on Temporal.
+Most teams do not keep a journal file of their own. They run a durable workflow engine. For example, Instacart runs its batch
+model calls on Temporal.
 
 ## Why it matters
 
-A hand-built journal teaches how resume works. A product gives you the same resume plus retries, timeouts and a screen that shows every run.
-Use the part to see that the idea you built is the one the product sells.
+A hand-built journal teaches how resume works. A product gives you the same resume, plus retries, timeouts and a screen that
+shows every run. Use this part to see that the idea you built is the one the product sells.
 
 ## What we teach
 
-You redo the resume layer with [Temporal](https://temporal.io), an open-source durable workflow engine (MIT licence).
-Each step of the Holds run becomes one activity, which is Temporal's word for a step that can fail and try again.
-Temporal writes a history of every finished activity, so a restarted worker goes on from the next one.
-Nothing in parts 00 to 09 changes. This part is optional in the live session and expected as homework.
+You redo the resume layer with [Temporal](https://temporal.io). Temporal is an open-source durable workflow engine, with an MIT
+licence.
+
+Each step of the Holds run becomes one activity. An activity is Temporal's word for a step that can fail and try again. Temporal
+writes a history of every finished activity, so a restarted worker goes on from the next one.
+
+Nothing in parts 00 to 09 changes. This part is optional in the live session, and expected as homework.
 
 ```mermaid
 flowchart LR
@@ -54,12 +57,13 @@ flowchart LR
 
 ## Project
 
-List one multi-step job in your own system that could stop halfway. Write down its steps, and say which step you would not want to repeat.
-Then note whether a tool already keeps a record of finished steps for you. That note is your starting point.
+List one multi-step job in your own system that could stop halfway. Write down its steps, and say which step you would not want to
+repeat. Then note whether a tool already keeps a record of finished steps for you. That note is your starting point.
 
 ## Walkthrough
 
-First see the sample solution pass. The check starts the Temporal dev server from `assignment/compose.yml`, kills the worker after the booking, starts it again, and reads the history.
+First, see the sample solution pass. The check starts the Temporal dev server from `assignment/compose.yml`, kills the worker after
+the booking, starts it again, and reads the history.
 
 ```bash
 bun run verify run-the-resume-on-temporal solution
@@ -73,16 +77,18 @@ Now start the server yourself, so you can watch the run in the web page.
 docker compose -f assignment/compose.yml up -d --wait
 ```
 
-Expect: the container `agentic-architecture-assignment-temporal-1` shows `Healthy`, and `http://localhost:8233` opens the Temporal web page.
+Expect: the container `agentic-architecture-assignment-temporal-1` shows `Healthy`, and `http://localhost:8233` opens the Temporal
+web page.
 
-Then work in the step's `problem/` folder and check it.
+Then work in the step's `problem/` folder, and check it.
 
 ```bash
 bun run verify run-the-resume-on-temporal
 bun run assignment
 ```
 
-Expect: `Done. All 6 rules pass.`, then `assignment/result.json` lists each line as `pass`. In the web page, the workflow shows `Completed` and `bookExam` ran once.
+Expect: `Done. All 6 rules pass.`, then `assignment/result.json` lists each line as `pass`. In the web page, the workflow shows
+`Completed` and `bookExam` ran once.
 
 Last, stop and remove the server.
 
@@ -96,18 +102,18 @@ Expect: the container and its network are removed. The dev server keeps its data
 
 **DBOS** is the runner-up. It makes steps durable inside the Postgres you already run.
 
-- **Choose when**: you want durable steps inside an existing Postgres with no extra server to run.
-- **Trade-off**: fewer teams list it, and the workflow lives in your app process, so a crash of the app is a crash of the engine.
+- **Choose when**: you want durable steps inside an existing Postgres, with no extra server to run.
+- **Trade-off**: fewer teams list it. The workflow lives in your app process, so a crash of the app is a crash of the engine.
 
 ## Assignment
 
-The same task as the step, for homework. The full text is in [assignment/README.md](../../assignment/README.md).
-Push a branch named `assignment` and submit its URL. The grader runs `bun run assignment` again.
+The same task as the step, for homework. The full text is in [assignment/README.md](../../assignment/README.md). Push a branch
+named `assignment`, and submit its URL. The grader runs `bun run assignment` again.
 
 ## Finished
 
-The resume layer now runs on the tool teams run. The other six layers did not change.
-The part leaves you with a rule to take away: keep the hand-built version to learn from, and use the product to run.
+The resume layer now runs on the tool teams run. The other six layers did not change. The part leaves you with a rule to take
+away: keep the hand-built version to learn from, and use the product to run.
 
 ## Change it
 

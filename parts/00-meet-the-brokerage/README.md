@@ -2,7 +2,7 @@
 
 ## After this part you can
 
-Read a brokerage's report card and say which six numbers every later part must bring down to zero.
+Read a brokerage's report card. Say which six numbers every later part must bring down to zero.
 
 ## You leave with
 
@@ -10,19 +10,15 @@ A `platform.toml` with your name, your run mode and the six "before" numbers.
 
 ## The problem
 
-Three teams at Harbourgate Brokerage run three agents, and each team built its agent in its own way.
-Each agent pastes in its own provider key.
-A provider key is the secret that lets you call an AI model and puts the cost on your bill.
-Each agent calls tools without saying who it is, and reads any importer's papers.
+Three teams at Harbourgate Brokerage run three agents. Each team built its agent in its own way.
 
-The damage is real.
-Two entries went to customs with no broker signature.
-One exam fee was paid twice after a crash.
+Each agent pastes in its own provider key. A provider key is the secret that lets you call an AI model. Whoever uses the key
+pays for the calls. Each agent also calls tools without saying who it is. And each one reads any importer's papers.
 
-This part measures all of that.
-Then every later part has a number to bring down to zero.
-For example, `bun run before` prints "41 model calls that bypassed the gateway".
-Part 1 builds the gateway that brings that number to 0.
+The damage is real. Two entries went to customs with no broker signature. One exam fee was paid twice after a crash.
+
+This part measures all of that. Then every later part has a number to bring down to zero. For example, `bun run before`
+prints "41 model calls that bypassed the gateway". Part 1 builds the gateway that brings that number to 0.
 
 ```mermaid
 flowchart LR
@@ -53,7 +49,8 @@ flowchart LR
 
 ## Project
 
-Pick one AI tool or script you use at work. Write down who calls it, which key it uses, and what it can reach. Then list three things it does that nobody could prove later.
+Pick one AI tool or script that you use at work. Write down who calls it, which key it uses, and what it can reach. Then list
+three things it does that nobody could prove later.
 
 ## Walkthrough
 
@@ -68,7 +65,7 @@ Expect: the open queue of 12 shipments, the "before" card, the "after" card with
 
 ## Finished
 
-You now have today's report card in `platform.toml`, with six numbers that are not zero.
-Every later part brings one of those numbers down to 0.
+You now have today's report card in `platform.toml`, with six numbers that are not zero. Every later part brings one of those
+numbers down to 0.
 
 The next part, `route-model-calls`, starts with the first number: 41 model calls that bypassed the gateway.

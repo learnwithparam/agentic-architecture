@@ -2,9 +2,8 @@
 
 ## The problem
 
-The Holds team asks why one entry took so long. Finance asks what it cost.
-Today each call writes its own log line, and nothing ties the lines together.
-You cannot see one entry from start to end, or for which importer it ran.
+The Holds team asks why one entry took so long. Finance asks what it cost. Today, each call writes its own log line. Nothing ties
+the lines together. So you cannot see one entry from start to end, or the importer it ran for.
 
 ```mermaid
 flowchart TD
@@ -17,21 +16,24 @@ flowchart TD
 
 ## Watch it done
 
-Run `bun run verify trace-one-entry` on the starter and see it fail. Run it again with `solution` on the end and see it pass.
+Run `bun run verify trace-one-entry` on the starter, and see it fail. Then run it again with `solution` at the end, and see it
+pass.
 
 ## Your turn
 
-`entry.ts` runs one entry for the Classification agent and makes a span for each call.
-A **span** is one timed piece of work, such as one model call. A **trace** is all the spans of one run, in a tree.
+`entry.ts` runs one entry for the Classification agent. It makes a span for each call. A **span** is one timed piece of work,
+such as one model call. A **trace** is all the spans of one run, in a tree.
 
 `tracing.ts` is a small tracing library. You do not need to change it. Change `entry.ts`:
 
 1. Put `tenant`, `team` and `run_id` in the run span's `baggage`. Baggage is copied to every child span.
 2. Pass the parent span to `startSpan`, so each span joins the run's trace.
-3. On model spans, set `gen_ai.request.model` and the token counts: `gen_ai.usage.input_tokens` and `gen_ai.usage.output_tokens`.
+3. On model spans, set `gen_ai.request.model` and the token counts: `gen_ai.usage.input_tokens` and
+   `gen_ai.usage.output_tokens`.
 4. On tool spans, set `gen_ai.tool.name` and `policy.decision`. Do not copy the tool's input or output into the span.
 
-For example, the check runs your entry for HG-1049 and expects 9 spans under one root. The `read_shipment` answer holds invoice prices, so it must stay out of the trace.
+For example, the check runs your entry for HG-1049, and expects 9 spans under one root. The `read_shipment` answer holds invoice
+prices. So it must stay out of the trace.
 
 Run the check from the repo root. Then go into this folder to print the trace:
 
@@ -48,11 +50,12 @@ Expect: `Done. All 6 rules pass.`, then `9 spans, 1 root(s):` and the tree.
 
 ## Do it on your work
 
-Pick one finished job of yours. Follow it from the first request to the last result and list each hop. Use your own files. Good looks like proof for each line below.
+Pick one finished job of yours. Follow it from the first request to the last result, and list each hop. Use your own files. A good
+answer gives proof for each line below.
 
 ## Done when
 
-- Your entry runs to the end and sends its spans to the trace store.
+- Your entry runs to the end, and sends its spans to the trace store.
 - All the spans form one trace, with one root span.
 - Every span carries `tenant`, `team` and `run_id`.
 - Model spans name the role, and their tokens add up to the gateway's spend log.

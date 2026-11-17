@@ -2,9 +2,10 @@
 
 ## The problem
 
-Agents keep memory: past rulings and broker notes, found by meaning.
-Today `recall()` ranks every note of every importer, so Fjordline's notes can answer Ridgeway's question.
-An old ruling that a newer one replaced also comes back, and it can send goods to a wrong code.
+Agents keep memory: past rulings and broker notes, found by meaning. Today `recall()` ranks every note of every importer. So
+Fjordline's notes can answer Ridgeway's question.
+
+An old ruling that a newer one replaced also comes back. It can send goods to a wrong code.
 
 ```mermaid
 flowchart LR
@@ -16,13 +17,14 @@ flowchart LR
 
 ## Watch it done
 
-Run `bun run verify scope-memory-per-importer` on the starter and see it fail. Run it again with `solution` on the end and see it pass.
+Run `bun run verify scope-memory-per-importer` on the starter, and see it fail. Then run it again with `solution` at the end, and
+see it pass.
 
 ## Your turn
 
 Change `memory.sql`. `schema.sql` is the answer from the last step. Leave it as it is.
 
-1. Give the `memory` table row-level security: ENABLE, FORCE and the same policy as the other importer tables.
+1. Give the `memory` table row-level security: ENABLE, FORCE, and the same policy as the other importer tables.
 2. In `recall()`, add `WHERE memory.superseded_by IS NULL` before `ORDER BY`.
 3. Keep the filter before the ranking and the `LIMIT`. Never take the top results first and filter them after.
 
@@ -38,7 +40,8 @@ For example, the check plants these notes and asks Ridgeway's question:
 | `mem-r2` | ridgeway  | Ridgeway lots come in bursts | 0.8                        |
 | `mem-r3` | ridgeway  | Green beans: ST-0901-11      | 1.0                        |
 
-The right answer is `mem-r1`, `mem-r2` and `mem-r3`. `mem-r0` is closer, but a newer ruling replaced it. If you rank first and filter after, all 3 top notes are Fjordline's.
+The right answer is `mem-r1`, `mem-r2` and `mem-r3`. `mem-r0` is closer, but a newer ruling replaced it. If you rank first and
+filter after, all 3 top notes are Fjordline's.
 
 ```bash
 bun run verify scope-memory-per-importer
@@ -51,7 +54,8 @@ Expect: `Done. All 6 rules pass.`, then `Part separate-importer-data is done: 2/
 
 ## Do it on your work
 
-Pick the place your agent keeps notes. Show that a note for one customer never comes back for another. Use your own files. Good looks like proof for each line below.
+Pick the place where your agent keeps notes. Show that a note for one customer never comes back for another. Use your own files.
+A good answer gives proof for each line below.
 
 ## Done when
 
@@ -66,10 +70,10 @@ The after state is in `solution/`. Compare it with `diff -r problem/ solution/`.
 
 ## If you get stuck
 
-| What you see                                        | Fix                                                                       |
-| --------------------------------------------------- | ------------------------------------------------------------------------- |
-| `FAIL recall for Ridgeway returns its 3 closest...` | The filter must run before `LIMIT`. Row-level security does that for you. |
-| `FAIL recall never returns a superseded ruling`     | Put "superseded_by IS NULL" in the `WHERE` of `recall()`.                 |
+| What you see                                        | Fix                                                                                        |
+| --------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| `FAIL recall for Ridgeway returns its 3 closest...` | The filter must run before `LIMIT`. Row-level security does that for you.                  |
+| `FAIL recall never returns a superseded ruling`     | Keep only rows with no superseded_by value. Put that condition in the WHERE of `recall()`. |
 
 ## Words you will use
 
